@@ -3,7 +3,7 @@ import {
 	InsightDatasetKind,
 	InsightError,
 	InsightResult,
-	ResultTooLargeError
+	ResultTooLargeError,
 } from "../../src/controller/IInsightFacade";
 import InsightFacade from "../../src/controller/InsightFacade";
 
@@ -52,8 +52,131 @@ describe("InsightFacade", function () {
 		});
 
 		// This is a unit test. You should create more like this!
-		it ("should reject with  an empty dataset id", function() {
+		it("should reject with  an empty dataset id", function () {
 			const result = facade.addDataset("", sections, InsightDatasetKind.Sections);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+		it("should reject with  an id with an underscore", function () {
+			const result = facade.addDataset(
+				"ubc_data",
+				sections,
+				InsightDatasetKind.Sections
+			);
+
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+		it("should reject with  an id with just white spaces", function () {
+			const result = facade.addDataset(
+				"  ",
+				sections,
+				InsightDatasetKind.Sections
+			);
+
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+		it("should reject with because of room type", function () {
+			const result = facade.addDataset(
+				"someid",
+				sections,
+				InsightDatasetKind.Rooms
+			);
+
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+		it("dataset failing because added twice", async function () {
+			try {
+				const result = await facade.addDataset(
+					"data",
+					sections,
+					InsightDatasetKind.Sections
+				);
+				const result2 = await facade.addDataset(
+					"data",
+					sections,
+					InsightDatasetKind.Sections
+				);
+				expect.fail();
+			} catch (err) {
+				expect(err).be.instanceOf(InsightError);
+			}
+		});
+		it("adding a single dataset successfully", async function () {
+			const result: string[] = await facade.addDataset(
+				"data",
+				sections,
+				InsightDatasetKind.Sections
+			);
+			expect(result).to.deep.equal(["data"]);
+		});
+		it("adding a two datasets with different ids successfully", async function () {
+			const result: string[] = await facade.addDataset(
+				"data",
+				sections,
+				InsightDatasetKind.Sections
+			);
+			const result2 = await facade.addDataset(
+				"data2",
+				sections,
+				InsightDatasetKind.Sections
+			);
+			expect(result2).to.have.deep.members(["data", "data2"]);
+		});
+		it("adding a two datasets with same ids different case successfully", async function () {
+			const result: string[] = await facade.addDataset(
+				"data",
+				sections,
+				InsightDatasetKind.Sections
+			);
+			const result2 = await facade.addDataset(
+				"DATA",
+				sections,
+				InsightDatasetKind.Sections
+			);
+			expect(result2).to.have.deep.members(["data", "DATA"]);
+		});
+		it("adding a single dataset that isnt a zip file", function () {
+			const invalidSections = getContentFromArchives("textFile.txt");
+			const result = facade.addDataset(
+				"data",
+				invalidSections,
+				InsightDatasetKind.Sections
+			);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+		it("adding a single dataset no json data", function () {
+			const invalidSections = getContentFromArchives("nojson.zip");
+			const result = facade.addDataset(
+				"data",
+				invalidSections,
+				InsightDatasetKind.Sections
+			);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+		it("adding a single dataset no data at all", function () {
+			const invalidSections = getContentFromArchives("nodata.zip");
+			const result = facade.addDataset(
+				"data",
+				invalidSections,
+				InsightDatasetKind.Sections
+			);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+		it("adding a single dataset with no valid courses", function () {
+			const invalidSections = getContentFromArchives("invalidcourse.zip");
+			const result = facade.addDataset(
+				"data",
+				invalidSections,
+				InsightDatasetKind.Sections
+			);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+		it("adding a single dataset with no course folder", function () {
+			const invalidSections = getContentFromArchives("notincorrectfolder.zip");
+			const result = facade.addDataset(
+				"data",
+				invalidSections,
+				InsightDatasetKind.Sections
+			);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 	});
@@ -71,9 +194,7 @@ describe("InsightFacade", function () {
 
 			// Load the datasets specified in datasetsToQuery and add them to InsightFacade.
 			// Will *fail* if there is a problem reading ANY dataset.
-			const loadDatasetPromises = [
-				facade.addDataset("sections", sections, InsightDatasetKind.Sections),
-			];
+			const loadDatasetPromises = [facade.addDataset("sections", sections, InsightDatasetKind.Sections)];
 
 			return Promise.all(loadDatasetPromises);
 		});
