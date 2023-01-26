@@ -1,0 +1,29 @@
+{
+	"title": "where has multiple keys",
+	"input": {
+		"WHERE": {
+			"AND": [
+				{
+					"GT": {
+						"sections_avg": 80
+					}
+				},
+				{
+					"LT": {
+						"sections_avg": 90
+					}
+				}
+			],
+			"GT": {
+				"data_avg": 97
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

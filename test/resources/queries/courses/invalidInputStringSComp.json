@@ -1,0 +1,18 @@
+{
+  "title": "InvalidSComp due to invalid input string",
+  "input": {
+    "WHERE": {
+      "IS": {
+        "sections_dept": "*cp*sc*"
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "sections_dept",
+        "sections_avg"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

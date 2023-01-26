@@ -1,0 +1,17 @@
+{
+  "title": "no underscore between keys and field",
+  "input": {
+    "WHERE": {
+      "GT": {
+        "sectionsavg": 97
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "sectionsdept"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

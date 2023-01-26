@@ -1,0 +1,18 @@
+{
+  "title": "sameID but different case",
+  "input": {
+    "WHERE": {
+      "GT": {
+        "SECTIONS_PASS": 50
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "SECTIONS_DEPT",
+        "SECTIONS_AVG"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

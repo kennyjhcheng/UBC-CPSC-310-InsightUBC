@@ -34,7 +34,6 @@ export default class InsightFacade implements IInsightFacade {
 		}
 		return jszip.loadAsync(content,{base64 : true})
 			.then((data) => {
-				console.log(data);
 				return Promise.resolve(["data"]);
 			})
 			.catch((err) => {

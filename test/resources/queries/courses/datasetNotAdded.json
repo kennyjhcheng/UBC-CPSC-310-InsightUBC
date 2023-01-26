@@ -1,0 +1,18 @@
+{
+  "title": "dataset not added query",
+  "input": {
+    "WHERE": {
+      "GT": {
+        "random_avg": 97
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "random_dept",
+        "random_avg"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

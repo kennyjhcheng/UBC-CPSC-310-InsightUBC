@@ -1,0 +1,17 @@
+{
+  "title": "ill-formatted logic comparators",
+  "input": {
+    "WHERE": {
+      "GT AND": {
+        "sections_avg": 97
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "sections_dept"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

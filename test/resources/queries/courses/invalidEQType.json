@@ -1,0 +1,38 @@
+{
+  "title": "invalid EQ type",
+  "input": {
+    "WHERE": {
+      "OR": [
+        {
+          "AND": [
+            {
+              "GT": {
+                "sections_dept": "adhe"
+              }
+            },
+            {
+              "IS": {
+                "sections_avg": 90
+              }
+            }
+          ]
+        },
+        {
+          "EQ": {
+            "sections_id": "123"
+          }
+        }
+      ]
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "sections_dept",
+        "sections_id",
+        "sections_avg"
+      ],
+      "ORDER": "sections_avg"
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

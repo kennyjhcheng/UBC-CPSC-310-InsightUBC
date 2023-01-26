@@ -1,0 +1,19 @@
+{
+  "title": "everything is lower_case",
+  "input": {
+    "where": {
+      "gt": {
+        "sections_avg": 97
+      }
+    },
+    "options": {
+      "columns": [
+        "sections_dept",
+        "sections_avg"
+      ],
+      "order": "sections_dept"
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

@@ -1,0 +1,18 @@
+{
+  "title": "Invalid field because different CASE",
+  "input": {
+    "WHERE": {
+      "IS": {
+        "sections_Title": "c*"
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "sections_dept",
+        "sections_Avg"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

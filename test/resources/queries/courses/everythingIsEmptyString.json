@@ -1,0 +1,31 @@
+{
+  "title": "everything is empty string",
+  "input": {
+    "WHERE": {
+      "OR": [
+        {
+          "AND": [
+            {
+              "IS": {
+                "": 90
+              }
+            },
+            {
+              "IS": {
+                "": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        ""
+      ],
+      "ORDER": ""
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}
