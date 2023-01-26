@@ -18,7 +18,7 @@ describe("InsightFacade", function () {
 	let facade: InsightFacade;
 
 	before(function () {
-		sections = getContentFromArchives("smalldataset.zip");
+		sections = getContentFromArchives("pair.zip");
 	});
 
 
