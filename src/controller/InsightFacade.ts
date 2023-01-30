@@ -16,25 +16,39 @@ export default class InsightFacade implements IInsightFacade {
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
 		const zipObject = new JSZip();
-		if(!id){
-			return Promise.reject(new InsightError("null was passed"));
-		}
-		if(id === ""){
-			return Promise.reject(new InsightError("id is empty string"));
-		}
-		if(id.includes("_")){
-			return Promise.reject(new InsightError("id has underscore"));
-		}
-		if(!id.replace(/\s/g, "").length){
-			return Promise.reject(new InsightError("id only has whitespace"));
-		}
-		if(this.datasets.has(id)){
-			return Promise.reject(new InsightError("duplicate id"));
+		const error: string = this.validateId(id);
+		if (error) {
+			return Promise.reject(new InsightError(error));
 		}
 		if(kind === InsightDatasetKind.Rooms){
 			return Promise.reject(new InsightError("instance of room"));
 		}
 		return this.parseFile(zipObject, content, id);
+	}
+
+	/**
+	 * Checks whether an id is valid
+	 * @param id
+	 * @private
+	 * @return empty string if valid, error message if invalid
+	 */
+	private validateId(id: string): string {
+		if(!id){
+			return "null was passed";
+		}
+		if(id === ""){
+			return "id is empty string";
+		}
+		if(id.includes("_")){
+			return "id has underscore";
+		}
+		if(!id.replace(/\s/g, "").length){
+			return "id only has whitespace";
+		}
+		if(this.datasets.has(id)){
+			return "duplicate id";
+		}
+		return "";
 	}
 
 	private parseFile(zipObject: JSZip, content: string, id: string) {
