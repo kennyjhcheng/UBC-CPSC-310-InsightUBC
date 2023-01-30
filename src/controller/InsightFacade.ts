@@ -1,5 +1,4 @@
 import {IInsightFacade, InsightDataset, InsightDatasetKind, InsightError, InsightResult,} from "./IInsightFacade";
-import jszip, {JSZipObject} from "jszip";
 import JSZip from "jszip";
 
 /**
