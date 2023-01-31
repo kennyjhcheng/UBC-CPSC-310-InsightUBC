@@ -1,5 +1,6 @@
 import {IInsightFacade, InsightDataset, InsightDatasetKind, InsightError, InsightResult,} from "./IInsightFacade";
 import JSZip from "jszip";
+import {ISection} from "./ISection";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -7,10 +8,10 @@ import JSZip from "jszip";
  *
  */
 export default class InsightFacade implements IInsightFacade {
-	private datasets: Map<string,string[]>;
+	private datasets: Map<string,ISection[]>;
 	constructor() {
 		console.log("InsightFacadeImpl::init()");
-		this.datasets = new Map();
+		this.datasets = new Map<string, ISection[]>();
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
@@ -19,9 +20,14 @@ export default class InsightFacade implements IInsightFacade {
 		if (error) {
 			return Promise.reject(new InsightError(error));
 		}
-		if(kind === InsightDatasetKind.Rooms){
+		if (kind === InsightDatasetKind.Rooms){
 			return Promise.reject(new InsightError("instance of room"));
 		}
+
+		if (!content) {
+			return Promise.reject(new InsightError("dataset content is invalid"));
+		}
+
 		return this.parseFile(zipObject, content, id);
 	}
 
@@ -58,7 +64,7 @@ export default class InsightFacade implements IInsightFacade {
 						&& !file.dir);
 				});
 				if (files.length === 0) {
-					return Promise.reject(new InsightError("empty course file"));
+					return Promise.reject(new InsightError("empty course folder"));
 				}
 				let promises: Array<Promise<string>> = [];
 				for (const file of files) {
@@ -67,7 +73,7 @@ export default class InsightFacade implements IInsightFacade {
 				return Promise.all(promises);
 			})
 			.then((values) => {
-				let data = [];
+				let data: ISection[] = [];
 				let emptyFiles = 0;
 				for (const course of values) {
 					const parsedCourse = JSON.parse(course);
@@ -78,6 +84,8 @@ export default class InsightFacade implements IInsightFacade {
 						emptyFiles++;
 					}
 					for(const section of parsedCourse.result){
+						// TODO: create datatype for sections
+						// TODO: validate sections fits datatype
 						data.push(section);
 					}
 				}

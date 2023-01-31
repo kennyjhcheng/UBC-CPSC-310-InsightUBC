@@ -1,5 +1,5 @@
 // FROM: shorturl.at/qxS37
-export interface ISectionData {
+export interface ISection {
 	/** identifier for section **/
 	uuid: string;
 	/** course identifier **/
