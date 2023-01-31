@@ -85,7 +85,12 @@ export default class InsightFacade implements IInsightFacade {
 					}
 					for(const section of parsedCourse.result){
 						// TODO: create datatype for sections
-						// TODO: validate sections fits datatype
+						const allowed = ["Section", "Title","id","Professor","Audit","Year","Avg","Pass","Fail",
+							"Course"];
+						// checks if all attributes are there
+						if(!allowed.every((v) => Object.keys(section).includes(v))){
+							return Promise.reject(new InsightError("invalid section"));
+						}
 						data.push(section);
 					}
 				}
