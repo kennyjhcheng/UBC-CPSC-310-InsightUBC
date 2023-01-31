@@ -1,6 +1,7 @@
 import {IInsightFacade, InsightDataset, InsightDatasetKind, InsightError, InsightResult,} from "./IInsightFacade";
 import JSZip from "jszip";
 import {ISection} from "./ISection";
+import {objectToSection, validateSectionJson} from "./Section";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -85,13 +86,10 @@ export default class InsightFacade implements IInsightFacade {
 					}
 					for(const section of parsedCourse.result){
 						// TODO: create datatype for sections
-						const allowed = ["Section", "Title","id","Professor","Audit","Year","Avg","Pass","Fail",
-							"Course"];
-						// checks if all attributes are there
-						if(!allowed.every((v) => Object.keys(section).includes(v))){
-							return Promise.reject(new InsightError("invalid section"));
+						if (!validateSectionJson(section)) {
+							return Promise.reject(new InsightError("Dataset contains invalid section"));
 						}
-						data.push(section);
+						data.push(objectToSection(section));
 					}
 				}
 				if(emptyFiles === values.length){
