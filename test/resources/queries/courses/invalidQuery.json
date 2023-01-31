@@ -1,0 +1,10 @@
+{
+  "title": "invalid query",
+  "input": {
+    "key": [
+      "hello"
+    ]
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

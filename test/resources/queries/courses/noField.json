@@ -1,0 +1,17 @@
+{
+  "title": "no field for any params",
+  "input": {
+    "WHERE": {
+      "GT": {
+        "sections_": 97
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "sections_"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Is has zero keys",
+  "input": {
+    "WHERE": {
+      "IS": {
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "sections_dept",
+        "sections_avg"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

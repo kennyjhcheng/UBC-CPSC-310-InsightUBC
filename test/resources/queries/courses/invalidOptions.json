@@ -1,0 +1,18 @@
+{
+  "title": "Invalid options in query",
+  "input": {
+    "WHERE": {
+      "EQ": {
+        "sections_avg": 97
+      }
+    },
+    "OPTIONS": {
+      "HELLO": [
+        "sections_dept",
+        "sections_avg"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

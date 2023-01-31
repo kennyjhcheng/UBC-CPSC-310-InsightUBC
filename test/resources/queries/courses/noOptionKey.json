@@ -1,0 +1,12 @@
+{
+	"title": "no options key query",
+	"input": {
+		"WHERE": {
+          "GT": {
+            "sections_avg": 97
+          }
+        }
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

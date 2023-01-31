@@ -1,0 +1,8 @@
+{
+  "title": "no where key query",
+  "input": {
+    "OPTIONS": {}
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}

@@ -1,0 +1,66 @@
+{
+  "title": "simple eq pass",
+  "input": {
+    "WHERE": {
+      "EQ": {
+        "sections_avg": 96
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "sections_dept"
+      ]
+    }
+  },
+  "errorExpected": false,
+  "expected": [
+    {
+      "sections_dept": "apsc"
+    },
+    {
+      "sections_dept": "cnps"
+    },
+    {
+      "sections_dept": "crwr"
+    },
+    {
+      "sections_dept": "crwr"
+    },
+    {
+      "sections_dept": "crwr"
+    },
+    {
+      "sections_dept": "crwr"
+    },
+    {
+      "sections_dept": "crwr"
+    },
+    {
+      "sections_dept": "epse"
+    },
+    {
+      "sections_dept": "epse"
+    },
+    {
+      "sections_dept": "epse"
+    },
+    {
+      "sections_dept": "kin"
+    },
+    {
+      "sections_dept": "pcth"
+    },
+    {
+      "sections_dept": "phil"
+    },
+    {
+      "sections_dept": "psyc"
+    },
+    {
+      "sections_dept": "psyc"
+    },
+    {
+      "sections_dept": "psyc"
+    }
+  ]
+}

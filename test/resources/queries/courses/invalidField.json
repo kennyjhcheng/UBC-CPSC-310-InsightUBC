@@ -1,0 +1,18 @@
+{
+  "title": "invalid field",
+  "input": {
+    "WHERE": {
+      "EQ": {
+        "sections_school": "cpsc"
+      }
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "sections_avg",
+        "sections_school"
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}
