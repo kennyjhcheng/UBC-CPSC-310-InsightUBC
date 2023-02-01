@@ -2,6 +2,8 @@ import {IInsightFacade, InsightDataset, InsightDatasetKind, InsightError, Insigh
 import JSZip from "jszip";
 import {ISection} from "./ISection";
 import {objectToSection, validateSectionJson} from "./Section";
+import * as fs from "fs-extra";
+import path from "path";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -9,7 +11,8 @@ import {objectToSection, validateSectionJson} from "./Section";
  *
  */
 export default class InsightFacade implements IInsightFacade {
-	private datasets: Map<string,ISection[]>;
+	private datasets: Map<string, ISection[]>;
+
 	constructor() {
 		console.log("InsightFacadeImpl::init()");
 		this.datasets = new Map<string, ISection[]>();
@@ -21,7 +24,7 @@ export default class InsightFacade implements IInsightFacade {
 		if (error) {
 			return Promise.reject(new InsightError(error));
 		}
-		if (kind === InsightDatasetKind.Rooms){
+		if (kind === InsightDatasetKind.Rooms) {
 			return Promise.reject(new InsightError("instance of room"));
 		}
 
@@ -39,19 +42,19 @@ export default class InsightFacade implements IInsightFacade {
 	 * @return empty string if valid, error message if invalid
 	 */
 	private validateId(id: string): string {
-		if(!id){
+		if (!id) {
 			return "null was passed";
 		}
-		if(id === ""){
+		if (id === "") {
 			return "id is empty string";
 		}
-		if(id.includes("_")){
+		if (id.includes("_")) {
 			return "id has underscore";
 		}
-		if(!id.replace(/\s/g, "").length){
+		if (!id.replace(/\s/g, "").length) {
 			return "id only has whitespace";
 		}
-		if(this.datasets.has(id)){
+		if (this.datasets.has(id)) {
 			return "duplicate id";
 		}
 		return "";
@@ -84,25 +87,38 @@ export default class InsightFacade implements IInsightFacade {
 					if (parsedCourse.result.length === 0) {
 						emptyFiles++;
 					}
-					for(const section of parsedCourse.result){
-						// TODO: create datatype for sections
+					for (const section of parsedCourse.result) {
 						if (!validateSectionJson(section)) {
 							return Promise.reject(new InsightError("Dataset contains invalid section"));
 						}
 						data.push(objectToSection(section));
 					}
 				}
-				if(emptyFiles === values.length){
+				if (emptyFiles === values.length) {
 					return Promise.reject(new InsightError("empty data"));
 				}
-				this.datasets.set(id,data);
-				console.log(data);
-				return Promise.resolve(Array.from(this.datasets.keys()));
+				return Promise.resolve(this.persistToDisk(id, data, content));
 			})
 			.catch((err) => {
 				console.log(err.message);
 				return Promise.reject(new InsightError(err.message));
 			});
+	}
+
+	private async persistToDisk(id: string, dataset: ISection[], b64Content: string,): Promise<string[]> {
+		this.datasets.set(id, dataset);
+		// fs.writeFile(path.join(__dirname, `../../data/${id}.zip`), b64Content, "base64", (e) => {
+		// 	console.log(e);
+		// 	return Promise.reject(new InsightError("couldn't write dataset"));
+		// });
+		try {
+			await fs.ensureDir(path.join(__dirname, "../../data/"));
+			await fs.writeFile(path.join(__dirname, `../../data/${id}.zip`), b64Content, "base64");
+		} catch (e) {
+			console.log(e);
+			return Promise.reject(new InsightError("couldn't write dataset"));
+		}
+		return Promise.resolve(Array.from(this.datasets.keys()));
 	}
 
 	public removeDataset(id: string): Promise<string> {
