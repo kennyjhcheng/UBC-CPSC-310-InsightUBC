@@ -130,6 +130,16 @@ export default class InsightFacade implements IInsightFacade {
 	}
 
 	public listDatasets(): Promise<InsightDataset[]> {
-		return Promise.reject("Not implemented.");
+		const results = [] as InsightDataset[];
+		for(const key of this.datasets.keys()){
+			const result = {} as InsightDataset;
+			result.id = key;
+			// I think we need to store the "data kind" in our map and refactor next line for next checkpoints
+			// But we can get away with it in this phase
+			result.kind = InsightDatasetKind.Sections;
+			result.numRows = this.datasets.get(key)?.length || 0;
+			results.push(result);
+		}
+		return Promise.resolve(results);
 	}
 }
