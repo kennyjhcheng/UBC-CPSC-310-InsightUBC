@@ -132,6 +132,15 @@ describe("InsightFacade", function () {
 			);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
+		it("adding a dataset with one valid and one invalid section successfully", async function () {
+			const invalidSections = getContentFromArchives("validninvalid.zip");
+			const result = await facade.addDataset(
+				"data",
+				invalidSections,
+				InsightDatasetKind.Sections
+			);
+			expect(result).to.deep.equal(["data"]);
+		});
 		it("adding a single dataset no data at all", function () {
 			const invalidSections = getContentFromArchives("nodata.zip");
 			const result = facade.addDataset(

@@ -79,6 +79,7 @@ export default class InsightFacade implements IInsightFacade {
 			.then((values) => {
 				let data: ISection[] = [];
 				let emptyFiles = 0;
+				let validSections: number = 0;
 				for (const course of values) {
 					const parsedCourse = JSON.parse(course);
 					if (parsedCourse.result === undefined || parsedCourse.rank === undefined) {
@@ -88,19 +89,21 @@ export default class InsightFacade implements IInsightFacade {
 						emptyFiles++;
 					}
 					for (const section of parsedCourse.result) {
-						if (!validateSectionJson(section)) {
-							return Promise.reject(new InsightError("Dataset contains invalid section"));
+						if (validateSectionJson(section)) {
+							data.push(objectToSection(section));
+							validSections++;
 						}
-						data.push(objectToSection(section));
 					}
 				}
 				if (emptyFiles === values.length) {
 					return Promise.reject(new InsightError("empty data"));
 				}
+				if(validSections === 0){
+					return Promise.reject(new InsightError("Dataset contains invalid section"));
+				}
 				return Promise.resolve(this.persistToDisk(id, data, content));
 			})
 			.catch((err) => {
-				console.log(err.message);
 				return Promise.reject(new InsightError(err.message));
 			});
 	}
