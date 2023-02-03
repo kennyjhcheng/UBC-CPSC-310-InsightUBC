@@ -98,7 +98,7 @@ export default class InsightFacade implements IInsightFacade {
 				if (emptyFiles === values.length) {
 					return Promise.reject(new InsightError("empty data"));
 				}
-				if(validSections === 0){
+				if(data.length === 0){
 					return Promise.reject(new InsightError("Dataset contains invalid section"));
 				}
 				return Promise.resolve(this.persistToDisk(id, data, content));
