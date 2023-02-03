@@ -79,7 +79,6 @@ export default class InsightFacade implements IInsightFacade {
 			.then((values) => {
 				let data: ISection[] = [];
 				let emptyFiles = 0;
-				let validSections: number = 0;
 				for (const course of values) {
 					const parsedCourse = JSON.parse(course);
 					if (parsedCourse.result === undefined || parsedCourse.rank === undefined) {
@@ -91,7 +90,6 @@ export default class InsightFacade implements IInsightFacade {
 					for (const section of parsedCourse.result) {
 						if (validateSectionJson(section)) {
 							data.push(objectToSection(section));
-							validSections++;
 						}
 					}
 				}
