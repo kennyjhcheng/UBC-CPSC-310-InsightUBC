@@ -14,11 +14,13 @@ import {afterEach, before} from "mocha";
 chai.use(chaiAsPromised);
 describe("InsightFacade", function () {
 	let sections: string;
+	let smallSet: string;
 
 	let facade: InsightFacade;
 
 	before(function () {
 		sections = getContentFromArchives("pair.zip");
+		smallSet = getContentFromArchives("smalldataset.zip");
 	});
 
 
@@ -30,7 +32,7 @@ describe("InsightFacade", function () {
 		it("should reject with  an empty dataset id", function () {
 			const result = facade.addDataset(
 				"",
-				sections,
+				smallSet,
 				InsightDatasetKind.Sections
 			);
 
@@ -39,7 +41,7 @@ describe("InsightFacade", function () {
 		it("should reject with  an id with an underscore", function () {
 			const result = facade.addDataset(
 				"ubc_data",
-				sections,
+				smallSet,
 				InsightDatasetKind.Sections
 			);
 
@@ -48,7 +50,7 @@ describe("InsightFacade", function () {
 		it("should reject with  an id with just white spaces", function () {
 			const result = facade.addDataset(
 				"  ",
-				sections,
+				smallSet,
 				InsightDatasetKind.Sections
 			);
 
@@ -57,7 +59,7 @@ describe("InsightFacade", function () {
 		it("should reject with because of room type", function () {
 			const result = facade.addDataset(
 				"someid",
-				sections,
+				smallSet,
 				InsightDatasetKind.Rooms
 			);
 
@@ -65,14 +67,14 @@ describe("InsightFacade", function () {
 		});
 		it("dataset failing because added twice", async function () {
 			try {
-				const result = await facade.addDataset(
+				await facade.addDataset(
 					"data",
-					sections,
+					smallSet,
 					InsightDatasetKind.Sections
 				);
-				const result2 = await facade.addDataset(
+				await facade.addDataset(
 					"data",
-					sections,
+					smallSet,
 					InsightDatasetKind.Sections
 				);
 				expect.fail();
@@ -83,33 +85,33 @@ describe("InsightFacade", function () {
 		it("adding a single dataset successfully", async function () {
 			const result: string[] = await facade.addDataset(
 				"data",
-				sections,
+				smallSet,
 				InsightDatasetKind.Sections
 			);
 			expect(result).to.deep.equal(["data"]);
 		});
 		it("adding a two datasets with different ids successfully", async function () {
-			const result: string[] = await facade.addDataset(
+			await facade.addDataset(
 				"data",
-				sections,
+				smallSet,
 				InsightDatasetKind.Sections
 			);
 			const result2 = await facade.addDataset(
 				"data2",
-				sections,
+				smallSet,
 				InsightDatasetKind.Sections
 			);
 			expect(result2).to.have.deep.members(["data", "data2"]);
 		});
 		it("adding a two datasets with same ids different case successfully", async function () {
-			const result: string[] = await facade.addDataset(
+			await facade.addDataset(
 				"data",
-				sections,
+				smallSet,
 				InsightDatasetKind.Sections
 			);
 			const result2 = await facade.addDataset(
 				"DATA",
-				sections,
+				smallSet,
 				InsightDatasetKind.Sections
 			);
 			expect(result2).to.have.deep.members(["data", "DATA"]);
@@ -188,7 +190,7 @@ describe("InsightFacade", function () {
 		});
 		it("successfully removes a dataset", async function () {
 			try {
-				await facade.addDataset("ubc", sections, InsightDatasetKind.Sections);
+				await facade.addDataset("ubc", smallSet, InsightDatasetKind.Sections);
 				const result = await facade.removeDataset("ubc");
 				expect(result).equal("ubc");
 			} catch (err) {
@@ -197,9 +199,9 @@ describe("InsightFacade", function () {
 		});
 		it("successfully removes correct dataset", async function () {
 			try {
-				await facade.addDataset("ubc", sections, InsightDatasetKind.Sections);
-				await facade.addDataset("data", sections, InsightDatasetKind.Sections);
-				await facade.addDataset("data2", sections, InsightDatasetKind.Sections);
+				await facade.addDataset("ubc", smallSet, InsightDatasetKind.Sections);
+				await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
+				await facade.addDataset("data2", smallSet, InsightDatasetKind.Sections);
 				const result = await facade.removeDataset("data");
 				expect(result).equal("data");
 			} catch (err) {
