@@ -1,4 +1,11 @@
-import {IInsightFacade, InsightDataset, InsightDatasetKind, InsightError, InsightResult,} from "./IInsightFacade";
+import {
+	IInsightFacade,
+	InsightDataset,
+	InsightDatasetKind,
+	InsightError,
+	InsightResult,
+	NotFoundError,
+} from "./IInsightFacade";
 import JSZip from "jszip";
 import {ISection} from "./ISection";
 import {objectToSection, validateSectionJson} from "./Section";
@@ -45,20 +52,28 @@ export default class InsightFacade implements IInsightFacade {
 		if (!id) {
 			return "null was passed";
 		}
-		if (id === "") {
-			return "id is empty string";
+		if (!this.testIdRegex(id)) {
+			return "id does not match regex";
 		}
-		if (id.includes("_")) {
-			return "id has underscore";
-		}
-		if (!id.replace(/\s/g, "").length) {
-			return "id only has whitespace";
-		}
+
 		if (this.datasets.has(id)) {
 			return "duplicate id";
 		}
 		return "";
 	}
+
+	/**
+	 * Checks that id is NOT
+	 * -> an empty string,
+	 * -> only has whitespace
+	 * -> has underscores
+	 * @param id
+	 * @returns boolean whether id matches regex
+	 */
+	private testIdRegex(id: string): boolean {
+		return /^[^_]+$/.test(id) && /^(?!\s*$).+/.test(id);
+	}
+
 
 	private parseFile(zipObject: JSZip, content: string, id: string) {
 		return zipObject.loadAsync(content, {base64: true})
@@ -108,10 +123,6 @@ export default class InsightFacade implements IInsightFacade {
 
 	private async persistToDisk(id: string, dataset: ISection[], b64Content: string,): Promise<string[]> {
 		this.datasets.set(id, dataset);
-		// fs.writeFile(path.join(__dirname, `../../data/${id}.zip`), b64Content, "base64", (e) => {
-		// 	console.log(e);
-		// 	return Promise.reject(new InsightError("couldn't write dataset"));
-		// });
 		try {
 			await fs.ensureDir(path.join(__dirname, "../../data/"));
 			await fs.writeFile(path.join(__dirname, `../../data/${id}.zip`), b64Content, "base64");
@@ -123,7 +134,23 @@ export default class InsightFacade implements IInsightFacade {
 	}
 
 	public removeDataset(id: string): Promise<string> {
-		return Promise.reject("Not implemented.");
+		if (!this.testIdRegex(id)) {
+			return Promise.reject(new InsightError("Improper id format, has underscore, only whitespace, or is empty"));
+		}
+		// returns false if dataset doesn't exist
+		if (!this.datasets.delete(id)) {
+			return Promise.reject(new NotFoundError(`Dataset with id ${id} not found`));
+		}
+
+		return fs.ensureDir(path.join(__dirname, "../../data/"))
+			.then(() => {
+				return fs.remove(path.join(__dirname, `../../data/${id}.zip`));
+			}).then(() => {
+				return Promise.resolve(id);
+			}).catch((err) => {
+				console.log(err);
+				return Promise.reject(new InsightError("Error removing dataset from disk"));
+			});
 	}
 
 	public performQuery(query: unknown): Promise<InsightResult[]> {
