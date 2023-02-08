@@ -11,6 +11,7 @@ import {ISection} from "./ISection";
 import {objectToSection, validateSectionJson} from "./Section";
 import * as fs from "fs-extra";
 import path from "path";
+import {validateQuery} from "./Query";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -23,6 +24,43 @@ export default class InsightFacade implements IInsightFacade {
 	constructor() {
 		console.log("InsightFacadeImpl::init()");
 		this.datasets = new Map<string, ISection[]>();
+		this.initializeDatasets();
+
+	}
+
+	private initializeDatasets() {
+		let numDatasets: number = 0;
+		fs.ensureDir(path.join(__dirname, "../../data/"))
+			.then(() => {
+				return fs.readdir(path.join(__dirname, "../../data/"));
+			}).then((files) => {
+				numDatasets = files.length;
+				let promises: Array<Promise<string[]>> = [];
+				for (const file of files) {
+					promises.push(
+						this.addDataset(file.split(".")[0],
+							this.getContentFromData(file),
+							InsightDatasetKind.Sections)
+					);
+				}
+				return Promise.all(promises);
+			}).then((listOfListOfIds) => {
+				if (listOfListOfIds.length !== numDatasets) {
+					return new InsightError(
+						"Added incorrect number of datasets from persistent directory at initialization"
+					);
+				}
+			}).catch((err) => {
+				console.log(err);
+				return new InsightError(
+					`Failed to initialize datasets from persistent disk directory with error: ${err}`
+				);
+			});
+
+	}
+
+	private getContentFromData(name: string): string {
+		return fs.readFileSync("data/" + name).toString("base64");
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
@@ -111,7 +149,7 @@ export default class InsightFacade implements IInsightFacade {
 				if (emptyFiles === values.length) {
 					return Promise.reject(new InsightError("empty data"));
 				}
-				if(data.length === 0){
+				if (data.length === 0) {
 					return Promise.reject(new InsightError("Dataset contains invalid section"));
 				}
 				return Promise.resolve(this.persistToDisk(id, data, content));
@@ -154,12 +192,16 @@ export default class InsightFacade implements IInsightFacade {
 	}
 
 	public performQuery(query: unknown): Promise<InsightResult[]> {
+		let validationResult: IQueryValidationResult = validateQuery(query);
+		if (!validationResult.valid) {
+			return Promise.reject(new InsightError(`Query invalid: ${validationResult.error}`));
+		}
 		return Promise.reject("Not implemented.");
 	}
 
 	public listDatasets(): Promise<InsightDataset[]> {
 		const results = [] as InsightDataset[];
-		for(const [key,value] of this.datasets){
+		for (const [key, value] of this.datasets) {
 			const result = {} as InsightDataset;
 			result.id = key;
 			// I think we need to store the "data kind" in our map and refactor next line for next checkpoints

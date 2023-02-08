@@ -1,5 +1,6 @@
 import InsightFacade from "../../src/controller/InsightFacade";
 import {
+	IInsightFacade, InsightDataset,
 	InsightDatasetKind,
 	InsightError,
 	NotFoundError,
@@ -10,6 +11,7 @@ import chai, {expect} from "chai";
 import chaiAsPromised from "chai-as-promised";
 import {folderTest} from "@ubccpsc310/folder-test";
 import {afterEach, before} from "mocha";
+import exp from "constants";
 
 chai.use(chaiAsPromised);
 describe("InsightFacade", function () {
@@ -23,12 +25,12 @@ describe("InsightFacade", function () {
 		smallSet = getContentFromArchives("smalldataset.zip");
 	});
 
+	beforeEach(function () {
+		clearDisk();
+		facade = new InsightFacade();
+	});
 
 	describe("addDataset", function () {
-		beforeEach(function () {
-			clearDisk();
-			facade = new InsightFacade();
-		});
 		it("should reject with  an empty dataset id", function () {
 			const result = facade.addDataset(
 				"",
@@ -172,10 +174,6 @@ describe("InsightFacade", function () {
 		});
 	});
 	describe("removeDataSet", () => {
-		beforeEach(function () {
-			clearDisk();
-			facade = new InsightFacade();
-		});
 		it("removal should reject with  an id with an underscore", function () {
 			const result = facade.removeDataset("ubc_data");
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
@@ -210,10 +208,6 @@ describe("InsightFacade", function () {
 		});
 	});
 	describe("listdataset", () => {
-		beforeEach(function () {
-			clearDisk();
-			facade = new InsightFacade();
-		});
 		it("should list one dataset", async function () {
 			// Setup
 			await facade.addDataset("ubc", sections, InsightDatasetKind.Sections);
@@ -346,6 +340,25 @@ describe("InsightFacade", function () {
 			} catch (err) {
 				const datasets = await facade.listDatasets();
 				expect(datasets).to.deep.equal([]);
+			}
+		});
+	});
+	describe("persistence", () => {
+		it("persisted datasets added in new InsightFacade", async () => {
+			try {
+				await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
+				const withPersistedData: IInsightFacade = new InsightFacade();
+				const datasets: InsightDataset[] = await withPersistedData.listDatasets();
+				expect(datasets).to.deep.equal([
+					{
+						id: "ubc2",
+						kind: InsightDatasetKind.Sections,
+						numRows: 2,
+					},
+				]);
+			} catch (e) {
+				console.log(e);
+				expect.fail("should not have thrown error");
 			}
 		});
 	});
