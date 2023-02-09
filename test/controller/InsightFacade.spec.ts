@@ -12,7 +12,6 @@ import chai, {expect} from "chai";
 import chaiAsPromised from "chai-as-promised";
 import {folderTest} from "@ubccpsc310/folder-test";
 import {afterEach, before} from "mocha";
-import exp from "constants";
 
 chai.use(chaiAsPromised);
 describe("InsightFacade", function () {
@@ -26,12 +25,11 @@ describe("InsightFacade", function () {
 		smallSet = getContentFromArchives("smalldataset.zip");
 	});
 
-	beforeEach(function () {
-		clearDisk();
-		facade = new InsightFacade();
-	});
-
 	describe("addDataset", function () {
+		beforeEach(function () {
+			clearDisk();
+			facade = new InsightFacade();
+		});
 		it("should reject with  an empty dataset id", function () {
 			const result = facade.addDataset("", smallSet, InsightDatasetKind.Sections);
 
@@ -107,6 +105,10 @@ describe("InsightFacade", function () {
 		});
 	});
 	describe("removeDataSet", () => {
+		beforeEach(function () {
+			clearDisk();
+			facade = new InsightFacade();
+		});
 		it("removal should reject with  an id with an underscore", function () {
 			const result = facade.removeDataset("ubc_data");
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
@@ -141,6 +143,10 @@ describe("InsightFacade", function () {
 		});
 	});
 	describe("listdataset", () => {
+		beforeEach(function () {
+			clearDisk();
+			facade = new InsightFacade();
+		});
 		it("should list one dataset", async function () {
 			// Setup
 			await facade.addDataset("ubc", sections, InsightDatasetKind.Sections);
