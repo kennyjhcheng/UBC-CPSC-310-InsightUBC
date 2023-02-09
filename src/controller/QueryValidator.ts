@@ -13,7 +13,7 @@ export class QueryValidator {
 
 		// cannot check property existence of unknowns by referencing property directly
 		const queryKeys = Object.keys(query as object);
-		if (queryKeys.length >= 4) {
+		if (queryKeys.length >= 3) {
 			throw new Error("Query has too many keys");
 		}
 		if (!queryKeys.includes("WHERE")) {
@@ -31,7 +31,6 @@ export class QueryValidator {
 		}
 
 		this.validateCOLUMNS(query["OPTIONS"]["COLUMNS"]);
-
 		if (optionKeys.includes("ORDER") && !query["OPTIONS"]["COLUMNS"].includes(query["OPTIONS"]["ORDER"])) {
 			throw new Error("ORDER key must be in COLUMNS");
 		}
@@ -76,10 +75,13 @@ export class QueryValidator {
 			case FILTER.AND:
 			case FILTER.OR:
 				this.validateLOGICCOMPARISON(filterValue);
+				break;
 			case FILTER.NOT:
 				this.validateNEGATION(filterValue);
+				break;
 			case FILTER.IS:
 				this.validateSCOMPARISON(filterValue);
+				break;
 			default:
 				throw new Error("Invalid Filter type");
 		}
