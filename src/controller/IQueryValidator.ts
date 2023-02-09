@@ -14,7 +14,7 @@ export enum FILTER {
 	LT = "LT",
 	GT = "GT",
 	EQ = "EQ",
-	SCOMPARATOR = "IS",
+	IS = "IS",
 	NOT = "NOT",
 }
 

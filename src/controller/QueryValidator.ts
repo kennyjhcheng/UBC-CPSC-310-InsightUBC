@@ -78,7 +78,7 @@ export class QueryValidator {
 				this.validateLOGICCOMPARISON(filterValue);
 			case FILTER.NOT:
 				this.validateNEGATION(filterValue);
-			case FILTER.SCOMPARATOR:
+			case FILTER.IS:
 				this.validateSCOMPARISON(filterValue);
 			default:
 				throw new Error("Invalid Filter type");
@@ -105,7 +105,28 @@ export class QueryValidator {
 	}
 
 	private validateSCOMPARISON(filterValue: any) {
-		return;
+		validateObject(filterValue, "SCOMPARISON value is not an object");
+		let keys = Object.keys(filterValue);
+		if (keys.length !== 1) {
+			throw new Error("SCOMPARISON filter has incorrect number of keys");
+		}
+		let skey = keys[0];
+		let skeyID = skey.split("_")[0];
+		let skeyField = skey.split("_")[1];
+		let skeyValue = filterValue[skey];
+		if (!SFIELD.includes(skeyField as Sfield) ||
+			skeyID !== this._datasetId
+		) {
+			throw new Error("SCOMPARISON Bad field in mkey");
+		}
+		if (!(typeof skeyValue === "string")) {
+			throw new Error("Invalid value type in SCOMPARISON, should be string");
+		}
+		skeyValue = skeyValue.startsWith("*") ? skeyValue.substring(1, skeyValue.length) : skeyValue;
+		skeyValue = skeyValue.endsWith("*") ? skeyValue.substring(1, skeyValue.length) : skeyValue;
+		if (skeyValue.includes("*")) {
+			throw new Error("Asterisks (*) can only be the first or last characters of input strings");
+		}
 	}
 
 	private validateNEGATION(filterValue: any) {
