@@ -9,9 +9,7 @@ export class QueryValidator {
 	 * @param query
 	 */
 	public validateQuery(query: any) {
-		if (!validateObject(query)) {
-			throw new Error("Query does not exist or isn't an object");
-		}
+		validateObject(query, "Query does not exist or isn't an object");
 
 		// cannot check property existence of unknowns by referencing property directly
 		const queryKeys = Object.keys(query as object);
@@ -46,6 +44,7 @@ export class QueryValidator {
 	 * @private
 	 */
 	private validateWHERE(queryBody: any) {
+		validateObject(queryBody, "WHERE body is invalid");
 		const keys = Object.keys(queryBody);
 
 		// TODO: in reference UI, you can have multiple query keys, but EBNF shouldn't allow this
@@ -53,7 +52,7 @@ export class QueryValidator {
 		//	* reference UI: https://cs310.students.cs.ubc.ca/ui/index.html
 		//  * EBNF: https://sites.google.com/view/ubc-cpsc310-22w2/project/c0?authuser=0#h.rckgz9kv4rhk:~:text=BODY%20%3A%3A%3D%20%27WHERE%3A%7B%27%20FILTER%3F%20%27%7D%27
 		if (keys.length > 1) {
-			throw new Error();
+			throw new Error("Too many filters in WHERE");
 		}
 		if (keys.length === 0) {
 			return;
@@ -63,42 +62,57 @@ export class QueryValidator {
 
 	/**
 	 * Validates the filter from WHERE
-	 * @param filter
+	 * @param filterKey
 	 * @private
 	 */
-	private validateFilter(filter: FILTER, filterBody: any) {
-		switch (filter) {
+	private validateFilter(filterKey: FILTER, filterValue: any) {
+		validateObject(filterValue, `${filterKey} in the FILTER is invalid`);
+		switch (filterKey) {
 			case FILTER.EQ:
 			case FILTER.GT:
 			case FILTER.LT:
-				this.validateMCOMPARISON(filterBody);
+				this.validateMCOMPARISON(filterValue);
 				break;
 			case FILTER.AND:
 			case FILTER.OR:
-				this.validateLOGICCOMPARISON(filterBody);
+				this.validateLOGICCOMPARISON(filterValue);
 			case FILTER.NOT:
-				this.validateNEGATION(filterBody);
+				this.validateNEGATION(filterValue);
 			case FILTER.SCOMPARATOR:
-				this.validateSCOMPARISON(filterBody);
+				this.validateSCOMPARISON(filterValue);
 			default:
 				throw new Error("Invalid Filter type");
 		}
 	}
 
-	private validateMCOMPARISON(filterBody: any) {
+	private validateMCOMPARISON(filterValue: any) {
+
 		return;
 	}
 
-	private validateSCOMPARISON(filterBody: any) {
+	private validateSCOMPARISON(filterValue: any) {
 		return;
 	}
 
-	private validateNEGATION(filterBody: any) {
+	private validateNEGATION(filterValue: any) {
 		return;
 	}
 
-	private validateLOGICCOMPARISON(filterBody: any) {
-		return;
+	private validateLOGICCOMPARISON(filterArray: any) {
+		validateArray(filterArray, "Logic Comparison did not receive array as input");
+		if (filterArray.length < 1) {
+			throw new Error("Logic Comparison is empty");
+		}
+
+		for (const filter of filterArray) {
+			let keys = Object.keys(filter);
+			if (keys.length > 1) {
+				throw new Error("Logic comparison filter has too many arguments");
+			}
+			if (keys.length !== 0) {
+				this.validateFilter(keys[0] as FILTER, filter[keys[0]]);
+			}
+		}
 	}
 
 	/**
@@ -107,9 +121,7 @@ export class QueryValidator {
 	 * @private
 	 */
 	private validateCOLUMNS(columns: any) {
-		if (!validateArray(columns)) {
-			throw new Error("COLUMNS value is missing");
-		}
+		validateArray(columns, "COLUMNS value is missing");
 		if (columns.length < 1) {
 			throw new Error("COLUMNS is empty");
 		}
