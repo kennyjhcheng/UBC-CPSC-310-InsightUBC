@@ -284,13 +284,15 @@ describe("InsightFacade", function () {
 	});
 	describe("persistence", () => {
 		it("persisted datasets added in new InsightFacade", async () => {
+			clearDisk();
+			facade = new InsightFacade();
 			try {
 				await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
 				const withPersistedData: IInsightFacade = new InsightFacade();
 				const datasets: InsightDataset[] = await withPersistedData.listDatasets();
 				expect(datasets).to.deep.equal([
 					{
-						id: "ubc2",
+						id: "data",
 						kind: InsightDatasetKind.Sections,
 						numRows: 2,
 					},
