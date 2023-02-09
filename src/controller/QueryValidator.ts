@@ -86,8 +86,22 @@ export class QueryValidator {
 	}
 
 	private validateMCOMPARISON(filterValue: any) {
-
-		return;
+		validateObject(filterValue, "MCOMPARISON value is not an object");
+		let keys = Object.keys(filterValue);
+		if (keys.length !== 1) {
+			throw new Error("MCOMPARISON filter has incorrect number of keys");
+		}
+		let mkey = keys[0];
+		let mkeyID = mkey.split("_")[0];
+		let mkeyField = mkey.split("_")[1];
+		if (!MFIELD.includes(mkeyField as Mfield) ||
+			mkeyID !== this._datasetId
+		) {
+			throw new Error("MCOMPARISON Bad field in mkey");
+		}
+		if (!(typeof filterValue[mkey] === "number")) {
+			throw new Error("Invalid value type in MCOMPARISON, should be number");
+		}
 	}
 
 	private validateSCOMPARISON(filterValue: any) {
@@ -95,7 +109,12 @@ export class QueryValidator {
 	}
 
 	private validateNEGATION(filterValue: any) {
-		return;
+		validateObject(filterValue, "Negation value is not an object");
+		let keys = Object.keys(filterValue);
+		if (keys.length !== 1) {
+			throw new Error("Negation comparison filter has incorrect number of many arguments");
+		}
+		this.validateFilter(keys[0] as FILTER, filterValue[keys[0]]);
 	}
 
 	private validateLOGICCOMPARISON(filterArray: any) {
@@ -106,12 +125,10 @@ export class QueryValidator {
 
 		for (const filter of filterArray) {
 			let keys = Object.keys(filter);
-			if (keys.length > 1) {
-				throw new Error("Logic comparison filter has too many arguments");
+			if (keys.length !== 1) {
+				throw new Error("Logic comparison filter has incorrect number of arguments");
 			}
-			if (keys.length !== 0) {
-				this.validateFilter(keys[0] as FILTER, filter[keys[0]]);
-			}
+			this.validateFilter(keys[0] as FILTER, filter[keys[0]]);
 		}
 	}
 
