@@ -11,7 +11,7 @@ import {ISection} from "./ISection";
 import {objectToSection, validateSectionJson} from "./Section";
 import * as fs from "fs-extra";
 import path from "path";
-import {validateQuery} from "./Query";
+import {QueryValidator} from "./QueryValidator";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -25,7 +25,6 @@ export default class InsightFacade implements IInsightFacade {
 		console.log("InsightFacadeImpl::init()");
 		this.datasets = new Map<string, ISection[]>();
 		this.initializeDatasets();
-
 	}
 
 	private initializeDatasets() {
@@ -33,30 +32,30 @@ export default class InsightFacade implements IInsightFacade {
 		fs.ensureDir(path.join(__dirname, "../../data/"))
 			.then(() => {
 				return fs.readdir(path.join(__dirname, "../../data/"));
-			}).then((files) => {
+			})
+			.then((files) => {
 				numDatasets = files.length;
 				let promises: Array<Promise<string[]>> = [];
 				for (const file of files) {
 					promises.push(
-						this.addDataset(file.split(".")[0],
-							this.getContentFromData(file),
-							InsightDatasetKind.Sections)
+						this.addDataset(file.split(".")[0], this.getContentFromData(file), InsightDatasetKind.Sections)
 					);
 				}
 				return Promise.all(promises);
-			}).then((listOfListOfIds) => {
+			})
+			.then((listOfListOfIds) => {
 				if (listOfListOfIds.length !== numDatasets) {
 					return new InsightError(
 						"Added incorrect number of datasets from persistent directory at initialization"
 					);
 				}
-			}).catch((err) => {
+			})
+			.catch((err) => {
 				console.log(err);
 				return new InsightError(
 					`Failed to initialize datasets from persistent disk directory with error: ${err}`
 				);
 			});
-
 	}
 
 	private getContentFromData(name: string): string {
@@ -112,13 +111,12 @@ export default class InsightFacade implements IInsightFacade {
 		return /^[^_]+$/.test(id) && /^(?!\s*$).+/.test(id);
 	}
 
-
 	private parseFile(zipObject: JSZip, content: string, id: string) {
-		return zipObject.loadAsync(content, {base64: true})
+		return zipObject
+			.loadAsync(content, {base64: true})
 			.then((data) => {
 				let files = data.filter((relativePath: string, file: JSZip.JSZipObject) => {
-					return (file.name.startsWith("courses/") && !file.name.includes(".DS_Store")
-						&& !file.dir);
+					return file.name.startsWith("courses/") && !file.name.includes(".DS_Store") && !file.dir;
 				});
 				if (files.length === 0) {
 					return Promise.reject(new InsightError("empty course folder"));
@@ -159,7 +157,7 @@ export default class InsightFacade implements IInsightFacade {
 			});
 	}
 
-	private async persistToDisk(id: string, dataset: ISection[], b64Content: string,): Promise<string[]> {
+	private async persistToDisk(id: string, dataset: ISection[], b64Content: string): Promise<string[]> {
 		this.datasets.set(id, dataset);
 		try {
 			await fs.ensureDir(path.join(__dirname, "../../data/"));
@@ -180,23 +178,34 @@ export default class InsightFacade implements IInsightFacade {
 			return Promise.reject(new NotFoundError(`Dataset with id ${id} not found`));
 		}
 
-		return fs.ensureDir(path.join(__dirname, "../../data/"))
+		return fs
+			.ensureDir(path.join(__dirname, "../../data/"))
 			.then(() => {
 				return fs.remove(path.join(__dirname, `../../data/${id}.zip`));
-			}).then(() => {
+			})
+			.then(() => {
 				return Promise.resolve(id);
-			}).catch((err) => {
+			})
+			.catch((err) => {
 				console.log(err);
 				return Promise.reject(new InsightError("Error removing dataset from disk"));
 			});
 	}
 
 	public performQuery(query: unknown): Promise<InsightResult[]> {
-		let validationResult: IQueryValidationResult = validateQuery(query);
-		if (!validationResult.valid) {
-			return Promise.reject(new InsightError(`Query invalid: ${validationResult.error}`));
+		const queryValidator: QueryValidator = new QueryValidator();
+		try {
+			queryValidator.validateQuery(query);
+			queryValidator.setDatasetId(query);
+			if (!this.datasets.has(queryValidator.datasetId)) {
+				return Promise.reject(new InsightError("Queried dataset does not exist"));
+			}
+
+		} catch (e) {
+			return Promise.reject(new InsightError(`Invalid Query: ${e}`));
 		}
-		return Promise.reject("Not implemented.");
+
+		return Promise.reject("Not implemented."); // stub
 	}
 
 	public listDatasets(): Promise<InsightDataset[]> {
