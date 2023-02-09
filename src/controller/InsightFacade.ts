@@ -4,7 +4,7 @@ import {
 	InsightDatasetKind,
 	InsightError,
 	InsightResult,
-	NotFoundError,
+	NotFoundError, ResultTooLargeError,
 } from "./IInsightFacade";
 import JSZip from "jszip";
 import {ISection} from "./ISection";
@@ -12,6 +12,7 @@ import {objectToSection, validateSectionJson} from "./Section";
 import * as fs from "fs-extra";
 import path from "path";
 import {QueryValidator} from "./QueryValidator";
+import {QueryExecutor} from "./QueryExecutor";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -195,17 +196,23 @@ export default class InsightFacade implements IInsightFacade {
 	public performQuery(query: unknown): Promise<InsightResult[]> {
 		const queryValidator: QueryValidator = new QueryValidator();
 		try {
-			queryValidator.validateQuery(query);
 			queryValidator.setDatasetId(query);
+			queryValidator.validateQuery(query);
 			if (!this.datasets.has(queryValidator.datasetId)) {
 				return Promise.reject(new InsightError("Queried dataset does not exist"));
+			}
+			let id: string = queryValidator.datasetId;
+			const queryExecutor: QueryExecutor = new QueryExecutor(this.datasets.get(id) || []);
+			let result: ISection[] = queryExecutor.executeQuery(query);
+			if(result?.length > 5000){
+				return Promise.reject(new ResultTooLargeError());
 			}
 
 		} catch (e) {
 			return Promise.reject(new InsightError(`Invalid Query: ${e}`));
 		}
 
-		return Promise.reject("Not implemented."); // stub
+		return Promise.resolve([]); // stub
 	}
 
 	public listDatasets(): Promise<InsightDataset[]> {
