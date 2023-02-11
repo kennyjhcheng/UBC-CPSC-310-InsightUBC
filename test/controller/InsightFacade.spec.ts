@@ -1,5 +1,7 @@
 import InsightFacade from "../../src/controller/InsightFacade";
 import {
+	IInsightFacade,
+	InsightDataset,
 	InsightDatasetKind,
 	InsightError,
 	NotFoundError,
@@ -23,151 +25,82 @@ describe("InsightFacade", function () {
 		smallSet = getContentFromArchives("smalldataset.zip");
 	});
 
-
 	describe("addDataset", function () {
 		beforeEach(function () {
 			clearDisk();
 			facade = new InsightFacade();
 		});
 		it("should reject with  an empty dataset id", function () {
-			const result = facade.addDataset(
-				"",
-				smallSet,
-				InsightDatasetKind.Sections
-			);
+			const result = facade.addDataset("", smallSet, InsightDatasetKind.Sections);
 
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 		it("should reject with  an id with an underscore", function () {
-			const result = facade.addDataset(
-				"ubc_data",
-				smallSet,
-				InsightDatasetKind.Sections
-			);
+			const result = facade.addDataset("ubc_data", smallSet, InsightDatasetKind.Sections);
 
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 		it("should reject with  an id with just white spaces", function () {
-			const result = facade.addDataset(
-				"  ",
-				smallSet,
-				InsightDatasetKind.Sections
-			);
+			const result = facade.addDataset("  ", smallSet, InsightDatasetKind.Sections);
 
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 		it("should reject with because of room type", function () {
-			const result = facade.addDataset(
-				"someid",
-				smallSet,
-				InsightDatasetKind.Rooms
-			);
+			const result = facade.addDataset("someid", smallSet, InsightDatasetKind.Rooms);
 
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 		it("dataset failing because added twice", async function () {
 			try {
-				await facade.addDataset(
-					"data",
-					smallSet,
-					InsightDatasetKind.Sections
-				);
-				await facade.addDataset(
-					"data",
-					smallSet,
-					InsightDatasetKind.Sections
-				);
+				await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
+				await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
 				expect.fail();
 			} catch (err) {
 				expect(err).be.instanceOf(InsightError);
 			}
 		});
 		it("adding a single dataset successfully", async function () {
-			const result: string[] = await facade.addDataset(
-				"data",
-				smallSet,
-				InsightDatasetKind.Sections
-			);
+			const result: string[] = await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
 			expect(result).to.deep.equal(["data"]);
 		});
 		it("adding a two datasets with different ids successfully", async function () {
-			await facade.addDataset(
-				"data",
-				smallSet,
-				InsightDatasetKind.Sections
-			);
-			const result2 = await facade.addDataset(
-				"data2",
-				smallSet,
-				InsightDatasetKind.Sections
-			);
+			await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
+			const result2 = await facade.addDataset("data2", smallSet, InsightDatasetKind.Sections);
 			expect(result2).to.have.deep.members(["data", "data2"]);
 		});
 		it("adding a two datasets with same ids different case successfully", async function () {
-			await facade.addDataset(
-				"data",
-				smallSet,
-				InsightDatasetKind.Sections
-			);
-			const result2 = await facade.addDataset(
-				"DATA",
-				smallSet,
-				InsightDatasetKind.Sections
-			);
+			await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
+			const result2 = await facade.addDataset("DATA", smallSet, InsightDatasetKind.Sections);
 			expect(result2).to.have.deep.members(["data", "DATA"]);
 		});
 		it("adding a single dataset that isnt a zip file", function () {
 			const invalidSections = getContentFromArchives("textFile.txt");
-			const result = facade.addDataset(
-				"data",
-				invalidSections,
-				InsightDatasetKind.Sections
-			);
+			const result = facade.addDataset("data", invalidSections, InsightDatasetKind.Sections);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 		it("adding a single dataset no json data", function () {
 			const invalidSections = getContentFromArchives("nojson.zip");
-			const result = facade.addDataset(
-				"data",
-				invalidSections,
-				InsightDatasetKind.Sections
-			);
+			const result = facade.addDataset("data", invalidSections, InsightDatasetKind.Sections);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 		it("adding a dataset with one valid and one invalid section successfully", async function () {
 			const invalidSections = getContentFromArchives("validninvalid.zip");
-			const result = await facade.addDataset(
-				"data",
-				invalidSections,
-				InsightDatasetKind.Sections
-			);
+			const result = await facade.addDataset("data", invalidSections, InsightDatasetKind.Sections);
 			expect(result).to.deep.equal(["data"]);
 		});
 		it("adding a single dataset no data at all", function () {
 			const invalidSections = getContentFromArchives("nodata.zip");
-			const result = facade.addDataset(
-				"data",
-				invalidSections,
-				InsightDatasetKind.Sections
-			);
+			const result = facade.addDataset("data", invalidSections, InsightDatasetKind.Sections);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 		it("adding a single dataset with no valid courses", function () {
 			const invalidSections = getContentFromArchives("invalidcourse.zip");
-			const result = facade.addDataset(
-				"data",
-				invalidSections,
-				InsightDatasetKind.Sections
-			);
+			const result = facade.addDataset("data", invalidSections, InsightDatasetKind.Sections);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 		it("adding a single dataset with no course folder", function () {
 			const invalidSections = getContentFromArchives("notincorrectfolder.zip");
-			const result = facade.addDataset(
-				"data",
-				invalidSections,
-				InsightDatasetKind.Sections
-			);
+			const result = facade.addDataset("data", invalidSections, InsightDatasetKind.Sections);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 	});
@@ -349,21 +282,42 @@ describe("InsightFacade", function () {
 			}
 		});
 	});
+	describe("persistence", () => {
+		it("persisted datasets added in new InsightFacade", async () => {
+			clearDisk();
+			facade = new InsightFacade();
+			try {
+				await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
+				const withPersistedData: IInsightFacade = new InsightFacade();
+				const datasets: InsightDataset[] = await withPersistedData.listDatasets();
+				expect(datasets).to.deep.equal([
+					{
+						id: "data",
+						kind: InsightDatasetKind.Sections,
+						numRows: 2,
+					},
+				]);
+			} catch (e) {
+				console.log(e);
+				expect.fail("should not have thrown error");
+			}
+		});
+	});
 	describe("performQuery", async () => {
 		let secondaryData: string;
 		before(async () => {
 			clearDisk();
 			facade = new InsightFacade();
 			secondaryData = getContentFromArchives("smalldataset.zip");
-			await facade.addDataset("sections",sections,InsightDatasetKind.Sections);
-			await facade.addDataset("data",sections,InsightDatasetKind.Sections);
+			await facade.addDataset("sections", sections, InsightDatasetKind.Sections);
+			await facade.addDataset("data", sections, InsightDatasetKind.Sections);
 		});
 		afterEach(() => {
 			clearDisk();
 		});
-		type Error = "InsightError" | "ResultTooLargeError"
-		type Output = any[]
-		type Input = any
+		type Error = "InsightError" | "ResultTooLargeError";
+		type Output = any[];
+		type Input = any;
 		function errorValidator(error: any): error is Error {
 			return error === "ResultTooLargeError" || error === "InsightError";
 		}
@@ -383,7 +337,7 @@ describe("InsightFacade", function () {
 			expect(actual).to.have.deep.members(expected);
 		}
 
-		it("passing non json to peformQuery",  function () {
+		it("passing non json to peformQuery", function () {
 			const result = facade.performQuery("randomstuff");
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
@@ -395,7 +349,7 @@ describe("InsightFacade", function () {
 			{
 				errorValidator,
 				assertOnError,
-				assertOnResult
+				assertOnResult,
 			}
 		);
 	});
