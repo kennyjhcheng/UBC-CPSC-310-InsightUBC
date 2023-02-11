@@ -27,7 +27,7 @@ export class QueryExecutor {
 
 	private orderResult(unorderedResult: InsightResult[], key: string): InsightResult[] {
 		return unorderedResult.sort((a,b) => (a[key] > b[key])
-			? 1 : ((b[key] > a[key]) ? -1 : 0));;
+			? 1 : ((b[key] > a[key]) ? -1 : 0));
 	}
 
     /**
@@ -63,17 +63,15 @@ export class QueryExecutor {
 				return this.executeNEGATION(filterValue);
 			case FILTER.IS:
 				return this.executeSCOMPARISON(filterValue);
-			default:
-				return [];
 		}
 	}
 
-	private executeMCOMPARISON(filterKeY: FILTER, filterValue: any): ISection[] {
+	private executeMCOMPARISON(filterKey: FILTER, filterValue: any): ISection[] {
 		let keys = Object.keys(filterValue);
 		let mkey = keys[0];
 		let mkeyField = mkey.split("_")[1];
 		let value = filterValue[mkey];
-		switch (filterKeY) {
+		switch (filterKey) {
 			case FILTER.EQ:
 				return this._dataset.filter((section) => {
 					return section[mkeyField as keyof ISection] === value;

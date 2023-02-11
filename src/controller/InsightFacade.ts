@@ -203,7 +203,7 @@ export default class InsightFacade implements IInsightFacade {
 				return Promise.reject(new InsightError("Queried dataset does not exist"));
 			}
 			let id: string = queryValidator.datasetId;
-			const queryExecutor: QueryExecutor = new QueryExecutor(this.datasets.get(id) || []);
+			const queryExecutor: QueryExecutor = new QueryExecutor(this.datasets.get(id) as ISection[]);
 			result = queryExecutor.executeQuery(query);
 			if(result?.length > 5000){
 				return Promise.reject(new ResultTooLargeError());
