@@ -195,6 +195,7 @@ export default class InsightFacade implements IInsightFacade {
 
 	public performQuery(query: unknown): Promise<InsightResult[]> {
 		const queryValidator: QueryValidator = new QueryValidator();
+		let result: InsightResult[];
 		try {
 			queryValidator.setDatasetId(query);
 			queryValidator.validateQuery(query);
@@ -203,7 +204,7 @@ export default class InsightFacade implements IInsightFacade {
 			}
 			let id: string = queryValidator.datasetId;
 			const queryExecutor: QueryExecutor = new QueryExecutor(this.datasets.get(id) || []);
-			let result: ISection[] = queryExecutor.executeQuery(query);
+			result = queryExecutor.executeQuery(query);
 			if(result?.length > 5000){
 				return Promise.reject(new ResultTooLargeError());
 			}
@@ -211,8 +212,7 @@ export default class InsightFacade implements IInsightFacade {
 		} catch (e) {
 			return Promise.reject(new InsightError(`Invalid Query: ${e}`));
 		}
-
-		return Promise.resolve([]); // stub
+		return Promise.resolve(result); // stub
 	}
 
 	public listDatasets(): Promise<InsightDataset[]> {
