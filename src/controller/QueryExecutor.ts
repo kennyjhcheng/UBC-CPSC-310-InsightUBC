@@ -1,13 +1,13 @@
-import {validateArray, validateObject} from "./utils";
-import {FILTER, Mfield, MFIELD, Sfield, SFIELD} from "./IQueryValidator";
+import {FILTER} from "./IQueryValidator";
 import {ISection} from "./ISection";
-import InsightFacade from "./InsightFacade";
+import {InsightResult} from "./IInsightFacade";
+
 
 export class QueryExecutor {
 	private _dataset: ISection[];
 
-	constructor(dataSetID: ISection[]) {
-		this._dataset = dataSetID;
+	constructor(dataSet: ISection[]) {
+		this._dataset = dataSet;
 	}
 
     /**
@@ -16,9 +16,18 @@ export class QueryExecutor {
      */
 
 
-	public executeQuery(query: any): ISection[] {
-		return this.executeWHERE(query["WHERE"]);
-		// this.executeCOLUMNS(query["OPTIONS"]["COLUMNS"]);
+	public executeQuery(query: any): InsightResult[] {
+		let unorderedResult = this.executeCOLUMNS(query["OPTIONS"]["COLUMNS"], this.executeWHERE(query["WHERE"]));
+		if (query["OPTIONS"]["ORDER"]) {
+			let key: string = query["OPTIONS"]["ORDER"];
+			return this.orderResult(unorderedResult,key);
+		}
+		return unorderedResult;
+	}
+
+	private orderResult(unorderedResult: InsightResult[], key: string): InsightResult[] {
+		return unorderedResult.sort((a,b) => (a[key] > b[key])
+			? 1 : ((b[key] > a[key]) ? -1 : 0));;
 	}
 
     /**
@@ -28,7 +37,7 @@ export class QueryExecutor {
      */
 	private executeWHERE(queryBody: any): ISection[] {
 		const keys = Object.keys(queryBody);
-		if(keys.length === 0){
+		if (keys.length === 0) {
 			return this._dataset;
 		}
 		return this.executeFilter(keys[0] as FILTER, queryBody[keys[0]]);
@@ -45,7 +54,7 @@ export class QueryExecutor {
 			case FILTER.EQ:
 			case FILTER.GT:
 			case FILTER.LT:
-				return this.executeMCOMPARISON(filterKey,filterValue);
+				return this.executeMCOMPARISON(filterKey, filterValue);
 			case FILTER.AND:
 				return this.executeAND(filterValue);
 			case FILTER.OR:
@@ -64,7 +73,6 @@ export class QueryExecutor {
 		let mkey = keys[0];
 		let mkeyField = mkey.split("_")[1];
 		let value = filterValue[mkey];
-		// let result: ISection[] = [];
 		switch (filterKeY) {
 			case FILTER.EQ:
 				return this._dataset.filter((section) => {
@@ -87,20 +95,20 @@ export class QueryExecutor {
 		let skey = keys[0];
 		let skeyField = skey.split("_")[1];
 		let skeyValue = filterValue[skey];
-		if(skeyValue.startsWith("*") && skeyValue.endsWith("*")){
-			let value = skeyValue.substring(1,skeyValue.length - 1);
+		if (skeyValue.startsWith("*") && skeyValue.endsWith("*")) {
+			let value = skeyValue.substring(1, skeyValue.length - 1);
 			return this._dataset.filter((section) => {
 				return (section[skeyField as keyof ISection] as string).includes(value);
 			});
 		}
-		if(skeyValue.startsWith("*")){
+		if (skeyValue.startsWith("*")) {
 			let value = skeyValue.substring(1);
 			return this._dataset.filter((section) => {
 				return (section[skeyField as keyof ISection] as string).endsWith(value);
 			});
 		}
-		if(skeyValue.endsWith("*")){
-			let value = skeyValue.substring(0,skeyValue.length - 1);
+		if (skeyValue.endsWith("*")) {
+			let value = skeyValue.substring(0, skeyValue.length - 1);
 			return this._dataset.filter((section) => {
 				return (section[skeyField as keyof ISection] as string).startsWith(value);
 			});
@@ -121,9 +129,9 @@ export class QueryExecutor {
 		(filterArray as FILTER[]).forEach((filter: any, index) => {
 			let keys = Object.keys(filter);
 			let newFilter = this.executeFilter(keys[0] as FILTER, filter[keys[0]]);
-			if(index === 0){
+			if (index === 0) {
 				result = this.executeFilter(keys[0] as FILTER, filter[keys[0]]);
-			} else{
+			} else {
 				result = result.filter((section) => newFilter.includes(section));
 			}
 		});
@@ -135,7 +143,7 @@ export class QueryExecutor {
 		for (const filter of filterArray) {
 			let keys = Object.keys(filter);
 			let newList: ISection[] = this.executeFilter(keys[0] as FILTER, filter[keys[0]]);
-			// https://stackoverflow.com/questions/3629817/getting-a-union-of-two-arrays-in-javascript
+            // https://stackoverflow.com/questions/3629817/getting-a-union-of-two-arrays-in-javascript
 			result = [...new Set([...result, ...newList])];
 		}
 		return result;
@@ -146,7 +154,24 @@ export class QueryExecutor {
      * @param columns
      * @private
      */
-	private executeCOLUMNS(columns: any) {
-		return;
+	private executeCOLUMNS(columns: any, data: ISection[]): InsightResult[] {
+		let datasetId = columns[0].split("_")[0];
+		let columnsNeeded: string[] = [];
+		for (const column of columns) {
+			let key = column.split("_");
+			columnsNeeded.push(key[1]);
+		}
+		let result: InsightResult[] = [];
+		data.forEach((section) => {
+            // https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6
+			const filtered = Object.keys(section)
+				.filter((key) => columnsNeeded.includes(key))
+				.reduce((obj, key) => {
+					obj[datasetId + "_" + key] = section[key as keyof ISection];
+					return obj;
+				}, {} as InsightResult);
+			result.push(filtered);
+		});
+		return result;
 	}
 }
