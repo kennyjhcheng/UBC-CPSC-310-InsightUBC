@@ -125,7 +125,7 @@ export class QueryValidator {
 			throw new Error("Invalid value type in SCOMPARISON, should be string");
 		}
 		skeyValue = skeyValue.startsWith("*") ? skeyValue.substring(1, skeyValue.length) : skeyValue;
-		skeyValue = skeyValue.endsWith("*") ? skeyValue.substring(1, skeyValue.length) : skeyValue;
+		skeyValue = skeyValue.endsWith("*") ? skeyValue.substring(0, skeyValue.length - 1) : skeyValue;
 		if (skeyValue.includes("*")) {
 			throw new Error("Asterisks (*) can only be the first or last characters of input strings");
 		}
