@@ -1,6 +1,7 @@
 import {validateArray, validateObject} from "./utils";
 import {FILTER, Mfield, MFIELD, Sfield, SFIELD} from "./IQueryValidator";
 import {ISection} from "./ISection";
+import InsightFacade from "./InsightFacade";
 
 export class QueryExecutor {
 	private _dataset: ISection[];
@@ -10,7 +11,7 @@ export class QueryExecutor {
 	}
 
     /**
-     * Validates that query
+     * Executes that query
      * @param query
      */
 
@@ -21,7 +22,7 @@ export class QueryExecutor {
 	}
 
     /**
-     * validates the WHERE section of the query, the query body
+     * executes the WHERE section of the query, the query body
      * @param queryBody
      * @private
      */
@@ -34,8 +35,9 @@ export class QueryExecutor {
 	}
 
     /**
-     * Validates the filter from WHERE
+     * executes the filter from WHERE
      * @param filterKey
+     * @param filterValue
      * @private
      */
 	private executeFilter(filterKey: FILTER, filterValue: any): ISection[] {
@@ -62,41 +64,56 @@ export class QueryExecutor {
 		let mkey = keys[0];
 		let mkeyField = mkey.split("_")[1];
 		let value = filterValue[mkey];
-		let result: ISection[] = [];
-		this._dataset?.forEach((section) => {
-			switch (filterKeY) {
-				case FILTER.EQ:
-					if(section[mkeyField as keyof ISection] === value){
-						result.push(section);
-					}
-					break;
-				case FILTER.GT:
-					if(section[mkeyField as keyof ISection] > value){
-						result.push(section);
-					}
-					break;
-				case FILTER.LT:
-					if(section[mkeyField as keyof ISection] < value){
-						result.push(section);
-					}
-					break;
-			}
-		});
-		return result;
+		// let result: ISection[] = [];
+		switch (filterKeY) {
+			case FILTER.EQ:
+				return this._dataset.filter((section) => {
+					return section[mkeyField as keyof ISection] === value;
+				});
+			case FILTER.GT:
+				return this._dataset.filter((section) => {
+					return section[mkeyField as keyof ISection] > value;
+				});
+			case FILTER.LT:
+				return this._dataset.filter((section) => {
+					return section[mkeyField as keyof ISection] < value;
+				});
+		}
+		return [];
 	}
 
 	private executeSCOMPARISON(filterValue: any): ISection[] {
-		return [];
+		let keys = Object.keys(filterValue);
+		let skey = keys[0];
+		let skeyField = skey.split("_")[1];
+		let skeyValue = filterValue[skey];
+		if(skeyValue.startsWith("*") && skeyValue.endsWith("*")){
+			let value = skeyValue.substring(1,skeyValue.length - 1);
+			return this._dataset.filter((section) => {
+				return (section[skeyField as keyof ISection] as string).includes(value);
+			});
+		}
+		if(skeyValue.startsWith("*")){
+			let value = skeyValue.substring(1);
+			return this._dataset.filter((section) => {
+				return (section[skeyField as keyof ISection] as string).endsWith(value);
+			});
+		}
+		if(skeyValue.endsWith("*")){
+			let value = skeyValue.substring(0,skeyValue.length - 1);
+			return this._dataset.filter((section) => {
+				return (section[skeyField as keyof ISection] as string).startsWith(value);
+			});
+		}
+		return this._dataset.filter((section) => {
+			return (section[skeyField as keyof ISection] as string) === skeyValue;
+		});
 	}
 
 	private executeNEGATION(filterValue: any): ISection[] {
-		validateObject(filterValue, "Negation value is not an object");
 		let keys = Object.keys(filterValue);
-		if (keys.length !== 1) {
-			throw new Error("Negation comparison filter has incorrect number of many arguments");
-		}
-		this.executeFilter(keys[0] as FILTER, filterValue[keys[0]]);
-		return [];
+		let temp: ISection[] = this.executeFilter(keys[0] as FILTER, filterValue[keys[0]]);
+		return this._dataset.filter((section) => !temp.includes(section));
 	}
 
 	private executeAND(filterArray: any): ISection[] {
@@ -125,7 +142,7 @@ export class QueryExecutor {
 	}
 
     /**
-     * Validates the COLUMNS section of query
+     * executes the COLUMNS section of query
      * @param columns
      * @private
      */
