@@ -11,7 +11,8 @@ import {clearDisk, getContentFromArchives} from "../TestUtil";
 import chai, {expect} from "chai";
 import chaiAsPromised from "chai-as-promised";
 import {folderTest} from "@ubccpsc310/folder-test";
-import {afterEach, before} from "mocha";
+import {before} from "mocha";
+import exp from "constants";
 
 chai.use(chaiAsPromised);
 describe("InsightFacade", function () {
@@ -311,9 +312,6 @@ describe("InsightFacade", function () {
 			secondaryData = getContentFromArchives("smalldataset.zip");
 			await facade.addDataset("sections", sections, InsightDatasetKind.Sections);
 			await facade.addDataset("data", sections, InsightDatasetKind.Sections);
-		});
-		afterEach(() => {
-			clearDisk();
 		});
 		type Error = "InsightError" | "ResultTooLargeError";
 		type Output = any[];
