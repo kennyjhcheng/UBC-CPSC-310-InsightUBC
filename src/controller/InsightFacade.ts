@@ -25,7 +25,7 @@ export default class InsightFacade implements IInsightFacade {
 	constructor() {
 		console.log("InsightFacadeImpl::init()");
 		this.datasets = new Map<string, ISection[]>();
-		this.initializeDatasets();
+		// this.initializeDatasets();
 	}
 
 	private initializeDatasets() {
