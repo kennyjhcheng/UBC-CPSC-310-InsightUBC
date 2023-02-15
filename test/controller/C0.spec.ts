@@ -281,6 +281,44 @@ describe("InsightFacade", function()  {
 			clearDisk();
 		});
 
+		describe("performQuery manual tests", () => {
+			it("fail ORDER typo", async () => {
+				let query = {
+					WHERE: {
+						AND: [
+							{
+								LT: {
+									sections_fail: 10
+								}
+							},
+							{
+								GT: {
+									sections_pass: 200
+								}
+							}
+						]
+					},
+					OPTIONS: {
+						COLUMNS: [
+							"sections_dept",
+							"sections_instructor",
+							"sections_title",
+							"sections_avg"
+						],
+						ORDR: "sections_avg"
+					}
+				};
+				try {
+					await insightFacade.performQuery(query);
+					expect.fail("should not continue");
+				} catch (e) {
+					expect(e).to.be.an.instanceOf(InsightError);
+				}
+			});
+
+
+		});
+
 		function assertResult(actual: unknown, expected: InsightResult[]): void {
 			/** Source https://medium.com/building-ibotta/testing-arrays-and-objects-with-chai-js-4b372310fe6d **/
 			expect(actual).to.deep.members(expected);
@@ -313,4 +351,6 @@ describe("InsightFacade", function()  {
 			}
 		);
 	});
+
+
 });
