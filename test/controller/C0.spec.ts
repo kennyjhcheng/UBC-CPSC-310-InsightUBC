@@ -162,8 +162,13 @@ describe("InsightFacade", function()  {
 	});
 
 	describe("removeDataset", function() {
-		beforeEach(function() {
-			facade.addDataset("test", smallPair, InsightDatasetKind.Sections);
+		beforeEach(async function() {
+			try {
+				await facade.addDataset("test", smallPair, InsightDatasetKind.Sections);
+			} catch (e) {
+				expect.fail("should not fail add in beforeEach");
+			}
+
 		});
 
 		it("should pass -> successful removal, no errors", async function() {
@@ -197,7 +202,7 @@ describe("InsightFacade", function()  {
 						{
 							id: "test2",
 							kind: InsightDatasetKind.Sections,
-							numRows: 64612,
+							numRows: 17,
 						}
 					]);
 			} catch (err) {
@@ -239,7 +244,7 @@ describe("InsightFacade", function()  {
 				.deep.equal([{
 					id: "test",
 					kind: InsightDatasetKind.Sections,
-					numRows: 64612,
+					numRows: 17,
 				}]);
 		});
 
@@ -256,11 +261,11 @@ describe("InsightFacade", function()  {
 				.deep.equal([{
 					id: "test",
 					kind: InsightDatasetKind.Sections,
-					numRows: 64612,
+					numRows: 17,
 				}, {
 					id: "test2",
 					kind: InsightDatasetKind.Sections,
-					numRows: 64612,
+					numRows: 17,
 				}]);
 		});
 	});
