@@ -95,6 +95,9 @@ export class QueryExecutor {
 		let skeyValue = filterValue[skey];
 		if (skeyValue.startsWith("*") && skeyValue.endsWith("*")) {
 			let value = skeyValue.substring(1, skeyValue.length - 1);
+			if (value === "*") {
+				return this._dataset;
+			}
 			return this._dataset.filter((section) => {
 				return (section[skeyField as keyof ISection] as string).includes(value);
 			});
