@@ -17,15 +17,16 @@ export function objectToSection(sectionObject: any): ISection {
 
 export function validateSectionJson(sectionJson: any): boolean {
 	if (
-		!("Audit" in sectionJson) ||
-		!("Avg" in sectionJson) ||
-		!("Subject" in sectionJson) ||
-		!("Fail" in sectionJson) ||
-		!("Course" in sectionJson) ||
-		!("Professor" in sectionJson) ||
-		!("Pass" in sectionJson) ||
-		!("Title" in sectionJson) ||
 		!("id" in sectionJson) ||
+		!("Course" in sectionJson) ||
+		!("Title" in sectionJson) ||
+		!("Professor" in sectionJson) ||
+		!("Subject" in sectionJson) ||
+		!("Year" in sectionJson) ||
+		!("Avg" in sectionJson) ||
+		!("Pass" in sectionJson) ||
+		!("Fail" in sectionJson) ||
+		!("Audit" in sectionJson) ||
 		!("Section" in sectionJson)
 	) {
 		return false;
