@@ -34,6 +34,9 @@ export class QueryValidator {
 		if (optionKeys.includes("ORDER") && !query["OPTIONS"]["COLUMNS"].includes(query["OPTIONS"]["ORDER"])) {
 			throw new Error("ORDER key must be in COLUMNS");
 		}
+		if (!optionKeys.includes("ORDER") && optionKeys.length > 1) {
+			throw new Error("invalid key in OPTIONS");
+		}
 
 	}
 
