@@ -1,0 +1,39 @@
+{
+	"title": "passUUID",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"sections_uuid": "17255"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg",
+				"sections_instructor",
+				"sections_title",
+				"sections_fail",
+				"sections_pass",
+				"sections_audit",
+				"sections_uuid",
+				"sections_year"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "adhe",
+			"sections_id": "327",
+			"sections_avg": 86.65,
+			"sections_instructor": "smulders, dave",
+			"sections_title": "teach adult",
+			"sections_fail": 0,
+			"sections_pass": 23,
+			"sections_audit": 0,
+			"sections_uuid": "17255",
+			"sections_year": 2010
+		}
+	]
+}

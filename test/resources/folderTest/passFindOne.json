@@ -1,0 +1,48 @@
+{
+	"title": "passFindOne",
+	"input": {
+		"WHERE": {
+			"AND": [
+				{
+					"IS": {
+						"sections_id": "100"
+					}
+				},
+				{
+					"EQ": {
+						"sections_avg": 82.08
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg",
+				"sections_instructor",
+				"sections_title",
+				"sections_fail",
+				"sections_pass",
+				"sections_audit",
+				"sections_uuid",
+				"sections_year"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "apsc",
+			"sections_id": "100",
+			"sections_avg": 82.08,
+			"sections_instructor": "ellis, naoko;fernlund, goran;jaeger, carol patricia;nakane, jonathan;nazhat, yahya;nesbit, susan;ostafichuk, peter;yadav, vikramaditya;yan, joseph",
+			"sections_title": "intro to eng i",
+			"sections_fail": 1,
+			"sections_pass": 190,
+			"sections_audit": 0,
+			"sections_uuid": "4205",
+			"sections_year": 2015
+		}
+	]
+}

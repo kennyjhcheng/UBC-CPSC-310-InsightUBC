@@ -1,0 +1,20 @@
+{
+	"title": "passMKeyImpossible",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"sections_id": "1000"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg",
+				"sections_instructor"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": []
+}

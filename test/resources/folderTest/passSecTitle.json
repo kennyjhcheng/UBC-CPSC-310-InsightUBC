@@ -1,0 +1,118 @@
+{
+	"title": "passSecTitle",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"sections_title": "intr quantm mech"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg",
+				"sections_title"
+			],
+			"ORDER": "sections_avg"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 55.31,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 55.31,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 65.75,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 65.75,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 66.97,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 66.97,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 71.31,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 71.31,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 72.61,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 72.61,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 73.08,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 73.08,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 75.33,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 75.33,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 75.75,
+			"sections_title": "intr quantm mech"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 75.75,
+			"sections_title": "intr quantm mech"
+		}
+	]
+}

@@ -1,0 +1,23 @@
+{
+	"title": "failISbadmkey",
+	"input": {
+		"WHERE": {
+			"NOT": {
+				"IS": {
+					"sections_avg": 20
+				}
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_instructor",
+				"sections_title",
+				"sections_avg"
+			],
+			"ORDER": "sections_avg"
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

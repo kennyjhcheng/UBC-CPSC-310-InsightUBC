@@ -1,0 +1,94 @@
+{
+	"title": "passInstructor",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"sections_instructor": "wang, yan"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg",
+				"sections_instructor"
+			],
+			"ORDER": "sections_avg"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 55.31,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "154",
+			"sections_avg": 62.28,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "154",
+			"sections_avg": 65.18,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "205",
+			"sections_avg": 66.03,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "205",
+			"sections_avg": 68.98,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "205",
+			"sections_avg": 72.5,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "205",
+			"sections_avg": 73.34,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "205",
+			"sections_avg": 73.54,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "205",
+			"sections_avg": 74.17,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "205",
+			"sections_avg": 77.9,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "205",
+			"sections_avg": 78.06,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "205",
+			"sections_avg": 79.6,
+			"sections_instructor": "wang, yan"
+		}
+	]
+}

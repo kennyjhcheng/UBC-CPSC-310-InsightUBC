@@ -1,0 +1,87 @@
+{
+	"title": "passSecFailEQ",
+	"input": {
+		"WHERE": {
+			"EQ": {
+				"sections_fail": 100
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg",
+				"sections_instructor",
+				"sections_title",
+				"sections_fail",
+				"sections_pass",
+				"sections_audit",
+				"sections_uuid",
+				"sections_year"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "comm",
+			"sections_id": "290",
+			"sections_avg": 72.25,
+			"sections_instructor": "",
+			"sections_title": "int quan dec mak",
+			"sections_fail": 100,
+			"sections_pass": 1288,
+			"sections_audit": 1,
+			"sections_uuid": "81443",
+			"sections_year": 1900
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "103",
+			"sections_avg": 68.86,
+			"sections_instructor": "",
+			"sections_title": "int calc ap lf s",
+			"sections_fail": 100,
+			"sections_pass": 739,
+			"sections_audit": 1,
+			"sections_uuid": "89990",
+			"sections_year": 1900
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "152",
+			"sections_avg": 66.83,
+			"sections_instructor": "",
+			"sections_title": "linear systems",
+			"sections_fail": 100,
+			"sections_pass": 596,
+			"sections_audit": 0,
+			"sections_uuid": "34013",
+			"sections_year": 1900
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "200",
+			"sections_avg": 66.48,
+			"sections_instructor": "",
+			"sections_title": "calculus 3",
+			"sections_fail": 100,
+			"sections_pass": 818,
+			"sections_audit": 0,
+			"sections_uuid": "34036",
+			"sections_year": 1900
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "200",
+			"sections_avg": 68.16,
+			"sections_instructor": "",
+			"sections_title": "calculus 3",
+			"sections_fail": 100,
+			"sections_pass": 754,
+			"sections_audit": 1,
+			"sections_uuid": "72980",
+			"sections_year": 1900
+		}
+	]
+}

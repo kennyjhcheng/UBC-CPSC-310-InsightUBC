@@ -1,0 +1,30 @@
+{
+	"title": "failTYPOCOL",
+	"input": {
+		"WHERE": {
+			"AND": [
+				{
+					"LT": {
+						"sections_fail": 10
+					}
+				},
+				{
+					"GT": {
+						"sections_pass": 200
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"columns": [
+				"sections_dept",
+				"sections_instructor",
+				"sections_title",
+				"sections_avg"
+			],
+			"ORDER": "sections_avg"
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

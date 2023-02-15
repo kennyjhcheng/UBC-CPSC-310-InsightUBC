@@ -1,0 +1,131 @@
+{
+	"title": "passNOTdouble",
+	"input": {
+		"WHERE": {
+			"AND": [
+				{
+					"NOT": {
+						"NOT": {
+							"EQ": {
+								"sections_fail": 1
+							}
+						}
+					}
+				},
+				{
+					"IS": {
+						"sections_id": "313"
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg",
+				"sections_instructor"
+			],
+			"ORDER": "sections_avg"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 67.19,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 67.19,
+			"sections_instructor": "levy, alon"
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 70.93,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 70.93,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 73,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 73.04,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 73.25,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 73.91,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 74.12,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 74.12,
+			"sections_instructor": "byrne, jeffrey"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 74.41,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 74.61,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 75.15,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 75.15,
+			"sections_instructor": "feeley, michael"
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 76.71,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 76.71,
+			"sections_instructor": ""
+		}
+	]
+}

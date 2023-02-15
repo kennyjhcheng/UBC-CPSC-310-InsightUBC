@@ -1,0 +1,2479 @@
+{
+	"title": "passORdouble",
+	"input": {
+		"WHERE": {
+			"OR": [
+				{
+					"IS": {
+						"sections_id": "312"
+					}
+				},
+				{
+					"IS": {
+						"sections_id": "313"
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg",
+				"sections_instructor"
+			],
+			"ORDER": "sections_avg"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 55.31,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 55.31,
+			"sections_instructor": "wang, yan"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 58.24,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 58.24,
+			"sections_instructor": "vatsal, vinayak"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 61.94,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 61.94,
+			"sections_instructor": "vatsal, vinayak"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 62.58,
+			"sections_instructor": "ponzetti, james joseph"
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 63.49,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 63.49,
+			"sections_instructor": "bablitz, leanne"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 64.4,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 64.4,
+			"sections_instructor": "bennett, michael"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 65,
+			"sections_instructor": "ponzetti, james joseph"
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 65.65,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 65.65,
+			"sections_instructor": "berciu, mona"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 65.75,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 65.75,
+			"sections_instructor": "burnell, e elliott"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 65.81,
+			"sections_instructor": "ponzetti, james joseph"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 66.25,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 66.94,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 66.94,
+			"sections_instructor": "bennett, michael"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 66.97,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 66.97,
+			"sections_instructor": "burnell, e elliott"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 67.03,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 67.03,
+			"sections_instructor": "barroso de freitas, nuno"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 67.19,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 67.19,
+			"sections_instructor": "levy, alon"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 67.33,
+			"sections_instructor": "ponzetti, james joseph"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 67.4,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 67.75,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 67.75,
+			"sections_instructor": "silberman, lior"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.23,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.23,
+			"sections_instructor": "jia, johnson"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 68.23,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.25,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.25,
+			"sections_instructor": "levy, alon"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 68.27,
+			"sections_instructor": "marshall, sheila"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 68.37,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 68.63,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.68,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.68,
+			"sections_instructor": "reichstein, zinovy"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.8,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.8,
+			"sections_instructor": "reichstein, zinovy"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 68.89,
+			"sections_instructor": "wainer, rafael"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.92,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 68.92,
+			"sections_instructor": "bennett, michael"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 68.97,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 68.97,
+			"sections_instructor": "sherman, john"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 69,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 69,
+			"sections_instructor": "sherman, john"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 69.12,
+			"sections_instructor": "ponzetti, james joseph"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 69.33,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "ling",
+			"sections_id": "313",
+			"sections_avg": 69.45,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "ling",
+			"sections_id": "313",
+			"sections_avg": 69.45,
+			"sections_instructor": "babel, molly"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 69.45,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 69.45,
+			"sections_instructor": "sherman, john"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 69.57,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 69.66,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 69.66,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 69.82,
+			"sections_instructor": "ponzetti, james joseph"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 70,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 70,
+			"sections_instructor": "ramdorai, sujatha"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 70.08,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 70.08,
+			"sections_instructor": "peskin, laura"
+		},
+		{
+			"sections_dept": "ling",
+			"sections_id": "313",
+			"sections_avg": 70.09,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "ling",
+			"sections_id": "313",
+			"sections_avg": 70.09,
+			"sections_instructor": "babel, molly"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 70.12,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 70.21,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 70.21,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 70.35,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 70.35,
+			"sections_instructor": "donner, simon"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 70.46,
+			"sections_instructor": "warfield, andrew"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 70.5,
+			"sections_instructor": "acton, donald"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 70.66,
+			"sections_instructor": "acton, donald"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 70.76,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 70.81,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 70.81,
+			"sections_instructor": "berciu, mona"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 70.92,
+			"sections_instructor": "belleville, patrice"
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 70.93,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 70.93,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 71.05,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 71.05,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 71.12,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 71.12,
+			"sections_instructor": "sherman, john"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 71.24,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 71.25,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 71.25,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 71.31,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 71.31,
+			"sections_instructor": "burnell, e elliott"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 71.34,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 71.44,
+			"sections_instructor": "wolfman, steven"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 71.59,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 71.59,
+			"sections_instructor": "acton, donald"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 71.62,
+			"sections_instructor": "belleville, patrice"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 71.72,
+			"sections_instructor": "acton, donald"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 71.75,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 71.83,
+			"sections_instructor": "ponzetti, james joseph"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 71.92,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 71.92,
+			"sections_instructor": "liu, keqin"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 71.92,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 71.94,
+			"sections_instructor": "belleville, patrice"
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 71.95,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 71.95,
+			"sections_instructor": "stewart, ian"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 72.14,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 72.19,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 72.19,
+			"sections_instructor": "donner, simon"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 72.21,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 72.23,
+			"sections_instructor": "acton, donald"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 72.26,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 72.31,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 72.31,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 72.38,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 72.38,
+			"sections_instructor": "berciu, mona"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 72.43,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 72.43,
+			"sections_instructor": "sherman, john"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 72.44,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 72.61,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 72.61,
+			"sections_instructor": "krems, roman"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 72.75,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "ling",
+			"sections_id": "313",
+			"sections_avg": 72.76,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "ling",
+			"sections_id": "313",
+			"sections_avg": 72.76,
+			"sections_instructor": "babel, molly"
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 72.82,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 72.82,
+			"sections_instructor": "bloch, alexia"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 72.86,
+			"sections_instructor": "feeley, michael"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 72.92,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 72.92,
+			"sections_instructor": "wainer, rafael"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 73,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 73.04,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 73.08,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 73.08,
+			"sections_instructor": "krems, roman"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 73.09,
+			"sections_instructor": "belleville, patrice"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 73.16,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 73.16,
+			"sections_instructor": "liu, keqin"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 73.18,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 73.25,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 73.25,
+			"sections_instructor": "bablitz, leanne"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 73.25,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 73.46,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 73.46,
+			"sections_instructor": "macarthur, julie"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 73.51,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 73.51,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 73.52,
+			"sections_instructor": "ponzetti, james joseph"
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 73.58,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 73.58,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 73.62,
+			"sections_instructor": "belleville, patrice"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 73.72,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 73.77,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 73.77,
+			"sections_instructor": "ramdorai, sujatha"
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 73.8,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 73.8,
+			"sections_instructor": "donner, simon"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 73.83,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 73.83,
+			"sections_instructor": "belleville, patrice"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 73.91,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 74.12,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 74.12,
+			"sections_instructor": "byrne, jeffrey"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 74.13,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 74.18,
+			"sections_instructor": "wainer, rafael"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 74.26,
+			"sections_instructor": "feeley, michael"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 74.41,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 74.45,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 74.45,
+			"sections_instructor": "van waerbeke, ludovic"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 74.48,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 74.56,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 74.56,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 74.61,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 74.62,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 74.62,
+			"sections_instructor": "sherman, john"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 74.7,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 74.7,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 74.7,
+			"sections_instructor": "thobani, sitara"
+		},
+		{
+			"sections_dept": "ling",
+			"sections_id": "313",
+			"sections_avg": 74.72,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "ling",
+			"sections_id": "313",
+			"sections_avg": 74.72,
+			"sections_instructor": "schellenberg, murray"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 74.76,
+			"sections_instructor": "bartolic, silvia"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 74.88,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 74.91,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 74.91,
+			"sections_instructor": "van waerbeke, ludovic"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 74.92,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "arth",
+			"sections_id": "312",
+			"sections_avg": 75,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "arth",
+			"sections_id": "312",
+			"sections_avg": 75,
+			"sections_instructor": "knicely guilbaut, carol"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 75.02,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 75.15,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 75.15,
+			"sections_instructor": "feeley, michael"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 75.19,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 75.19,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 75.19,
+			"sections_instructor": "rajamahendran, rajadurai"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 75.23,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 75.3,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 75.33,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 75.33,
+			"sections_instructor": "mostow, joshua scott"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 75.33,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 75.33,
+			"sections_instructor": "krems, roman"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 75.35,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 75.37,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 75.37,
+			"sections_instructor": "donner, simon"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 75.4,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 75.55,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 75.55,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 75.57,
+			"sections_instructor": "tsiknis, georgios"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 75.57,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 75.69,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 75.7,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 75.75,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "312",
+			"sections_avg": 75.75,
+			"sections_instructor": "krems, roman"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 75.78,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "312",
+			"sections_avg": 75.78,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 75.79,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 75.96,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "chem",
+			"sections_id": "313",
+			"sections_avg": 75.96,
+			"sections_instructor": "sherman, john"
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 76.03,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 76.03,
+			"sections_instructor": "bloch, alexia"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 76.09,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 76.11,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 76.12,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 76.16,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 76.16,
+			"sections_instructor": "donner, simon"
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 76.2,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 76.2,
+			"sections_instructor": "morton, david"
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 76.23,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 76.23,
+			"sections_instructor": "gorrie, charmaine"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 76.52,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 76.52,
+			"sections_instructor": "poole, david"
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 76.62,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 76.62,
+			"sections_instructor": "bloch, alexia"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 76.63,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 76.63,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 76.71,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 76.71,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 76.77,
+			"sections_instructor": "tsiknis, georgios"
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 76.78,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 76.78,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 76.79,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 76.79,
+			"sections_instructor": "van waerbeke, ludovic"
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 76.82,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 76.82,
+			"sections_instructor": "rajamahendran, rajadurai"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 76.84,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 76.84,
+			"sections_instructor": "voll, kimberly"
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 76.9,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 76.9,
+			"sections_instructor": "rajamahendran, rajadurai"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 76.93,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "313",
+			"sections_avg": 76.93,
+			"sections_instructor": "vatsal, vinayak"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 76.93,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 76.93,
+			"sections_instructor": "sagaii, sara mahboubeh"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 77.13,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 77.17,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "anth",
+			"sections_id": "312",
+			"sections_avg": 77.17,
+			"sections_instructor": "bloch, alexia"
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 77.21,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 77.21,
+			"sections_instructor": "donner, simon"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 77.29,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 77.29,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "chin",
+			"sections_id": "313",
+			"sections_avg": 77.3,
+			"sections_instructor": "zheng, zhining"
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 77.38,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 77.38,
+			"sections_instructor": "burk, stefania"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 77.51,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 77.58,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 77.58,
+			"sections_instructor": "mcelduff, siobhan"
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 77.66,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 77.66,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 77.69,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "313",
+			"sections_avg": 77.69,
+			"sections_instructor": "lovejoy, henry"
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 77.79,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "clst",
+			"sections_id": "312",
+			"sections_avg": 77.79,
+			"sections_instructor": "funke, melissa"
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 77.88,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 77.88,
+			"sections_instructor": "curzon, francis l"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 78.05,
+			"sections_instructor": "lester-smith, donna"
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 78.07,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 78.07,
+			"sections_instructor": "donner, simon"
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 78.09,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "geog",
+			"sections_id": "312",
+			"sections_avg": 78.09,
+			"sections_instructor": "donner, simon"
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 78.33,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 78.33,
+			"sections_instructor": "cerri, ronaldo"
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 78.41,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 78.41,
+			"sections_instructor": "gassner, florian"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 78.58,
+			"sections_instructor": "weatherby, maria"
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 78.64,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 78.64,
+			"sections_instructor": "burk, stefania"
+		},
+		{
+			"sections_dept": "fmst",
+			"sections_id": "312",
+			"sections_avg": 78.67,
+			"sections_instructor": "ponzetti, james joseph"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 78.72,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 78.72,
+			"sections_instructor": "eiselt, kurt"
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 78.75,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 78.75,
+			"sections_instructor": "lushchenko, alexey"
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 78.88,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 78.88,
+			"sections_instructor": "burk, stefania"
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 79.05,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 79.05,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 79.09,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 79.09,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 79.21,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 79.21,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 79.61,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 79.61,
+			"sections_instructor": "rajamahendran, rajadurai"
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 79.64,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fnh",
+			"sections_id": "313",
+			"sections_avg": 79.64,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 79.76,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 79.76,
+			"sections_instructor": "feeley, michael"
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 80.07,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 80.07,
+			"sections_instructor": "rajamahendran, rajadurai"
+		},
+		{
+			"sections_dept": "cpen",
+			"sections_id": "312",
+			"sections_avg": 80.1,
+			"sections_instructor": "calvino-fraga, jesus"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 80.16,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 80.16,
+			"sections_instructor": "pullan, bruce"
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 80.22,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "apbi",
+			"sections_id": "312",
+			"sections_avg": 80.22,
+			"sections_instructor": "rajamahendran, rajadurai"
+		},
+		{
+			"sections_dept": "relg",
+			"sections_id": "312",
+			"sections_avg": 80.36,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "relg",
+			"sections_id": "312",
+			"sections_avg": 80.36,
+			"sections_instructor": "menkis, richard"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 80.52,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 80.52,
+			"sections_instructor": "eiselt, kurt"
+		},
+		{
+			"sections_dept": "cpen",
+			"sections_id": "312",
+			"sections_avg": 80.97,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 81,
+			"sections_instructor": "van deursen, john"
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 81.1,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "phys",
+			"sections_id": "312",
+			"sections_avg": 81.1,
+			"sections_instructor": "rostamzadeh renani, fatemeh"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 81.19,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 81.19,
+			"sections_instructor": "langager, graeme"
+		},
+		{
+			"sections_dept": "cpen",
+			"sections_id": "312",
+			"sections_avg": 81.44,
+			"sections_instructor": "calvino-fraga, jesus"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 81.51,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 81.58,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "japn",
+			"sections_id": "312",
+			"sections_avg": 81.58,
+			"sections_instructor": "mostow, joshua scott"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 81.84,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 81.84,
+			"sections_instructor": "eiselt, kurt"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 81.9,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 81.9,
+			"sections_instructor": "eiselt, kurt"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 82.05,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 82.05,
+			"sections_instructor": "hua, szu-jan;langager, graeme"
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 82.2,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 82.2,
+			"sections_instructor": "gassner, florian"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 82.27,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "313",
+			"sections_avg": 82.27,
+			"sections_instructor": "feeley, michael"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 82.94,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 82.94,
+			"sections_instructor": "langager, graeme"
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 82.96,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 82.96,
+			"sections_instructor": "rieger, caroline"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 83,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 83,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 83.13,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 83.13,
+			"sections_instructor": "langager, graeme"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 83.23,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 83.23,
+			"sections_instructor": "girard, jonathan;taylor, robert"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 83.24,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 83.24,
+			"sections_instructor": "girard, jonathan;taylor, robert"
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 83.35,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 83.35,
+			"sections_instructor": "lieblang, jason"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 83.46,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 84,
+			"sections_instructor": "bennett, dwight"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 84.02,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 84.02,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 84.27,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 84.27,
+			"sections_instructor": "langager, graeme"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 84.27,
+			"sections_instructor": "van deursen, john"
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 84.41,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 84.41,
+			"sections_instructor": "rieger, caroline"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 84.46,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 84.46,
+			"sections_instructor": "langager, graeme"
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 84.63,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 84.63,
+			"sections_instructor": "pailer, gaby"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 84.66,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 84.66,
+			"sections_instructor": "eiselt, kurt"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 84.67,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 85.13,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 85.13,
+			"sections_instructor": "girard, jonathan"
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 85.13,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "cpsc",
+			"sections_id": "312",
+			"sections_avg": 85.13,
+			"sections_instructor": "eiselt, kurt"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 85.33,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 85.45,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "313",
+			"sections_avg": 85.45,
+			"sections_instructor": "langager, graeme"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 85.61,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 85.71,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 85.71,
+			"sections_instructor": "taylor, robert"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 85.71,
+			"sections_instructor": "van deursen, john"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 86.23,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 86.23,
+			"sections_instructor": "fell, jessica"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 86.31,
+			"sections_instructor": "taylor, robert"
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 86.32,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 86.32,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 86.72,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 86.72,
+			"sections_instructor": "bennett, dwight;taylor, robert"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 86.79,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 86.79,
+			"sections_instructor": "jamieson, janet ruth"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 87.25,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 87.25,
+			"sections_instructor": "jamieson, janet ruth"
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 87.36,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "musc",
+			"sections_id": "312",
+			"sections_avg": 87.36,
+			"sections_instructor": "girard, jonathan;taylor, robert"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 88.42,
+			"sections_instructor": "jordan, elizabeth"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 88.87,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 88.92,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 88.92,
+			"sections_instructor": "jordan, elizabeth"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 89.16,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 89.16,
+			"sections_instructor": "romero, amber"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 89.35,
+			"sections_instructor": "gaster, sean"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 89.42,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 89.42,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 89.58,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 89.58,
+			"sections_instructor": "curle, deirdre;jamieson, janet ruth"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 89.59,
+			"sections_instructor": "jordan, elizabeth"
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 90,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "germ",
+			"sections_id": "313",
+			"sections_avg": 90,
+			"sections_instructor": "lieblang, jason"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 90.69,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 91.18,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 91.18,
+			"sections_instructor": "yorke, erin"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 91.67,
+			"sections_instructor": "jamieson, janet ruth"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 92.17,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 92.17,
+			"sections_instructor": "romero, amber"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 93.54,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 93.54,
+			"sections_instructor": "stockman, james"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 94.91,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 94.91,
+			"sections_instructor": "stockman, james"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 95.15,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 95.15,
+			"sections_instructor": "romero, amber"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 96.03,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 96.03,
+			"sections_instructor": "stockman, james"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 96.9,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "312",
+			"sections_avg": 96.9,
+			"sections_instructor": "gaster, sean"
+		}
+	]
+}

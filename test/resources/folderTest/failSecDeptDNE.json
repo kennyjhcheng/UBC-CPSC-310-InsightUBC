@@ -1,0 +1,23 @@
+{
+	"title": "failSecDeptDNE",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"sections_dept": "blahblah"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_instructor",
+				"sections_title",
+				"sections_avg",
+				"sections_id",
+				"sections_title"
+			],
+			"ORDER": "sections_avg"
+		}
+	},
+	"errorExpected": false,
+	"expected": []
+}

@@ -1,0 +1,63 @@
+{
+	"title": "passLT",
+	"input": {
+		"WHERE": {
+			"LT": {
+				"sections_avg": 30
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg",
+				"sections_instructor"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "busi",
+			"sections_id": "330",
+			"sections_avg": 4,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "busi",
+			"sections_id": "330",
+			"sections_avg": 4,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "fopr",
+			"sections_id": "362",
+			"sections_avg": 4.5,
+			"sections_instructor": "bendickson, dennis"
+		},
+		{
+			"sections_dept": "frst",
+			"sections_id": "202",
+			"sections_avg": 0,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "lfs",
+			"sections_id": "100",
+			"sections_avg": 0,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "lfs",
+			"sections_id": "100",
+			"sections_avg": 0,
+			"sections_instructor": ""
+		},
+		{
+			"sections_dept": "wood",
+			"sections_id": "475",
+			"sections_avg": 1,
+			"sections_instructor": ""
+		}
+	]
+}

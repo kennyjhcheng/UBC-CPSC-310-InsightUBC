@@ -1,0 +1,110 @@
+{
+	"title": "PassWILDCARDANDSecDeptwith",
+	"input": {
+		"WHERE": {
+			"AND": [
+				{
+					"LT": {
+						"sections_avg": 50
+					}
+				},
+				{
+					"GT": {
+						"sections_avg": 9
+					}
+				},
+				{
+					"IS": {
+						"sections_dept": "*i*"
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_avg"
+			],
+			"ORDER": "sections_avg"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "civl",
+			"sections_id": "403",
+			"sections_avg": 33
+		},
+		{
+			"sections_dept": "phil",
+			"sections_id": "120",
+			"sections_avg": 33.2
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "102",
+			"sections_avg": 34
+		},
+		{
+			"sections_dept": "busi",
+			"sections_id": "398",
+			"sections_avg": 42.64
+		},
+		{
+			"sections_dept": "busi",
+			"sections_id": "398",
+			"sections_avg": 42.64
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "102",
+			"sections_avg": 46.33
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "102",
+			"sections_avg": 46.33
+		},
+		{
+			"sections_dept": "busi",
+			"sections_id": "444",
+			"sections_avg": 46.5
+		},
+		{
+			"sections_dept": "busi",
+			"sections_id": "460",
+			"sections_avg": 46.95
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "102",
+			"sections_avg": 47.13
+		},
+		{
+			"sections_dept": "hist",
+			"sections_id": "102",
+			"sections_avg": 49.15
+		},
+		{
+			"sections_dept": "busi",
+			"sections_id": "398",
+			"sections_avg": 49.17
+		},
+		{
+			"sections_dept": "civl",
+			"sections_id": "406",
+			"sections_avg": 49.25
+		},
+		{
+			"sections_dept": "busi",
+			"sections_id": "344",
+			"sections_avg": 49.47
+		},
+		{
+			"sections_dept": "busi",
+			"sections_id": "344",
+			"sections_avg": 49.47
+		}
+	]
+}
