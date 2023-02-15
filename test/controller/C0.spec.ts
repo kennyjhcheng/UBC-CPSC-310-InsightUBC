@@ -316,6 +316,33 @@ describe("InsightFacade", function()  {
 				}
 			});
 
+			it("fail wildcard RESULTTOOMANY error", async () => {
+				let query = {
+					WHERE: {
+						IS: {
+							sections_uuid: "*"
+						}
+					},
+					OPTIONS: {
+						COLUMNS: [
+							"sections_dept",
+							"sections_instructor",
+							"sections_title",
+							"sections_avg",
+							"sections_id",
+							"sections_title"
+						],
+						ORDER: "sections_avg"
+					}
+				};
+				try {
+					await insightFacade.performQuery(query);
+					expect.fail("should not continue");
+				} catch (e) {
+					expect(e).to.be.an.instanceOf(ResultTooLargeError);
+				}
+			});
+
 
 		});
 
