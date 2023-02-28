@@ -44,6 +44,7 @@ export default class InsightFacade implements IInsightFacade {
 			);
 		}
 	}
+
 	private async initializeDatasets() {
 		let numDatasets: number = 0;
 		try {
