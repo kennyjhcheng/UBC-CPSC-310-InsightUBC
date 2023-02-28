@@ -12,18 +12,20 @@ import chai, {expect} from "chai";
 import chaiAsPromised from "chai-as-promised";
 import {folderTest} from "@ubccpsc310/folder-test";
 import {before} from "mocha";
-import exp from "constants";
+
 
 chai.use(chaiAsPromised);
 describe("InsightFacade", function () {
 	let sections: string;
 	let smallSet: string;
+	let smallSetNoRank: string;
 
 	let facade: InsightFacade;
 
 	before(function () {
 		sections = getContentFromArchives("pair.zip");
 		smallSet = getContentFromArchives("smalldataset.zip");
+		smallSetNoRank = getContentFromArchives("smalldatanorank.zip");
 	});
 
 	describe("addDataset", function () {
@@ -62,6 +64,10 @@ describe("InsightFacade", function () {
 		});
 		it("adding a single dataset successfully", async function () {
 			const result: string[] = await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
+			expect(result).to.deep.equal(["data"]);
+		});
+		it("adding a single dataset without rank successfully", async function () {
+			const result: string[] = await facade.addDataset("data", smallSetNoRank, InsightDatasetKind.Sections);
 			expect(result).to.deep.equal(["data"]);
 		});
 		it("adding a two datasets with different ids successfully", async function () {

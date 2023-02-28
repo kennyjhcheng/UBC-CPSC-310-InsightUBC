@@ -175,7 +175,7 @@ export default class InsightFacade implements IInsightFacade {
 				let emptyFiles = 0;
 				for (const course of values) {
 					const parsedCourse = JSON.parse(course);
-					if (parsedCourse.result === undefined || parsedCourse.rank === undefined) {
+					if (parsedCourse.result === undefined) {
 						return Promise.reject(new InsightError("invalid json file"));
 					}
 					if (parsedCourse.result.length === 0) {
