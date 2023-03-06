@@ -1,5 +1,5 @@
 import {FILTER} from "./IQueryValidator";
-import {ISection} from "./ISection";
+import {ISection} from "./Datasets/ISection";
 import {InsightResult} from "./IInsightFacade";
 
 
