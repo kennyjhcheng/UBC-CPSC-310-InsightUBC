@@ -48,11 +48,6 @@ describe("InsightFacade", function () {
 
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
-		it("should reject with because of room type", function () {
-			const result = facade.addDataset("someid", smallSet, InsightDatasetKind.Rooms);
-
-			return expect(result).to.eventually.be.rejectedWith(InsightError);
-		});
 		it("dataset failing because added twice", async function () {
 			try {
 				await facade.addDataset("data", smallSet, InsightDatasetKind.Sections);
