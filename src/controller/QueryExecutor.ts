@@ -16,8 +16,6 @@ export class QueryExecutor {
      * Executes that query
      * @param query
      */
-
-
 	public executeQuery(query: any): InsightResult[] {
 		let unorderedResult = this.executeCOLUMNS(query["OPTIONS"]["COLUMNS"], this.executeWHERE(query["WHERE"]));
 		if (query["OPTIONS"]["ORDER"]) {
