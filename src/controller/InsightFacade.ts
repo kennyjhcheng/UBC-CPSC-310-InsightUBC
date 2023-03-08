@@ -15,6 +15,7 @@ import {QueryExecutor} from "./QueryExecutor";
 import {arraysEqual} from "./utils";
 import Section from "./Datasets/Section";
 import Room from "./Datasets/Room";
+import {IDataset} from "./Datasets/IDataset";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -22,12 +23,12 @@ import Room from "./Datasets/Room";
  *
  */
 export default class InsightFacade implements IInsightFacade {
-	private datasets: Map<string, ISection[]>;
+	private datasets: Map<string, IDataset>;
 	private dataLoaded: boolean;
 
 	constructor() {
 		console.log("InsightFacadeImpl::init()");
-		this.datasets = new Map<string, ISection[]>();
+		this.datasets = new Map<string, IDataset>();
 		this.dataLoaded = false;
 	}
 
@@ -218,7 +219,7 @@ export default class InsightFacade implements IInsightFacade {
 				}
 
 				let id: string = queryValidator.datasetId;
-				const queryExecutor: QueryExecutor = new QueryExecutor(this.datasets.get(id) as ISection[]);
+				const queryExecutor: QueryExecutor = new QueryExecutor(this.datasets.get(id) as IDataset);
 				result = queryExecutor.executeQuery(query);
 				if(result?.length > 5000){
 					return Promise.reject(new ResultTooLargeError());
@@ -236,7 +237,6 @@ export default class InsightFacade implements IInsightFacade {
 			});
 	}
 
-	// TODO: I think we need to store the "data kind" in our map and refactor next line for next checkpoints
 	public listDatasets(): Promise<InsightDataset[]> {
 		return this.checkDataLoaded()
 			.then(() => {
@@ -244,8 +244,8 @@ export default class InsightFacade implements IInsightFacade {
 				for (const [key, value] of this.datasets) {
 					const result = {} as InsightDataset;
 					result.id = key;
-					result.kind = InsightDatasetKind.Sections;
-					result.numRows = value.length;
+					result.kind = value.kind ;
+					result.numRows = value.data.length;
 					results.push(result);
 				}
 				return Promise.resolve(results);

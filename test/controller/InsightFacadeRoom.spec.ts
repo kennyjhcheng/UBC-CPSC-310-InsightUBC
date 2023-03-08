@@ -125,7 +125,7 @@ describe("InsightFacade Room", function () {
 				{
 					id: "data",
 					kind: InsightDatasetKind.Rooms,
-					numRows: 76,
+					numRows: 364,
 				},
 			]);
 		});
@@ -136,9 +136,9 @@ describe("InsightFacade Room", function () {
 			const datasets = await facade.listDatasets();
 			expect(datasets).to.deep.members([
 				{
-					id: "rooms",
+					id: "room",
 					kind: InsightDatasetKind.Rooms,
-					numRows: 76,
+					numRows: 364,
 				},
 				{
 					id: "sections",

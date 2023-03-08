@@ -1,7 +1,7 @@
 import {ISection} from "./ISection";
 import Dataset from "./Dataset";
 import JSZip from "jszip";
-import {InsightError} from "../IInsightFacade";
+import {InsightDatasetKind, InsightError} from "../IInsightFacade";
 
 export function objectToSection(sectionObject: any): ISection {
 	const section = {} as ISection;
@@ -72,7 +72,7 @@ export default class Section extends Dataset {
 			if (sectionData.length === 0) {
 				return Promise.reject(new InsightError("Dataset.ts contains invalid section"));
 			}
-			this.datasets.set(id, sectionData);
+			this.datasets.set(id, {data: sectionData, kind: InsightDatasetKind.Sections});
 			return Promise.resolve(Array.from(this.datasets.keys()));
 		});
 	}

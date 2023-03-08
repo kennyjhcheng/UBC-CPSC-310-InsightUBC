@@ -1,8 +1,8 @@
 import Dataset from "./Dataset";
 import JSZip, {JSZipObject} from "jszip";
-import {InsightError} from "../IInsightFacade";
+import {InsightDatasetKind, InsightError} from "../IInsightFacade";
 import {parse} from "parse5";
-import {ChildNode, Document} from "parse5/dist/tree-adapters/default";
+import {Document} from "parse5/dist/tree-adapters/default";
 import {IRoom} from "./IRoom";
 import {IDataset} from "./IDataset";
 import {IGeoResponse} from "./IGeolocation";
@@ -50,7 +50,6 @@ export default class Room extends Dataset {
 					return Promise.reject(new InsightError("null room folders"));
 				}
 				return Promise.all(this.extractRooms(roomsFolder));
-				return Promise.resolve([]);
 			}).then((roomLists) => {
 				let rooms: IRoom[] = [];
 				for (let roomList of roomLists) {
@@ -58,7 +57,7 @@ export default class Room extends Dataset {
 						rooms.push(room);
 					}
 				}
-				this.datasets.set(id, rooms);
+				this.datasets.set(id, {data: rooms, kind: InsightDatasetKind.Rooms});
 				return Promise.resolve(Array.from(this.datasets.keys()));
 			}).catch((e) => {
 				return Promise.reject(new InsightError("Error converting index file to string: " + e));
@@ -74,7 +73,8 @@ export default class Room extends Dataset {
 					const building = this.buildings.get(relativePath.split(".")[0]);
 					for (let node of htmDoc.childNodes) {
 						if (node.nodeName === "html") {
-							return Promise.resolve(this.addRooms(node, building));
+							let rooms: IRoom[] = this.addRooms(node, building);
+							return Promise.resolve(rooms);
 						}
 					}
 					return Promise.reject(new InsightError("could not locate html element"));
@@ -115,7 +115,9 @@ export default class Room extends Dataset {
 				|| currNodeName === "table"
 				|| currNodeName === "section"
 				|| currNodeName === "div") {
-				this.addRooms(node, building);
+				this.addRooms(node, building).forEach((room: IRoom) => {
+					rooms.push((room));
+				});
 			}
 			if (currNodeName === "tbody") {
 				for (let tableNode of node.childNodes) {
@@ -128,7 +130,6 @@ export default class Room extends Dataset {
 				}
 			}
 		}
-
 		return rooms;
 	}
 
