@@ -45,7 +45,7 @@ describe("InsightFacade Room", function () {
 		});
 
 		it("InsightError - only underscores", function () {
-			const result = facade.addDataset("--", rooms, InsightDatasetKind.Rooms);
+			const result = facade.addDataset("__", rooms, InsightDatasetKind.Rooms);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 
@@ -105,6 +105,10 @@ describe("InsightFacade Room", function () {
 	});
 
 	describe("list room dataset", function () {
+		beforeEach(function () {
+			clearDisk();
+			facade = new InsightFacade();
+		});
 		it("list no datasets", async function () {
 			const datasets = await facade.listDatasets();
 
