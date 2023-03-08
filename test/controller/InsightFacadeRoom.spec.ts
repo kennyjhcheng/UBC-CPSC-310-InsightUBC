@@ -17,7 +17,7 @@ import * as fs from "fs-extra";
 
 chai.use(chaiAsPromised);
 
-describe("InsightFacade Room", function () {
+export default function roomTests() {
 	let facade: InsightFacade;
 	let rooms: string;
 	let sections: string;
@@ -144,4 +144,4 @@ describe("InsightFacade Room", function () {
 			]);
 		});
 	});
-});
+}
