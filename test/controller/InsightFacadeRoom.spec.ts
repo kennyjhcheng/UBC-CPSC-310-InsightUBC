@@ -45,7 +45,7 @@ export default function roomTests() {
 		});
 
 		it("InsightError - only underscores", function () {
-			const result = facade.addDataset("--", rooms, InsightDatasetKind.Rooms);
+			const result = facade.addDataset("__", rooms, InsightDatasetKind.Rooms);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 
@@ -105,6 +105,10 @@ export default function roomTests() {
 	});
 
 	describe("list room dataset", function () {
+		beforeEach(function () {
+			clearDisk();
+			facade = new InsightFacade();
+		});
 		it("list no datasets", async function () {
 			const datasets = await facade.listDatasets();
 
@@ -121,7 +125,7 @@ export default function roomTests() {
 				{
 					id: "data",
 					kind: InsightDatasetKind.Rooms,
-					numRows: 76,
+					numRows: 364,
 				},
 			]);
 		});
@@ -132,9 +136,9 @@ export default function roomTests() {
 			const datasets = await facade.listDatasets();
 			expect(datasets).to.deep.members([
 				{
-					id: "rooms",
+					id: "room",
 					kind: InsightDatasetKind.Rooms,
-					numRows: 76,
+					numRows: 364,
 				},
 				{
 					id: "sections",
