@@ -57,6 +57,9 @@ export default class Room extends Dataset {
 						rooms.push(room);
 					}
 				}
+				if(rooms.length === 0){
+					return Promise.reject(new InsightError("no valid rooms found"));
+				}
 				this.datasets.set(id, {data: rooms, kind: InsightDatasetKind.Rooms});
 				return Promise.resolve(Array.from(this.datasets.keys()));
 			}).catch((e) => {

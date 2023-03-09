@@ -21,10 +21,24 @@ export default function roomTests() {
 	let facade: InsightFacade;
 	let rooms: string;
 	let sections: string;
+	let roomsDifferentFolder: string;
+	let invalidRoot: string;
+	let rootNoTable: string;
+	let validBuildingNoRooms: string;
+	let buildingDoesntExist: string;
+	let invalidRoom: string;
+	let oneValidOneInvalid: string;
 
 	before(function () {
 		rooms = getContentFromArchives("rooms.zip");
+		roomsDifferentFolder = getContentFromArchives("differentfolder.zip");
 		sections = getContentFromArchives("smalldataset.zip");
+		invalidRoot = getContentFromArchives("invalidroot.zip");
+		rootNoTable = getContentFromArchives("notableroot.zip");
+		validBuildingNoRooms = getContentFromArchives("validbuildingnorooms.zip");
+		buildingDoesntExist = getContentFromArchives("buildingnotexist.zip");
+		invalidRoom = getContentFromArchives("invalidroom.zip");
+		oneValidOneInvalid = getContentFromArchives("onevalidoneinvalidroom.zip");
 	});
 
 	describe("Add Room dataset", function () {
@@ -39,8 +53,43 @@ export default function roomTests() {
 			expect(result).to.deep.equal(["data"]);
 		});
 
+		it("adds room in different folder (should pass)", async function () {
+			const result: string[] = await facade.addDataset("data", roomsDifferentFolder, InsightDatasetKind.Rooms);
+			expect(result).to.deep.equal(["data"]);
+		});
+
+		it("adds dataset, valid building, one invalid room,one valid room (should pass)", async function () {
+			const result: string[] = await facade.addDataset("data", oneValidOneInvalid, InsightDatasetKind.Rooms);
+			expect(result).to.deep.equal(["data"]);
+		});
+
 		it("InsightError - underscore", function () {
 			const result = facade.addDataset("under_score", rooms, InsightDatasetKind.Rooms);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+
+		it("root htm has no valid tables", function () {
+			const result = facade.addDataset("data", invalidRoot, InsightDatasetKind.Rooms);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+
+		it("root htm has no tables at all", function () {
+			const result = facade.addDataset("data", rootNoTable, InsightDatasetKind.Rooms);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+
+		it("valid building but has no rooms", function () {
+			const result = facade.addDataset("data", validBuildingNoRooms, InsightDatasetKind.Rooms);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+
+		it("building doesnt exist", function () {
+			const result = facade.addDataset("data", buildingDoesntExist, InsightDatasetKind.Rooms);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+
+		it("building is okay but room in invalid because incomplete", function () {
+			const result = facade.addDataset("data", invalidRoom, InsightDatasetKind.Rooms);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 
