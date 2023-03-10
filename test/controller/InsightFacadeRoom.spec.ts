@@ -59,8 +59,6 @@ export default function roomTests() {
 		it("adds dataset, valid building, one invalid room,one valid room (should pass)", async function () {
 			const result: string[] = await facade.addDataset("data", oneValidOneInvalid, InsightDatasetKind.Rooms);
 			expect(result).to.deep.equal(["data"]);
-			const x: InsightDataset[] = await facade.listDatasets();
-			console.log(x);
 		});
 
 		it("InsightError - underscore", function () {
