@@ -124,8 +124,8 @@ export default function roomTests() {
 		});
 	});
 
-	describe("persistence", () => {
-		it("persisted datasets added in new InsightFacade", async () => {
+	describe("persistence for rooms", () => {
+		it("persisted rooms datasets added in new InsightFacade", async () => {
 			clearDisk();
 			facade = new InsightFacade();
 			try {
