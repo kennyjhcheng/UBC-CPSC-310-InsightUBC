@@ -3,9 +3,7 @@ import {
 	IInsightFacade,
 	InsightDataset,
 	InsightDatasetKind,
-	InsightError,
-	NotFoundError,
-	ResultTooLargeError,
+	InsightError
 } from "../../src/controller/IInsightFacade";
 import {clearDisk, getContentFromArchives} from "../TestUtil";
 import chai, {expect} from "chai";
@@ -61,6 +59,8 @@ export default function roomTests() {
 		it("adds dataset, valid building, one invalid room,one valid room (should pass)", async function () {
 			const result: string[] = await facade.addDataset("data", oneValidOneInvalid, InsightDatasetKind.Rooms);
 			expect(result).to.deep.equal(["data"]);
+			const x: InsightDataset[] = await facade.listDatasets();
+			console.log(x);
 		});
 
 		it("InsightError - underscore", function () {
@@ -123,6 +123,28 @@ export default function roomTests() {
 			await facade.addDataset("data", rooms, InsightDatasetKind.Rooms);
 			const result2 = await facade.addDataset("DATA", rooms, InsightDatasetKind.Rooms);
 			expect(result2).to.have.deep.members(["data", "DATA"]);
+		});
+	});
+
+	describe("persistence", () => {
+		it("persisted datasets added in new InsightFacade", async () => {
+			clearDisk();
+			facade = new InsightFacade();
+			try {
+				await facade.addDataset("data", oneValidOneInvalid, InsightDatasetKind.Rooms);
+				const withPersistedData: IInsightFacade = new InsightFacade();
+				const datasets: InsightDataset[] = await withPersistedData.listDatasets();
+				expect(datasets).to.deep.equal([
+					{
+						id: "data",
+						kind: InsightDatasetKind.Rooms,
+						numRows: 1,
+					},
+				]);
+			} catch (e) {
+				console.log(e);
+				expect.fail("should not have thrown error");
+			}
 		});
 	});
 
