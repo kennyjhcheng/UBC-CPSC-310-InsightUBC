@@ -26,6 +26,8 @@ export default function roomTests() {
 	let buildingDoesntExist: string;
 	let invalidRoom: string;
 	let oneValidOneInvalid: string;
+	let multipleTables: string;
+	let invalidBuildingAddress: string;
 
 	before(function () {
 		rooms = getContentFromArchives("rooms.zip");
@@ -37,6 +39,8 @@ export default function roomTests() {
 		buildingDoesntExist = getContentFromArchives("buildingnotexist.zip");
 		invalidRoom = getContentFromArchives("invalidroom.zip");
 		oneValidOneInvalid = getContentFromArchives("onevalidoneinvalidroom.zip");
+		multipleTables = getContentFromArchives("multipleTables.zip");
+		invalidBuildingAddress = getContentFromArchives("invalidBuildingAddress.zip");
 	});
 
 	describe("Add Room dataset", function () {
@@ -79,6 +83,21 @@ export default function roomTests() {
 		it("valid building but has no rooms", function () {
 			const result = facade.addDataset("data", validBuildingNoRooms, InsightDatasetKind.Rooms);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+
+		it("building doesnt exist", function () {
+			const result = facade.addDataset("data", buildingDoesntExist, InsightDatasetKind.Rooms);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+
+		it("building address doesnt exist", function () {
+			const result = facade.addDataset("data", invalidBuildingAddress, InsightDatasetKind.Rooms);
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
+		});
+
+		it("building file has two tables, only one is valid", async function () {
+			const result = await facade.addDataset("data", multipleTables, InsightDatasetKind.Rooms);
+			expect(result).to.deep.equal(["data"]);
 		});
 
 		it("building doesnt exist", function () {
