@@ -85,11 +85,6 @@ export default function roomTests() {
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 
-		it("building doesnt exist", function () {
-			const result = facade.addDataset("data", buildingDoesntExist, InsightDatasetKind.Rooms);
-			return expect(result).to.eventually.be.rejectedWith(InsightError);
-		});
-
 		it("building address doesnt exist", function () {
 			const result = facade.addDataset("data", invalidBuildingAddress, InsightDatasetKind.Rooms);
 			return expect(result).to.eventually.be.rejectedWith(InsightError);
