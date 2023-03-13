@@ -14,11 +14,7 @@ import {folderTest} from "@ubccpsc310/folder-test";
 
 chai.use(chaiAsPromised);
 
-type FolderTestInput = unknown;
-type FolderTestOutput = Promise<InsightResult[]>;
-type FolderTestError = "ResultTooLargeError" | "InsightError";
-
-describe("InsightFacade", function()  {
+export default function SectionTestsKenny()  {
 	/** datasets **/
 	let pair: string;
 	let smallPair: string;
@@ -269,115 +265,4 @@ describe("InsightFacade", function()  {
 				}]);
 		});
 	});
-
-	describe("performQuery", () => {
-		before(async function() {
-			clearDisk();
-			insightFacade = new InsightFacade();
-			await insightFacade.addDataset("sections", pair, InsightDatasetKind.Sections);
-		});
-
-		after(function() {
-			clearDisk();
-		});
-
-		describe("performQuery manual tests", () => {
-			it("fail ORDER typo", async () => {
-				let query = {
-					WHERE: {
-						AND: [
-							{
-								LT: {
-									sections_fail: 10
-								}
-							},
-							{
-								GT: {
-									sections_pass: 200
-								}
-							}
-						]
-					},
-					OPTIONS: {
-						COLUMNS: [
-							"sections_dept",
-							"sections_instructor",
-							"sections_title",
-							"sections_avg"
-						],
-						ORDR: "sections_avg"
-					}
-				};
-				try {
-					await insightFacade.performQuery(query);
-					expect.fail("should not continue");
-				} catch (e) {
-					expect(e).to.be.an.instanceOf(InsightError);
-				}
-			});
-
-			it("fail wildcard RESULTTOOMANY error", async () => {
-				let query = {
-					WHERE: {
-						IS: {
-							sections_uuid: "*"
-						}
-					},
-					OPTIONS: {
-						COLUMNS: [
-							"sections_dept",
-							"sections_instructor",
-							"sections_title",
-							"sections_avg",
-							"sections_id",
-							"sections_title"
-						],
-						ORDER: "sections_avg"
-					}
-				};
-				try {
-					await insightFacade.performQuery(query);
-					expect.fail("should not continue");
-				} catch (e) {
-					expect(e).to.be.an.instanceOf(ResultTooLargeError);
-				}
-			});
-
-
-		});
-
-		function assertResult(actual: unknown, expected: InsightResult[]): void {
-			/** Source https://medium.com/building-ibotta/testing-arrays-and-objects-with-chai-js-4b372310fe6d **/
-			expect(actual).to.deep.members(expected);
-		}
-
-		function assertError(actual: unknown, expected: FolderTestError): void {
-			if (expected === "ResultTooLargeError") {
-				expect(actual).to.be.an.instanceOf(ResultTooLargeError);
-			} else {
-				expect(actual).to.be.an.instanceOf(InsightError);
-			}
-		}
-
-		function errorValidator(error: any): error is FolderTestError {
-			return error === "ResultTooLargeError" || error === "InsightError";
-		}
-
-		function target(input: FolderTestInput) {
-			return insightFacade.performQuery(input);
-		}
-
-		folderTest<unknown, InsightResult[], FolderTestError>(
-			"performQuery folderTests",
-			target,
-			"./test/resources/performQuery-folderTest-Kenny",
-			{
-				assertOnResult: assertResult,
-				assertOnError: assertError,
-				errorValidator: errorValidator,
-			}
-		);
-	});
-
-
-});
+}

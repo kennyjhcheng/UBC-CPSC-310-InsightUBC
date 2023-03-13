@@ -1,21 +1,21 @@
 import {FILTER} from "./IQueryValidator";
-import {ISection} from "./ISection";
+import {ISection} from "./Datasets/ISection";
 import {InsightResult} from "./IInsightFacade";
+import {IDataset} from "./Datasets/IDataset";
 
 
 export class QueryExecutor {
 	private _dataset: ISection[];
 
-	constructor(dataSet: ISection[]) {
-		this._dataset = dataSet;
+	constructor(dataSet: IDataset) {
+		// TODO: when implementing perform query, remove type assertion
+		this._dataset = dataSet.data as ISection[];
 	}
 
     /**
      * Executes that query
      * @param query
      */
-
-
 	public executeQuery(query: any): InsightResult[] {
 		let unorderedResult = this.executeCOLUMNS(query["OPTIONS"]["COLUMNS"], this.executeWHERE(query["WHERE"]));
 		if (query["OPTIONS"]["ORDER"]) {

@@ -4,16 +4,18 @@ import {
 	InsightDatasetKind,
 	InsightError,
 	InsightResult,
-	NotFoundError, ResultTooLargeError,
+	NotFoundError,
+	ResultTooLargeError,
 } from "./IInsightFacade";
-import JSZip from "jszip";
-import {ISection} from "./ISection";
-import {objectToSection, validateSectionJson} from "./Section";
+import {ISection} from "./Datasets/ISection";
 import * as fs from "fs-extra";
 import path from "path";
 import {QueryValidator} from "./QueryValidator";
 import {QueryExecutor} from "./QueryExecutor";
 import {arraysEqual} from "./utils";
+import Section from "./Datasets/Section";
+import Room from "./Datasets/Room";
+import {IDataset} from "./Datasets/IDataset";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -21,12 +23,12 @@ import {arraysEqual} from "./utils";
  *
  */
 export default class InsightFacade implements IInsightFacade {
-	private datasets: Map<string, ISection[]>;
+	private datasets: Map<string, IDataset>;
 	private dataLoaded: boolean;
 
 	constructor() {
 		console.log("InsightFacadeImpl::init()");
-		this.datasets = new Map<string, ISection[]>();
+		this.datasets = new Map<string, IDataset>();
 		this.dataLoaded = false;
 	}
 
@@ -44,6 +46,7 @@ export default class InsightFacade implements IInsightFacade {
 			);
 		}
 	}
+
 	private async initializeDatasets() {
 		let numDatasets: number = 0;
 		try {
@@ -79,21 +82,23 @@ export default class InsightFacade implements IInsightFacade {
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
-		const zipObject = new JSZip();
 		return this.checkDataLoaded()
 			.then(() => {
 				const error: string = this.validateId(id);
 				if (error) {
 					return Promise.reject(new InsightError(error));
 				}
-				if (kind === InsightDatasetKind.Rooms) {
-					return Promise.reject(new InsightError("instance of room"));
-				}
 
 				if (!content) {
 					return Promise.reject(new InsightError("dataset content is invalid"));
 				}
-				return this.parseFile(zipObject, content, id);
+
+				if (kind === InsightDatasetKind.Sections) {
+					const sectionHelper: Section = new Section(this.datasets);
+					return sectionHelper.parseFile(content, id);
+				}
+				const roomsHelper: Room = new Room(this.datasets);
+				return roomsHelper.parseFile(content, id);
 			}).then(() => {
 				return this.persistToDisk(id, content);
 			}).catch((e) => {
@@ -102,7 +107,6 @@ export default class InsightFacade implements IInsightFacade {
 	}
 
 	private addDatasetFromPersistDisk(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
-		const zipObject = new JSZip();
 		const error: string = this.validateId(id);
 		if (error) {
 			return Promise.reject(new InsightError(error));
@@ -115,7 +119,16 @@ export default class InsightFacade implements IInsightFacade {
 			return Promise.reject(new InsightError("dataset content is invalid"));
 		}
 
-		return this.parseFile(zipObject, content, id).then((files) => {
+		if (kind === InsightDatasetKind.Sections) {
+			const sectionsHelper: Section = new Section(this.datasets);
+			return sectionsHelper.parseFile(content, id).then((files) => {
+				return Promise.resolve(files);
+			}).catch((e) => {
+				return Promise.reject(new InsightError(e.message));
+			});
+		}
+		const roomHelper: Room = new Room(this.datasets);
+		return roomHelper.parseFile(content, id).then((files) => {
 			return Promise.resolve(files);
 		}).catch((e) => {
 			return Promise.reject(new InsightError(e.message));
@@ -152,53 +165,6 @@ export default class InsightFacade implements IInsightFacade {
 	 */
 	private testIdRegex(id: string): boolean {
 		return /^[^_]+$/.test(id) && /^(?!\s*$).+/.test(id);
-	}
-
-	private parseFile(zipObject: JSZip, content: string, id: string) {
-		return zipObject
-			.loadAsync(content, {base64: true})
-			.then((data) => {
-				let files = data.filter((relativePath: string, file: JSZip.JSZipObject) => {
-					return file.name.startsWith("courses/") && !file.name.includes(".DS_Store") && !file.dir;
-				});
-				if (files.length === 0) {
-					return Promise.reject(new InsightError("empty course folder"));
-				}
-				let promises: Array<Promise<string>> = [];
-				for (const file of files) {
-					promises.push(file.async("string"));
-				}
-				return Promise.all(promises);
-			})
-			.then((values) => {
-				let data: ISection[] = [];
-				let emptyFiles = 0;
-				for (const course of values) {
-					const parsedCourse = JSON.parse(course);
-					if (parsedCourse.result === undefined || parsedCourse.rank === undefined) {
-						return Promise.reject(new InsightError("invalid json file"));
-					}
-					if (parsedCourse.result.length === 0) {
-						emptyFiles++;
-					}
-					for (const section of parsedCourse.result) {
-						if (validateSectionJson(section)) {
-							data.push(objectToSection(section));
-						}
-					}
-				}
-				if (emptyFiles === values.length) {
-					return Promise.reject(new InsightError("empty data"));
-				}
-				if (data.length === 0) {
-					return Promise.reject(new InsightError("Dataset contains invalid section"));
-				}
-				this.datasets.set(id, data);
-				return Promise.resolve(Array.from(this.datasets.keys()));
-			})
-			.catch((err) => {
-				return Promise.reject(new InsightError(err.message));
-			});
 	}
 
 	private async persistToDisk(id: string, b64Content: string): Promise<string[]> {
@@ -253,7 +219,7 @@ export default class InsightFacade implements IInsightFacade {
 				}
 
 				let id: string = queryValidator.datasetId;
-				const queryExecutor: QueryExecutor = new QueryExecutor(this.datasets.get(id) as ISection[]);
+				const queryExecutor: QueryExecutor = new QueryExecutor(this.datasets.get(id) as IDataset);
 				result = queryExecutor.executeQuery(query);
 				if(result?.length > 5000){
 					return Promise.reject(new ResultTooLargeError());
@@ -271,7 +237,6 @@ export default class InsightFacade implements IInsightFacade {
 			});
 	}
 
-	// TODO: I think we need to store the "data kind" in our map and refactor next line for next checkpoints
 	public listDatasets(): Promise<InsightDataset[]> {
 		return this.checkDataLoaded()
 			.then(() => {
@@ -279,8 +244,8 @@ export default class InsightFacade implements IInsightFacade {
 				for (const [key, value] of this.datasets) {
 					const result = {} as InsightDataset;
 					result.id = key;
-					result.kind = InsightDatasetKind.Sections;
-					result.numRows = value.length;
+					result.kind = value.kind ;
+					result.numRows = value.data.length;
 					results.push(result);
 				}
 				return Promise.resolve(results);
