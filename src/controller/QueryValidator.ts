@@ -17,6 +17,8 @@ export class QueryValidator {
 		if (queryKeys.length > 3) {
 			throw new Error("Query has too many keys");
 		}
+		// Validate OPTIONS property
+		// TODO: Options look different now, make sure you change the below code to abide new EBNF rules
 		if (!queryKeys.includes("OPTIONS")) {
 			throw new Error("Query is missing OPTIONS");
 		}
@@ -24,14 +26,13 @@ export class QueryValidator {
 		if (!optionKeys.includes("COLUMNS")) {
 			throw new Error("OPTIONS is missing COLUMNS");
 		}
-		// TODO: Options look different now, make sure you change the below code to abide new EBNF rules
+		// Checking COLUMNS before WHERE to set the dataset for the query
 		this.validateCOLUMNS(query["OPTIONS"]["COLUMNS"]);
-		// Checking COLUMNS before OPTIONS to set the dataset for the query
+		// Validate WHERE property
 		if (!queryKeys.includes("WHERE")) {
 			throw new Error("Query is missing WHERE");
 		}
 		this.validateWHERE(query["WHERE"]);
-		// Validate OPTIONS property
 		if (optionKeys.includes("ORDER") && !query["OPTIONS"]["COLUMNS"].includes(query["OPTIONS"]["ORDER"])) {
 			throw new Error("ORDER key must be in COLUMNS");
 		}
