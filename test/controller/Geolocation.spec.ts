@@ -6,7 +6,7 @@ import {IGeoResponse} from "../../src/controller/Datasets/IGeolocation";
 
 chai.use(chaiAsPromised);
 
-export default function GeolocationTests() {
+describe("Geolocation tests", function() {
 	it("Query success", async function () {
 		const queryAddress = "2211 Wesbrook Mall";
 		try {
@@ -19,4 +19,4 @@ export default function GeolocationTests() {
 		}
 
 	});
-}
+});
