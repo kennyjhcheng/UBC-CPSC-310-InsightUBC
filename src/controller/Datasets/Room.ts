@@ -11,14 +11,14 @@ import Geolocation from "./Geolocation";
 
 export default class Room extends Dataset {
 	private readonly ROOM_INDEX_FILE_PATH = "index.htm";
-	private readonly BUILDING_ROOM_FOLDER_PATH = "campus/discover/buildings-and-classrooms";
 	private readonly SHORTNAME_ATTRIBUTE = "views-field views-field-field-building-code";
 	private readonly ADDRESS_ATTRIBUTE = "views-field views-field-field-building-address";
-	private readonly BULIDING_FULLNAME_ATTRIBUTE = "views-field views-field-title";
+	private readonly BUILDING_FULLNAME_ATTRIBUTE = "views-field views-field-title";
 	private readonly FURNITURE_ATTRIBUTE = "views-field views-field-field-room-furniture";
 	private readonly TYPE_ATTRIBUTE = "views-field views-field-field-room-type";
 	private readonly SEATS_ATTRIBUTE = "views-field views-field-field-room-capacity";
 	private readonly NUMBER_HREF_ATTRIBUTE = "views-field views-field-field-room-number";
+	/** building maps to IRoom with building data **/
 	private buildings: Map<string, IRoom>;
 
 
@@ -29,7 +29,6 @@ export default class Room extends Dataset {
 
 	protected parseDataset(data: JSZip, id: string): Promise<string[]> {
 		let indexFile: JSZipObject | null = data.file(this.ROOM_INDEX_FILE_PATH);
-		let roomsFolder: JSZip | null = data.folder(this.BUILDING_ROOM_FOLDER_PATH) ;
 		if (indexFile === null) {
 			return Promise.reject(new InsightError("null index htm file"));
 		}
@@ -46,10 +45,7 @@ export default class Room extends Dataset {
 				let requests: Array<Promise<boolean>> = this.setBuildingLonLat();
 				return Promise.allSettled(requests);
 			}).then(() => {
-				if (!roomsFolder) {
-					return Promise.reject(new InsightError("null room folders"));
-				}
-				return Promise.all(this.extractRooms(roomsFolder));
+				return Promise.all(this.extractRooms(data));
 			}).then((roomLists) => {
 				let rooms: IRoom[] = [];
 				for (let roomList of roomLists) {
@@ -67,13 +63,19 @@ export default class Room extends Dataset {
 			});
 	}
 
-	private extractRooms(roomsFolder: JSZip): Array<Promise<IRoom[]>> {
+	private extractRooms(data: JSZip): Array<Promise<IRoom[]>> {
 		let roomListsPromises: Array<Promise<IRoom[]>> = [];
-		roomsFolder.forEach((relativePath: string, file: JSZipObject) => {
+		this.buildings.forEach((building: IRoom, roomPath: string) => {
+			let file = data.file(roomPath);
+			if (!file) {
+				return;
+			}
 			roomListsPromises.push(file.async("string")
 				.then((htmString: string) => {
 					const htmDoc: Document = parse(htmString);
-					const building = this.buildings.get(relativePath.split(".")[0]);
+					if (!building) {
+						return Promise.resolve([]);
+					}
 					for (let node of htmDoc.childNodes) {
 						if (node.nodeName === "html") {
 							let rooms: IRoom[] = this.addRooms(node, building);
@@ -187,19 +189,24 @@ export default class Room extends Dataset {
 	private extractBuilding(tableRowNode: any) {
 		let building: IRoom = {} as IRoom;
 		for (let node of tableRowNode.childNodes) {
-			if (node.nodeName === "td") {
-				this.setRoomCellData(node, building);
-			}
-			if (building.shortname) {
-				this.buildings.set(building.shortname, building);
-			}
+			this.setRoomCellData(node, building);
+			this.setBuildingByRoomHref(building, node);
+		}
+	}
+
+	private setBuildingByRoomHref(building: IRoom, node: any) {
+		if (building.fullname && node.attrs && node.attrs[0]["value"] === this.BUILDING_FULLNAME_ATTRIBUTE) {
+			let href: string = this.extractHref(node);
+			this.buildings.set(href.substring(2), building);
 		}
 	}
 
 	private setRoomCellData(node: any, room: IRoom) {
-
+		if (node.nodeName !== "td") {
+			return;
+		}
 		switch (node.attrs[0]["value"]) {
-			case this.BULIDING_FULLNAME_ATTRIBUTE:
+			case this.BUILDING_FULLNAME_ATTRIBUTE:
 				room.fullname = this.extractBuildingFullName(node);
 				break;
 			case this.SHORTNAME_ATTRIBUTE:
