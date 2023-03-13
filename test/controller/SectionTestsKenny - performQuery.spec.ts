@@ -14,7 +14,7 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 type FolderTestInput = unknown;
 type FolderTestError = "ResultTooLargeError" | "InsightError";
-export default function SectionTestsKennyPerformQuery() {
+describe("Section Tests Kenny - PerformQuery", function SectionTestsKennyPerformQuery() {
 
 	/** datasets **/
 	let pair: string;
@@ -162,4 +162,4 @@ export default function SectionTestsKennyPerformQuery() {
 			errorValidator: errorValidator,
 		}
 	);
-}
+});

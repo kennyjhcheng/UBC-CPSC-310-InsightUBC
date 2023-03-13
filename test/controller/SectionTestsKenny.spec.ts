@@ -14,7 +14,7 @@ import {folderTest} from "@ubccpsc310/folder-test";
 
 chai.use(chaiAsPromised);
 
-export default function SectionTestsKenny()  {
+describe("Section Tests Kenny", function()  {
 	/** datasets **/
 	let pair: string;
 	let smallPair: string;
@@ -265,4 +265,4 @@ export default function SectionTestsKenny()  {
 				}]);
 		});
 	});
-}
+});
