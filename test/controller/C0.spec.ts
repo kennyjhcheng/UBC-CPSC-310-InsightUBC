@@ -370,7 +370,7 @@ describe("InsightFacade", function()  {
 		folderTest<unknown, InsightResult[], FolderTestError>(
 			"performQuery folderTests",
 			target,
-			"./test/resources/folderTest",
+			"./test/resources/performQuery-folderTest-Kenny",
 			{
 				assertOnResult: assertResult,
 				assertOnError: assertError,
