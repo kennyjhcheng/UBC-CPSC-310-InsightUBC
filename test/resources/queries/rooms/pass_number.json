@@ -1,0 +1,107 @@
+{
+	"title": "pass_number",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"rooms_number": "201"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"rooms_shortname",
+				"rooms_fullname",
+				"rooms_number",
+				"rooms_name",
+				"rooms_address",
+				"rooms_lat",
+				"rooms_lon",
+				"rooms_seats",
+				"rooms_type",
+				"rooms_furniture",
+				"rooms_href"
+			],
+			"ORDER": "rooms_seats"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"rooms_shortname": "DMP",
+			"rooms_fullname": "Hugh Dempster Pavilion",
+			"rooms_number": "201",
+			"rooms_name": "DMP_201",
+			"rooms_address": "6245 Agronomy Road V6T 1Z4",
+			"rooms_lat": 49.26125,
+			"rooms_lon": -123.24807,
+			"rooms_seats": 40,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/DMP-201"
+		},
+		{
+			"rooms_shortname": "SCRF",
+			"rooms_fullname": "Neville Scarfe",
+			"rooms_number": "201",
+			"rooms_name": "SCRF_201",
+			"rooms_address": "2125 Main Mall",
+			"rooms_lat": 49.26398,
+			"rooms_lon": -123.2531,
+			"rooms_seats": 40,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Moveable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/SCRF-201"
+		},
+		{
+			"rooms_shortname": "GEOG",
+			"rooms_fullname": "Geography",
+			"rooms_number": "201",
+			"rooms_name": "GEOG_201",
+			"rooms_address": "1984 West Mall",
+			"rooms_lat": 49.26605,
+			"rooms_lon": -123.25623,
+			"rooms_seats": 42,
+			"rooms_type": "Open Design General Purpose",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/GEOG-201"
+		},
+		{
+			"rooms_shortname": "WESB",
+			"rooms_fullname": "Wesbrook",
+			"rooms_number": "201",
+			"rooms_name": "WESB_201",
+			"rooms_address": "6174 University Boulevard",
+			"rooms_lat": 49.26517,
+			"rooms_lon": -123.24937,
+			"rooms_seats": 102,
+			"rooms_type": "Tiered Large Group",
+			"rooms_furniture": "Classroom-Fixed Tablets",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/WESB-201"
+		},
+		{
+			"rooms_shortname": "HENN",
+			"rooms_fullname": "Hennings",
+			"rooms_number": "201",
+			"rooms_name": "HENN_201",
+			"rooms_address": "6224 Agricultural Road",
+			"rooms_lat": 49.26627,
+			"rooms_lon": -123.25374,
+			"rooms_seats": 155,
+			"rooms_type": "Tiered Large Group",
+			"rooms_furniture": "Classroom-Fixed Tablets",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/HENN-201"
+		},
+		{
+			"rooms_shortname": "LSK",
+			"rooms_fullname": "Leonard S. Klinck (also known as CSCI)",
+			"rooms_number": "201",
+			"rooms_name": "LSK_201",
+			"rooms_address": "6356 Agricultural Road",
+			"rooms_lat": 49.26545,
+			"rooms_lon": -123.25533,
+			"rooms_seats": 183,
+			"rooms_type": "Tiered Large Group",
+			"rooms_furniture": "Classroom-Fixed Tables/Fixed Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/LSK-201"
+		}
+	]
+}

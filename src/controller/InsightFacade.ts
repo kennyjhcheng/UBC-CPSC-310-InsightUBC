@@ -7,7 +7,6 @@ import {
 	NotFoundError,
 	ResultTooLargeError,
 } from "./IInsightFacade";
-import {ISection} from "./Datasets/ISection";
 import * as fs from "fs-extra";
 import path from "path";
 import {QueryValidator} from "./QueryValidator";
@@ -23,6 +22,8 @@ import {IDataset} from "./Datasets/IDataset";
  *
  */
 export default class InsightFacade implements IInsightFacade {
+	private readonly SECTION_KIND_STRING = "Sections";
+	private readonly ROOMS_KIND_STRING = "Rooms";
 	private datasets: Map<string, IDataset>;
 	private dataLoaded: boolean;
 
@@ -50,17 +51,15 @@ export default class InsightFacade implements IInsightFacade {
 	private async initializeDatasets() {
 		let numDatasets: number = 0;
 		try {
-			await fs.ensureDir(path.join(__dirname, "../../data/"));
-			let files: string[] = await fs.readdir(path.join(__dirname, "../../data/"));
-			numDatasets = files.length;
+			await fs.ensureDir(path.join(__dirname, "../../data/Sections/"));
+			await fs.ensureDir(path.join(__dirname, "../../data/Rooms/"));
+			let sectionFiles: string[] = await fs.readdir(
+				path.join(__dirname, `../../data/${this.SECTION_KIND_STRING}/`));
+			let roomFiles: string[] = await fs.readdir(path.join(__dirname, `../../data/${this.ROOMS_KIND_STRING}/`));
+			numDatasets = sectionFiles.length + roomFiles.length;
 			let promises: Array<Promise<string[]>> = [];
-			for (const file of files) {
-				promises.push(
-					this.addDatasetFromPersistDisk(
-						file.split(".")[0],
-						this.getContentFromData(file), InsightDatasetKind.Sections)
-				);
-			}
+			this.getFilesPromises(sectionFiles, promises, InsightDatasetKind.Sections);
+			this.getFilesPromises(roomFiles, promises, InsightDatasetKind.Rooms);
 			let listOfListOfIds: string[][] = await Promise.all(promises);
 			if (listOfListOfIds.length !== numDatasets ||
 				!arraysEqual(listOfListOfIds[listOfListOfIds.length - 1], Array.from(this.datasets.keys()))
@@ -77,8 +76,19 @@ export default class InsightFacade implements IInsightFacade {
 		}
 	}
 
-	private getContentFromData(name: string): string {
-		return fs.readFileSync("data/" + name).toString("base64");
+	private getFilesPromises(sectionFiles: string[], promises: Array<Promise<string[]>>, kind: InsightDatasetKind) {
+		for (const file of sectionFiles) {
+			promises.push(
+				this.addDatasetFromPersistDisk(
+					file.split(".")[0],
+					this.getContentFromData(file, kind),
+					kind)
+			);
+		}
+	}
+
+	private getContentFromData(name: string, kind: InsightDatasetKind): string {
+		return fs.readFileSync(`data/${this.getKindString(kind)}/` + name).toString("base64");
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
@@ -100,7 +110,7 @@ export default class InsightFacade implements IInsightFacade {
 				const roomsHelper: Room = new Room(this.datasets);
 				return roomsHelper.parseFile(content, id);
 			}).then(() => {
-				return this.persistToDisk(id, content);
+				return this.persistToDisk(id, content, kind);
 			}).catch((e) => {
 				return Promise.reject(new InsightError(e.message));
 			});
@@ -110,9 +120,6 @@ export default class InsightFacade implements IInsightFacade {
 		const error: string = this.validateId(id);
 		if (error) {
 			return Promise.reject(new InsightError(error));
-		}
-		if (kind === InsightDatasetKind.Rooms) {
-			return Promise.reject(new InsightError("instance of room"));
 		}
 
 		if (!content) {
@@ -167,15 +174,22 @@ export default class InsightFacade implements IInsightFacade {
 		return /^[^_]+$/.test(id) && /^(?!\s*$).+/.test(id);
 	}
 
-	private async persistToDisk(id: string, b64Content: string): Promise<string[]> {
+
+	private async persistToDisk(id: string, b64Content: string, kind: InsightDatasetKind): Promise<string[]> {
+		let kindString: string = this.getKindString(kind);
 		try {
-			await fs.ensureDir(path.join(__dirname, "../../data/"));
-			await fs.writeFile(path.join(__dirname, `../../data/${id}.zip`), b64Content, "base64");
+			await fs.ensureDir(path.join(__dirname, `../../data/${kindString}`));
+			await fs.writeFile(path.join(__dirname, `../../data/${kindString}/${id}.zip`), b64Content, "base64");
 		} catch (e) {
 			console.log(e);
 			return Promise.reject(new InsightError("couldn't write dataset"));
 		}
 		return Promise.resolve(Array.from(this.datasets.keys()));
+	}
+
+	private getKindString(kind: InsightDatasetKind): string {
+		return kind === InsightDatasetKind.Sections ?
+			this.SECTION_KIND_STRING : this.ROOMS_KIND_STRING;
 	}
 
 	public removeDataset(id: string): Promise<string> {

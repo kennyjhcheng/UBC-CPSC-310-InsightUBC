@@ -1,0 +1,68 @@
+{
+	"title": "pass_seats_gt",
+	"input": {
+		"WHERE": {
+			"EQ": {
+				"rooms_seats": 100
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"rooms_shortname",
+				"rooms_fullname",
+				"rooms_number",
+				"rooms_name",
+				"rooms_address",
+				"rooms_lat",
+				"rooms_lon",
+				"rooms_seats",
+				"rooms_type",
+				"rooms_furniture",
+				"rooms_href"
+			],
+			"ORDER": "rooms_seats"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"rooms_shortname": "CEME",
+			"rooms_fullname": "Civil and Mechanical Engineering",
+			"rooms_number": "1202",
+			"rooms_name": "CEME_1202",
+			"rooms_address": "6250 Applied Science Lane",
+			"rooms_lat": 49.26273,
+			"rooms_lon": -123.24894,
+			"rooms_seats": 100,
+			"rooms_type": "Tiered Large Group",
+			"rooms_furniture": "Classroom-Fixed Tables/Fixed Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/CEME-1202"
+		},
+		{
+			"rooms_shortname": "GEOG",
+			"rooms_fullname": "Geography",
+			"rooms_number": "200",
+			"rooms_name": "GEOG_200",
+			"rooms_address": "1984 West Mall",
+			"rooms_lat": 49.26605,
+			"rooms_lon": -123.25623,
+			"rooms_seats": 100,
+			"rooms_type": "Open Design General Purpose",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/GEOG-200"
+		},
+		{
+			"rooms_shortname": "IONA",
+			"rooms_fullname": "Iona Building",
+			"rooms_number": "301",
+			"rooms_name": "IONA_301",
+			"rooms_address": "6000 Iona Drive",
+			"rooms_lat": 49.27106,
+			"rooms_lon": -123.25042,
+			"rooms_seats": 100,
+			"rooms_type": "Case Style",
+			"rooms_furniture": "Classroom-Fixed Tables/Movable Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/IONA-301"
+		}
+	]
+}

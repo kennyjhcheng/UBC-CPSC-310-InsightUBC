@@ -1,0 +1,81 @@
+{
+	"title": "pass_seats_lt",
+	"input": {
+		"WHERE": {
+			"EQ": {
+				"rooms_seats": 10
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"rooms_shortname",
+				"rooms_fullname",
+				"rooms_number",
+				"rooms_name",
+				"rooms_address",
+				"rooms_lat",
+				"rooms_lon",
+				"rooms_seats",
+				"rooms_type",
+				"rooms_furniture",
+				"rooms_href"
+			],
+			"ORDER": "rooms_seats"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"rooms_shortname": "IBLC",
+			"rooms_fullname": "Irving K Barber Learning Centre",
+			"rooms_number": "265",
+			"rooms_name": "IBLC_265",
+			"rooms_address": "1961 East Mall V6T 1Z1",
+			"rooms_lat": 49.26766,
+			"rooms_lon": -123.2521,
+			"rooms_seats": 10,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/IBLC-265"
+		},
+		{
+			"rooms_shortname": "WOOD",
+			"rooms_fullname": "Woodward (Instructional Resources Centre-IRC)",
+			"rooms_number": "G53",
+			"rooms_name": "WOOD_G53",
+			"rooms_address": "2194 Health Sciences Mall",
+			"rooms_lat": 49.26478,
+			"rooms_lon": -123.24673,
+			"rooms_seats": 10,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/WOOD-G53"
+		},
+		{
+			"rooms_shortname": "WOOD",
+			"rooms_fullname": "Woodward (Instructional Resources Centre-IRC)",
+			"rooms_number": "G55",
+			"rooms_name": "WOOD_G55",
+			"rooms_address": "2194 Health Sciences Mall",
+			"rooms_lat": 49.26478,
+			"rooms_lon": -123.24673,
+			"rooms_seats": 10,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/WOOD-G55"
+		},
+		{
+			"rooms_shortname": "WOOD",
+			"rooms_fullname": "Woodward (Instructional Resources Centre-IRC)",
+			"rooms_number": "G59",
+			"rooms_name": "WOOD_G59",
+			"rooms_address": "2194 Health Sciences Mall",
+			"rooms_lat": 49.26478,
+			"rooms_lon": -123.24673,
+			"rooms_seats": 10,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/WOOD-G59"
+		}
+	]
+}
