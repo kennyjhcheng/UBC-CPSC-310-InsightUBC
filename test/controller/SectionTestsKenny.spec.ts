@@ -153,7 +153,7 @@ export default function SectionTestsKenny()  {
 
 		it("should reject -> invalid sections missing field", function() {
 			const result = facade.addDataset("test", invalidSectionsMissingFields, InsightDatasetKind.Sections);
-			return expect(result).to.eventually.be.rejected;
+			return expect(result).to.eventually.be.rejectedWith(InsightError);
 		});
 	});
 
