@@ -210,12 +210,11 @@ export class QueryValidator {
 
 	private validateApply(apply: any){
 		validateArray(apply, "APPLY is not an array");
-		let duplicate = new Set();
-		if (new Set(Object.keys(apply)).size !== Object.keys(apply).length) {
-			throw new Error("apply has duplicates");
-		}
 		for(const applyRule of apply) {
 			this.validateApplyRule(applyRule);
+		}
+		if((new Set(this.transformKeys)).size !== this.transformKeys.length){
+			throw new Error("duplicate keys");
 		}
 	}
 
