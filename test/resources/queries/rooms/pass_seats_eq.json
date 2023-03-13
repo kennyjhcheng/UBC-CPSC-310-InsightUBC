@@ -1,0 +1,198 @@
+{
+	"title": "pass_seats_eq",
+	"input": {
+		"WHERE": {
+			"EQ": {
+				"rooms_seats": 20
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"rooms_shortname",
+				"rooms_fullname",
+				"rooms_number",
+				"rooms_name",
+				"rooms_address",
+				"rooms_lat",
+				"rooms_lon",
+				"rooms_seats",
+				"rooms_type",
+				"rooms_furniture",
+				"rooms_href"
+			],
+			"ORDER": "rooms_seats"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"rooms_shortname": "ALRD",
+			"rooms_fullname": "Allard Hall (LAW)",
+			"rooms_number": "112",
+			"rooms_name": "ALRD_112",
+			"rooms_address": "1822 East Mall",
+			"rooms_lat": 49.2699,
+			"rooms_lon": -123.25318,
+			"rooms_seats": 20,
+			"rooms_type": "Open Design General Purpose",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/ALRD-112"
+		},
+		{
+			"rooms_shortname": "ALRD",
+			"rooms_fullname": "Allard Hall (LAW)",
+			"rooms_number": "113",
+			"rooms_name": "ALRD_113",
+			"rooms_address": "1822 East Mall",
+			"rooms_lat": 49.2699,
+			"rooms_lon": -123.25318,
+			"rooms_seats": 20,
+			"rooms_type": "Open Design General Purpose",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/ALRD-113"
+		},
+		{
+			"rooms_shortname": "AUDX",
+			"rooms_fullname": "Auditorium Annex",
+			"rooms_number": "142",
+			"rooms_name": "AUDX_142",
+			"rooms_address": "1924 West Mall",
+			"rooms_lat": 49.2666,
+			"rooms_lon": -123.25655,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/AUDX-142"
+		},
+		{
+			"rooms_shortname": "FSC",
+			"rooms_fullname": "Forest Sciences Centre",
+			"rooms_number": "1615",
+			"rooms_name": "FSC_1615",
+			"rooms_address": "2424 Main Mall",
+			"rooms_lat": 49.26044,
+			"rooms_lon": -123.24886,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/FSC-1615"
+		},
+		{
+			"rooms_shortname": "FSC",
+			"rooms_fullname": "Forest Sciences Centre",
+			"rooms_number": "1617",
+			"rooms_name": "FSC_1617",
+			"rooms_address": "2424 Main Mall",
+			"rooms_lat": 49.26044,
+			"rooms_lon": -123.24886,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/FSC-1617"
+		},
+		{
+			"rooms_shortname": "LASR",
+			"rooms_fullname": "Frederic Lasserre",
+			"rooms_number": "211",
+			"rooms_name": "LASR_211",
+			"rooms_address": "6333 Memorial Road",
+			"rooms_lat": 49.26767,
+			"rooms_lon": -123.25583,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/LASR-211"
+		},
+		{
+			"rooms_shortname": "LASR",
+			"rooms_fullname": "Frederic Lasserre",
+			"rooms_number": "5C",
+			"rooms_name": "LASR_5C",
+			"rooms_address": "6333 Memorial Road",
+			"rooms_lat": 49.26767,
+			"rooms_lon": -123.25583,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/LASR-5C"
+		},
+		{
+			"rooms_shortname": "ANGU",
+			"rooms_fullname": "Henry Angus",
+			"rooms_number": "339",
+			"rooms_name": "ANGU_339",
+			"rooms_address": "2053 Main Mall",
+			"rooms_lat": 49.26486,
+			"rooms_lon": -123.25364,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/ANGU-339"
+		},
+		{
+			"rooms_shortname": "SCRF",
+			"rooms_fullname": "Neville Scarfe",
+			"rooms_number": "1021",
+			"rooms_name": "SCRF_1021",
+			"rooms_address": "2125 Main Mall",
+			"rooms_lat": 49.26398,
+			"rooms_lon": -123.2531,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/SCRF-1021"
+		},
+		{
+			"rooms_shortname": "SCRF",
+			"rooms_fullname": "Neville Scarfe",
+			"rooms_number": "1022",
+			"rooms_name": "SCRF_1022",
+			"rooms_address": "2125 Main Mall",
+			"rooms_lat": 49.26398,
+			"rooms_lon": -123.2531,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/SCRF-1022"
+		},
+		{
+			"rooms_shortname": "SCRF",
+			"rooms_fullname": "Neville Scarfe",
+			"rooms_number": "1023",
+			"rooms_name": "SCRF_1023",
+			"rooms_address": "2125 Main Mall",
+			"rooms_lat": 49.26398,
+			"rooms_lon": -123.2531,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/SCRF-1023"
+		},
+		{
+			"rooms_shortname": "SCRF",
+			"rooms_fullname": "Neville Scarfe",
+			"rooms_number": "1024",
+			"rooms_name": "SCRF_1024",
+			"rooms_address": "2125 Main Mall",
+			"rooms_lat": 49.26398,
+			"rooms_lon": -123.2531,
+			"rooms_seats": 20,
+			"rooms_type": "Small Group",
+			"rooms_furniture": "Classroom-Movable Tables & Chairs",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/SCRF-1024"
+		},
+		{
+			"rooms_shortname": "ORCH",
+			"rooms_fullname": "Orchard Commons",
+			"rooms_number": "4072",
+			"rooms_name": "ORCH_4072",
+			"rooms_address": "6363 Agronomy Road",
+			"rooms_lat": 49.26048,
+			"rooms_lon": -123.24944,
+			"rooms_seats": 20,
+			"rooms_type": "Active Learning",
+			"rooms_furniture": "Classroom-Hybrid Furniture",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/ORCH-4072"
+		}
+	]
+}
