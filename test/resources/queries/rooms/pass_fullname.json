@@ -1,0 +1,55 @@
+{
+	"title": "pass_fullname",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"rooms_fullname": "Wesbrook"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"rooms_shortname",
+				"rooms_fullname",
+				"rooms_number",
+				"rooms_name",
+				"rooms_address",
+				"rooms_lat",
+				"rooms_lon",
+				"rooms_seats",
+				"rooms_type",
+				"rooms_furniture",
+				"rooms_href"
+			],
+			"ORDER": "rooms_seats"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"rooms_shortname": "WESB",
+			"rooms_fullname": "Wesbrook",
+			"rooms_number": "201",
+			"rooms_name": "WESB_201",
+			"rooms_address": "6174 University Boulevard",
+			"rooms_lat": 49.26517,
+			"rooms_lon": -123.24937,
+			"rooms_seats": 102,
+			"rooms_type": "Tiered Large Group",
+			"rooms_furniture": "Classroom-Fixed Tablets",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/WESB-201"
+		},
+		{
+			"rooms_shortname": "WESB",
+			"rooms_fullname": "Wesbrook",
+			"rooms_number": "100",
+			"rooms_name": "WESB_100",
+			"rooms_address": "6174 University Boulevard",
+			"rooms_lat": 49.26517,
+			"rooms_lon": -123.24937,
+			"rooms_seats": 325,
+			"rooms_type": "Tiered Large Group",
+			"rooms_furniture": "Classroom-Fixed Tablets",
+			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/WESB-100"
+		}
+	]
+}
