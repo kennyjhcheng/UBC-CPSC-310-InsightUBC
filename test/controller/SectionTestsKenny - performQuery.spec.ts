@@ -155,7 +155,7 @@ export default function SectionTestsKennyPerformQuery() {
 	folderTest<unknown, InsightResult[], FolderTestError>(
 		"performQuery folderTests",
 		target,
-		"./test/resources/performQuery-folderTest-Kenny",
+		"./test/resources/queries/courses/kenny/",
 		{
 			assertOnResult: assertResult,
 			assertOnError: assertError,
