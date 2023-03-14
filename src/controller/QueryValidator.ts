@@ -48,6 +48,7 @@ export class QueryValidator {
 				throw new Error("GROUP or APPLY is missing in TRANSFORMATIONS");
 			}
 			this.validateApply(query["TRANSFORMATIONS"]["APPLY"]);
+			this.validateGroups(query["TRANSFORMATIONS"]["GROUP"]);
 			this.validateColumnsIsASubsetOfApply(query);
 		}
 
@@ -192,19 +193,34 @@ export class QueryValidator {
 		}
 		for (const column of columns) {
 			if(column.includes("_")){
-				let datasetId = columns[0].split("_")[0];
-				if(!this._datasetId){
-					this._datasetId = datasetId;
-				}
-				let key = column.split("_");
-				if (key[0] !== datasetId) {
-					throw new Error("COLUMNS: Cannot query more than one dataset");
-				}
-				if (!(MFIELD.includes(key[1] as Mfield) || SFIELD.includes(key[1] as Sfield))) {
-					throw new Error(`Invalid key ${key[1]} in COLUMNS`);
-				}
+				this.validateColumn(columns, column);
 			}
 
+		}
+	}
+
+	private validateGroups(groups: any) {
+		validateArray(groups, "GROUP value is missing");
+		if (groups.length < 1) {
+			throw new Error("GROUP is empty");
+		}
+		for (const group of groups) {
+			this.validateColumn(groups, group);
+			this.transformKeys.push(group);
+		}
+	}
+
+	private validateColumn(columns: any, column: any) {
+		let datasetId = columns[0].split("_")[0];
+		if (!this._datasetId) {
+			this._datasetId = datasetId;
+		}
+		let key = column.split("_");
+		if (key[0] !== datasetId) {
+			throw new Error("Cannot query more than one dataset");
+		}
+		if (!(MFIELD.includes(key[1] as Mfield) || SFIELD.includes(key[1] as Sfield))) {
+			throw new Error(`Invalid key ${key[1]} in COLUMNS/GROUP`);
 		}
 	}
 
