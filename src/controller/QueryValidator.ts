@@ -224,7 +224,7 @@ export class QueryValidator {
 		}
 		let applyKeyName = Object.keys(applyRule)[0];
 		if (Object.keys(applyRule[applyKeyName]).length !== 1) {
-			throw new Error("applyKeyName has more than one key");
+			throw new Error("apply body has more than one key");
 		}
 		let applyToken = Object.keys(applyRule[applyKeyName])[0];
 		if(!Object.values(APPLYTOKEN).includes(applyToken as APPLYTOKEN)){
@@ -233,11 +233,11 @@ export class QueryValidator {
 		let key = applyRule[applyKeyName][applyToken];
 		let datasetId = key.split("_")[0];
 		if (datasetId !== this.datasetId) {
-			throw new Error("COLUMNS: Cannot query more than one dataset");
+			throw new Error("Cannot query more than one dataset");
 		}
 		let keyField = key.split("_")[1];
 		if (!(MFIELD.includes(keyField as Mfield) || SFIELD.includes(keyField as Sfield))) {
-			throw new Error(`Invalid key ${key[1]} in COLUMNS`);
+			throw new Error(`Invalid key ${key[1]} in APPLY`);
 		}
 		if(applyToken !== APPLYTOKEN.COUNT && !(MFIELD.includes(keyField as Mfield))){
 			throw new Error("key for COUNT must be a number");
