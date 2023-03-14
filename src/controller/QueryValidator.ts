@@ -223,6 +223,9 @@ export class QueryValidator {
 			throw new Error("apply has more than one key");
 		}
 		let applyKeyName = Object.keys(applyRule)[0];
+		if(applyKeyName.includes("_")){
+			throw new Error("apply key has underscore");
+		}
 		if (Object.keys(applyRule[applyKeyName]).length !== 1) {
 			throw new Error("apply body has more than one key");
 		}
