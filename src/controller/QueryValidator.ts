@@ -243,7 +243,7 @@ export class QueryValidator {
 			throw new Error(`Invalid key ${key[1]} in APPLY`);
 		}
 		if(applyToken !== APPLYTOKEN.COUNT && !(MFIELD.includes(keyField as Mfield))){
-			throw new Error("key for COUNT must be a number");
+			throw new Error("key for APPLYTOKEN must be a number");
 		}
 		this.transformKeys.push(applyKeyName);
 	}
