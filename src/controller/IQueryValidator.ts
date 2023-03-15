@@ -36,7 +36,7 @@ export const DIRECTION = [
 	"DOWN"
 ];
 export type DirectionTuple = typeof DIRECTION;
-export type Direction = MfieldTuple[number];
+export type Direction = DirectionTuple[number];
 
 export enum FILTER {
 	AND = "AND",

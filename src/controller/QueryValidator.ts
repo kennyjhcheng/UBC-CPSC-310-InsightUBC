@@ -272,9 +272,12 @@ export class QueryValidator {
 			if (ORDER["keys"].length === 0) {
 				throw new Error("ORDER keys must be a non-empty array");
 			}
-			if (!COLUMNS.includes(ORDER["keys"])) {
-				throw new Error("All ORDER keys must be in COLUMNS");
-			}
+			let keys: string[] = ORDER["keys"];
+			keys.forEach((key) => {
+				if (!COLUMNS.includes(key)) {
+					throw new Error("All ORDER keys must be in COLUMNS");
+				}
+			});
 		} else if (orderKeys.length === 0 &&
 			!COLUMNS.includes(ORDER)) {
 			throw new Error("ORDER key must be in COLUMNS");
