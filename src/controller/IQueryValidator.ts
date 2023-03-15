@@ -41,3 +41,11 @@ export enum FILTER {
 	NOT = "NOT",
 }
 
+export enum APPLYTOKEN {
+	MAX = "MAX",
+	MIN = "MIN",
+	AVG = "AVG",
+	COUNT = "COUNT",
+	SUM = "SUM"
+}
+

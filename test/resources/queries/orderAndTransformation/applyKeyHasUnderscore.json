@@ -1,0 +1,26 @@
+{
+	"title": "apply key has underscore",
+	"input": {
+		"WHERE": {},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_title",
+				"overall_Avg"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_title"
+			],
+			"APPLY": [
+				{
+					"overall_Avg": {
+						"AVG": "sections_title"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}
