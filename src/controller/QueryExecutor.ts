@@ -32,7 +32,7 @@ export class QueryExecutor {
 	}
 
 	private orderResult(unorderedResult: InsightResult[], ORDER: any): InsightResult[] {
-		let orderKeys = Object.keys(ORDER);
+		let orderKeys = typeof ORDER === "object" ? Object.keys(ORDER) : [];
 		if (orderKeys.length === 0) {
 			return unorderedResult.sort((a, b) => this.sortUP(a, b, ORDER));
 		}

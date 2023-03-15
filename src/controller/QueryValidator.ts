@@ -272,9 +272,8 @@ export class QueryValidator {
 	}
 
 	private validateORDER(COLUMNS: any, ORDER: any) {
-		const orderKeys = Object.keys(ORDER);
-		if (orderKeys.length === 2
-		) {
+		const orderKeys = typeof ORDER === "object" ? Object.keys(ORDER) : [];
+		if (orderKeys.length === 2) {
 			if (!orderKeys.includes("dir")) {
 				throw new Error("ORDER missing 'dir' key");
 			}
@@ -294,11 +293,12 @@ export class QueryValidator {
 					throw new Error("All ORDER keys must be in COLUMNS");
 				}
 			});
-		} else if (orderKeys.length === 0 &&
-			!COLUMNS.includes(ORDER)) {
-			throw new Error("ORDER key must be in COLUMNS");
+		} else if (orderKeys.length === 0) {
+			if (!COLUMNS.includes(ORDER)) {
+				throw new Error("ORDER key must be in COLUMNS");
+			}
 		} else {
-			throw new Error("ORDER query incorrect");
+			throw new Error("");
 		}
 
 	}
