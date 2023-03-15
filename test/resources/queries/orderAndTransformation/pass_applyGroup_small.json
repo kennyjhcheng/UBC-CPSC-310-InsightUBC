@@ -1,0 +1,53 @@
+{
+	"title": "pass_applyGroup_small",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"sections_dept": "anat"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_title",
+				"overallAvg",
+				"sections_dept"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_title",
+				"sections_dept"
+			],
+			"APPLY": [
+				{
+					"overallAvg": {
+						"AVG": "sections_avg"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_title": "gross anat limbs",
+			"overallAvg": 82.73,
+			"sections_dept": "anat"
+		},
+		{
+			"sections_title": "fnd bdy dsgn:bsc",
+			"overallAvg": 87,
+			"sections_dept": "anat"
+		},
+		{
+			"sections_title": "fnc hmn ant h&n",
+			"overallAvg": 91.67,
+			"sections_dept": "anat"
+		},
+		{
+			"sections_title": "fnc hmn ant musc",
+			"overallAvg": 88.14,
+			"sections_dept": "anat"
+		}
+	]
+}

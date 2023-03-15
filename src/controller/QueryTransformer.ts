@@ -80,12 +80,13 @@ function computeMin(dataGroup: ISection[] | IRoom[], field: string) {
 }
 
 function computeAvg(dataGroup: ISection[] | IRoom[], field: string): number {
-	let total = 0;
+	let total: Decimal = new Decimal(0);
+	let length = dataGroup.length;
 	dataGroup.forEach((data) => {
 		let num = data[field as keyof (ISection | IRoom)] as number;
-		total += num;
+		total = total.add(new Decimal(num));
 	});
-	return Number((total / dataGroup.length).toFixed(2));
+	return Number((total.toNumber() / length).toFixed(2));
 }
 
 function computeSum(dataGroup: ISection[] | IRoom[], field: string) {
