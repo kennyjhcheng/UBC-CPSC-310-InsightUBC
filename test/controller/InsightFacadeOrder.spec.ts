@@ -1,15 +1,42 @@
 import InsightFacade from "../../src/controller/InsightFacade";
-import {InsightDatasetKind, InsightError, ResultTooLargeError,} from "../../src/controller/IInsightFacade";
+import {
+	InsightDatasetKind,
+	InsightError,
+	InsightResult,
+	ResultTooLargeError,
+} from "../../src/controller/IInsightFacade";
 import {clearDisk, getContentFromArchives} from "../TestUtil";
 import chai, {expect} from "chai";
 import chaiAsPromised from "chai-as-promised";
 import {folderTest} from "@ubccpsc310/folder-test";
 import {before} from "mocha";
+import {
+	expectedPassGroupAPPLYMAXSEATS,
+	queryPassApplyOrderString,
+	queryPassGroupAPPLYMAXSEATS,
+} from "./../InsightFacadeOrderUtil";
+import {queryPassApplyOrderUP, expectedPassApplyOrderString} from "./../InsightFacadeOrderUtil2";
+import {queryPassORDERDOWNSINGLEKEY, expectedPassORDERDOWNSINGLEKEY} from "./../InsightFacadeOrderUtil4";
+import {
+	expectedPassApplyOrderUP,
+	queryPassORDERDOWNMULTIKEY,
+	expectedPassORDERDOWNMULTIKEY
+} from "./../InsightFacadeOrderUtil3";
+
+chai.use(chaiAsPromised);
+function compareOrder(actual: InsightResult[], expected: InsightResult[], keys: string[]) {
+	expect(actual).is.an.instanceOf(Array);
+	expect(actual.length).is.equals(expected.length);
+	for (let i = 0; i < actual.length; i++) {
+		for (let key of keys) {
+			expect(actual[i][key]).is.equals(expected[i][key]);
+		}
+	}
+}
 
 /**
  * Tests for new ORDER EBNF
  */
-chai.use(chaiAsPromised);
 export default function OrderPerformQueryTests() {
 	let rooms: string;
 	let sections: string;
@@ -58,5 +85,33 @@ export default function OrderPerformQueryTests() {
 				assertOnResult,
 			}
 		);
+
+		it("pass_apply_orderString", async function () {
+			let results = await facade.performQuery(queryPassApplyOrderString);
+			compareOrder(results, expectedPassApplyOrderString, ["maxSeats"]);
+		});
+
+		it("pass_apply_orderUP", async function () {
+			let results = await facade.performQuery(queryPassApplyOrderUP);
+			compareOrder(results, expectedPassApplyOrderUP, ["maxSeats"]);
+		});
+
+		it("pass_GROUP_APPLY_MAX_SEATS", async function () {
+			let results = await facade.performQuery(queryPassGroupAPPLYMAXSEATS);
+			compareOrder(results, expectedPassGroupAPPLYMAXSEATS, ["maxSeats"]);
+		});
+
+		it("pass_ORDER_DOWN_MULTIKEY", async function () {
+			let results = await facade.performQuery(queryPassORDERDOWNMULTIKEY);
+			compareOrder(results, expectedPassORDERDOWNMULTIKEY,
+				["rooms_shortname",
+					"rooms_number",
+					"rooms_name"]);
+		});
+
+		it("pass_ORDER_DOWN_SINGLEKEY", async function () {
+			let results = await facade.performQuery(queryPassORDERDOWNSINGLEKEY);
+			compareOrder(results, expectedPassORDERDOWNSINGLEKEY, ["rooms_shortname"]);
+		});
 	});
 }
