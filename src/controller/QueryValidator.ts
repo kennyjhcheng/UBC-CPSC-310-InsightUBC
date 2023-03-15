@@ -1,8 +1,9 @@
 import {validateArray, validateObject} from "./utils";
-import {FILTER, Mfield, MFIELD, SFIELD, Sfield} from "./IQueryValidator";
+import {APPLYTOKEN, FILTER, Mfield, MFIELD, SFIELD, Sfield} from "./IQueryValidator";
 
 export class QueryValidator {
 	private _datasetId?: string;
+	private transformKeys: string[] = [];
 
 	/**
 	 * Validates that query
@@ -13,15 +14,11 @@ export class QueryValidator {
 
 		// cannot check property existence of unknowns by referencing property directly
 		const queryKeys = Object.keys(query as object);
-		if (queryKeys.length >= 3) {
+		if (queryKeys.length > 3) {
 			throw new Error("Query has too many keys");
 		}
-		if (!queryKeys.includes("WHERE")) {
-			throw new Error("Query is missing WHERE");
-		}
-		this.validateWHERE(query["WHERE"]);
-
 		// Validate OPTIONS property
+		// TODO: Options look different now, make sure you change the below code to abide new EBNF rules
 		if (!queryKeys.includes("OPTIONS")) {
 			throw new Error("Query is missing OPTIONS");
 		}
@@ -29,15 +26,40 @@ export class QueryValidator {
 		if (!optionKeys.includes("COLUMNS")) {
 			throw new Error("OPTIONS is missing COLUMNS");
 		}
-
+		// Checking COLUMNS before WHERE to set the dataset for the query
 		this.validateCOLUMNS(query["OPTIONS"]["COLUMNS"]);
+		// Validate WHERE property
+		if (!queryKeys.includes("WHERE")) {
+			throw new Error("Query is missing WHERE");
+		}
+		this.validateWHERE(query["WHERE"]);
 		if (optionKeys.includes("ORDER") && !query["OPTIONS"]["COLUMNS"].includes(query["OPTIONS"]["ORDER"])) {
 			throw new Error("ORDER key must be in COLUMNS");
 		}
 		if (!optionKeys.includes("ORDER") && optionKeys.length > 1) {
 			throw new Error("invalid key in OPTIONS");
 		}
+		if(Object.keys(query).length === 3){
+			if (!Object.keys(query).includes("TRANSFORMATIONS")) {
+				throw new Error("TRANSFORMATION is missing");
+			}
+			const transformationKeys = Object.keys(query["TRANSFORMATIONS"]);
+			if(!transformationKeys.includes("GROUP") || !transformationKeys.includes("APPLY")){
+				throw new Error("GROUP or APPLY is missing in TRANSFORMATIONS");
+			}
+			this.validateApply(query["TRANSFORMATIONS"]["APPLY"]);
+			this.validateColumnsIsASubsetOfApply(query);
+		}
 
+	}
+
+	private validateColumnsIsASubsetOfApply(query: any){
+		let columns = query["OPTIONS"]["COLUMNS"];
+		for(const column of columns){
+			if(!this.transformKeys.includes(column)){
+				throw new Error("column is not present in transform");
+			}
+		}
 	}
 
 	/**
@@ -168,25 +190,62 @@ export class QueryValidator {
 		if (columns.length < 1) {
 			throw new Error("COLUMNS is empty");
 		}
-		let datasetId = columns[0].split("_")[0];
 		for (const column of columns) {
-			let key = column.split("_");
-			if (key[0] !== datasetId) {
-				throw new Error("COLUMNS: Cannot query more than one dataset");
+			if(column.includes("_")){
+				let datasetId = columns[0].split("_")[0];
+				if(!this._datasetId){
+					this._datasetId = datasetId;
+				}
+				let key = column.split("_");
+				if (key[0] !== datasetId) {
+					throw new Error("COLUMNS: Cannot query more than one dataset");
+				}
+				if (!(MFIELD.includes(key[1] as Mfield) || SFIELD.includes(key[1] as Sfield))) {
+					throw new Error(`Invalid key ${key[1]} in COLUMNS`);
+				}
 			}
-			if (!(MFIELD.includes(key[1] as Mfield) || SFIELD.includes(key[1] as Sfield))) {
-				throw new Error(`Invalid key ${key[1]} in COLUMNS`);
-			}
+
 		}
 	}
 
-	/**
-	 * REQUIRES: query COLUMNS has been validated by running this.validateWHERE_OPTIONS_COLUMNS
-	 * @param query
-	 */
-	public setDatasetId(query: any) {
-		this._datasetId = query["OPTIONS"]["COLUMNS"][0].split("_")[0];
+	private validateApply(apply: any){
+		validateArray(apply, "APPLY is not an array");
+		for(const applyRule of apply) {
+			this.validateApplyRule(applyRule);
+		}
+		if((new Set(this.transformKeys)).size !== this.transformKeys.length){
+			throw new Error("duplicate keys");
+		}
+	}
 
+	private validateApplyRule(applyRule: any){
+		if (Object.keys(applyRule).length !== 1) {
+			throw new Error("apply has more than one key");
+		}
+		let applyKeyName = Object.keys(applyRule)[0];
+		if(applyKeyName.includes("_")){
+			throw new Error("apply key has underscore");
+		}
+		if (Object.keys(applyRule[applyKeyName]).length !== 1) {
+			throw new Error("apply body has more than one key");
+		}
+		let applyToken = Object.keys(applyRule[applyKeyName])[0];
+		if(!Object.values(APPLYTOKEN).includes(applyToken as APPLYTOKEN)){
+			throw new Error("invalid apply token token");
+		}
+		let key = applyRule[applyKeyName][applyToken];
+		let datasetId = key.split("_")[0];
+		if (datasetId !== this.datasetId) {
+			throw new Error("Cannot query more than one dataset");
+		}
+		let keyField = key.split("_")[1];
+		if (!(MFIELD.includes(keyField as Mfield) || SFIELD.includes(keyField as Sfield))) {
+			throw new Error(`Invalid key ${key[1]} in APPLY`);
+		}
+		if(applyToken !== APPLYTOKEN.COUNT && !(MFIELD.includes(keyField as Mfield))){
+			throw new Error("key for APPLYTOKEN must be a number");
+		}
+		this.transformKeys.push(applyKeyName);
 	}
 
 	public get datasetId() {
