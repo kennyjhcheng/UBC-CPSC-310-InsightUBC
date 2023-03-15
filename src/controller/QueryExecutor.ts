@@ -1,7 +1,8 @@
-import {FILTER} from "./IQueryValidator";
+import {DIRECTION, Direction, FILTER} from "./IQueryValidator";
 import {ISection} from "./Datasets/ISection";
 import {InsightResult} from "./IInsightFacade";
 import {IDataset} from "./Datasets/IDataset";
+import {applyGroupFunctions, groupData} from "./QueryTransformer";
 
 
 export class QueryExecutor {
@@ -12,29 +13,65 @@ export class QueryExecutor {
 		this._dataset = dataSet.data as ISection[];
 	}
 
-    /**
-     * Executes that query
-     * @param query
-     */
+	/**
+	 * Executes that query
+	 * @param query
+	 */
 	public executeQuery(query: any): InsightResult[] {
+		if(query["TRANSFORMATIONS"]){
+			let groupedData = groupData(this.executeWHERE(query["WHERE"]),query["TRANSFORMATIONS"]["GROUP"]);
+			return applyGroupFunctions(groupedData,query["OPTIONS"]["COLUMNS"],query["TRANSFORMATIONS"]["APPLY"]);
+		}
+		// The below code needs to be different
 		let unorderedResult = this.executeCOLUMNS(query["OPTIONS"]["COLUMNS"], this.executeWHERE(query["WHERE"]));
 		if (query["OPTIONS"]["ORDER"]) {
-			let key: string = query["OPTIONS"]["ORDER"];
-			return this.orderResult(unorderedResult,key);
+			let ORDER = query["OPTIONS"]["ORDER"];
+			return this.orderResult(unorderedResult, ORDER);
 		}
 		return unorderedResult;
 	}
 
-	private orderResult(unorderedResult: InsightResult[], key: string): InsightResult[] {
-		return unorderedResult.sort((a,b) => (a[key] > b[key])
-			? 1 : ((b[key] > a[key]) ? -1 : 0));
+	private orderResult(unorderedResult: InsightResult[], ORDER: any): InsightResult[] {
+		let orderKeys = typeof ORDER === "object" ? Object.keys(ORDER) : [];
+		if (orderKeys.length === 0) {
+			return unorderedResult.sort((a, b) => this.sortUP(a, b, ORDER));
+		}
+
+		let keys: string[] = ORDER["keys"];
+		let sortFn = (a: InsightResult, b: InsightResult, key: string) => ORDER["dir"] as Direction === "UP" ?
+			this.sortUP(a, b, key) :
+			this.sortUP(b, a, key);
+
+		return unorderedResult.sort((a, b) => {
+			keys.forEach((key) => {
+				let comparison = sortFn(a, b, key);
+				if (comparison !== 0) {
+					return comparison;
+				}
+			});
+			return 0;
+		});
+
 	}
 
-    /**
-     * executes the WHERE section of the query, the query body
-     * @param queryBody
-     * @private
-     */
+	/**
+	 * To sortUp, call this.sort(a, b, key)
+	 * To sortDown, call this.sort(b, a, key)
+	 */
+	private sortUP(a: InsightResult, b: InsightResult, key: string) {
+		return (a[key] > b[key]) ?
+			1 :
+			((b[key] > a[key]) ?
+				-1 :
+				0
+			);
+	}
+
+	/**
+	 * executes the WHERE section of the query, the query body
+	 * @param queryBody
+	 * @private
+	 */
 	private executeWHERE(queryBody: any): ISection[] {
 		const keys = Object.keys(queryBody);
 		if (keys.length === 0) {
@@ -43,12 +80,12 @@ export class QueryExecutor {
 		return this.executeFilter(keys[0] as FILTER, queryBody[keys[0]]);
 	}
 
-    /**
-     * executes the filter from WHERE
-     * @param filterKey
-     * @param filterValue
-     * @private
-     */
+	/**
+	 * executes the filter from WHERE
+	 * @param filterKey
+	 * @param filterValue
+	 * @private
+	 */
 	private executeFilter(filterKey: FILTER, filterValue: any): ISection[] {
 		switch (filterKey) {
 			case FILTER.EQ:
@@ -144,17 +181,17 @@ export class QueryExecutor {
 		for (const filter of filterArray) {
 			let keys = Object.keys(filter);
 			let newList: ISection[] = this.executeFilter(keys[0] as FILTER, filter[keys[0]]);
-            // https://stackoverflow.com/questions/3629817/getting-a-union-of-two-arrays-in-javascript
+			// https://stackoverflow.com/questions/3629817/getting-a-union-of-two-arrays-in-javascript
 			result = [...new Set([...result, ...newList])];
 		}
 		return result;
 	}
 
-    /**
-     * executes the COLUMNS section of query
-     * @param columns
-     * @private
-     */
+	/**
+	 * executes the COLUMNS section of query
+	 * @param columns
+	 * @private
+	 */
 	private executeCOLUMNS(columns: any, data: ISection[]): InsightResult[] {
 		let datasetId = columns[0].split("_")[0];
 		let columnsNeeded: string[] = [];
@@ -164,7 +201,7 @@ export class QueryExecutor {
 		}
 		let result: InsightResult[] = [];
 		data.forEach((section) => {
-            // https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6
+			// https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6
 			const filtered = Object.keys(section)
 				.filter((key) => columnsNeeded.includes(key))
 				.reduce((obj, key) => {
