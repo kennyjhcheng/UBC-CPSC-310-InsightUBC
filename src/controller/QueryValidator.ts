@@ -1,5 +1,5 @@
 import {validateArray, validateObject} from "./utils";
-import {APPLYTOKEN, FILTER, Mfield, MFIELD, SFIELD, Sfield} from "./IQueryValidator";
+import {APPLYTOKEN, Direction, DIRECTION, FILTER, Mfield, MFIELD, SFIELD, Sfield} from "./IQueryValidator";
 
 export class QueryValidator {
 	private _datasetId?: string;
@@ -33,8 +33,8 @@ export class QueryValidator {
 			throw new Error("Query is missing WHERE");
 		}
 		this.validateWHERE(query["WHERE"]);
-		if (optionKeys.includes("ORDER") && !query["OPTIONS"]["COLUMNS"].includes(query["OPTIONS"]["ORDER"])) {
-			throw new Error("ORDER key must be in COLUMNS");
+		if (optionKeys.includes("ORDER")) {
+			this.validateORDER(query["OPTIONS"]["COLUMNS"], query["OPTIONS"]["ORDER"]);
 		}
 		if (!optionKeys.includes("ORDER") && optionKeys.length > 1) {
 			throw new Error("invalid key in OPTIONS");
@@ -253,5 +253,34 @@ export class QueryValidator {
 			throw Error("datasetId has not been set");
 		}
 		return this._datasetId;
+	}
+
+	private validateORDER(COLUMNS: any, ORDER: any) {
+		const orderKeys = Object.keys(ORDER);
+		if (orderKeys.length === 2
+		) {
+			if (!orderKeys.includes("dir")) {
+				throw new Error("ORDER missing 'dir' key");
+			}
+			if (!orderKeys.includes("keys")) {
+				throw new Error("ORDER missing 'keys' key");
+			}
+			if (!DIRECTION.includes(ORDER["dir"] as Direction)) {
+				throw new Error("Invalid ORDER direction");
+			}
+			validateArray(ORDER["keys"], "ORDER keys must be an array");
+			if (ORDER["keys"].length === 0) {
+				throw new Error("ORDER keys must be a non-empty array");
+			}
+			if (!COLUMNS.includes(ORDER["keys"])) {
+				throw new Error("All ORDER keys must be in COLUMNS");
+			}
+		} else if (orderKeys.length === 0 &&
+			!COLUMNS.includes(ORDER)) {
+			throw new Error("ORDER key must be in COLUMNS");
+		} else {
+			throw new Error("ORDER query incorrect");
+		}
+
 	}
 }

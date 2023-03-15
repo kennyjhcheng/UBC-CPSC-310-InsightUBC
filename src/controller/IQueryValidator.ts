@@ -31,6 +31,13 @@ export const SFIELD = [
 export type SfieldTuple = typeof SFIELD;
 export type Sfield = SfieldTuple[number];
 
+export const DIRECTION = [
+	"UP",
+	"DOWN"
+];
+export type DirectionTuple = typeof DIRECTION;
+export type Direction = MfieldTuple[number];
+
 export enum FILTER {
 	AND = "AND",
 	OR = "OR",
