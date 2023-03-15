@@ -5,10 +5,7 @@ export class QueryValidator {
 	private _datasetId?: string;
 	private transformKeys: string[] = [];
 
-	/**
-	 * Validates that query
-	 * @param query
-	 */
+	/** Validates that query */
 	public validateQuery(query: any) {
 		validateObject(query, "Query does not exist or isn't an object");
 
@@ -18,7 +15,6 @@ export class QueryValidator {
 			throw new Error("Query has too many keys");
 		}
 		// Validate OPTIONS property
-		// TODO: Options look different now, make sure you change the below code to abide new EBNF rules
 		if (!queryKeys.includes("OPTIONS")) {
 			throw new Error("Query is missing OPTIONS");
 		}
@@ -63,11 +59,7 @@ export class QueryValidator {
 		}
 	}
 
-	/**
-	 * validates the WHERE section of the query, the query body
-	 * @param queryBody
-	 * @private
-	 */
+	/** validates the WHERE section of the query, the query body */
 	private validateWHERE(queryBody: any) {
 		validateObject(queryBody, "WHERE body is invalid");
 		const keys = Object.keys(queryBody);
@@ -85,11 +77,7 @@ export class QueryValidator {
 		this.validateFilter(keys[0] as FILTER, queryBody[keys[0]]);
 	}
 
-	/**
-	 * Validates the filter from WHERE
-	 * @param filterKey
-	 * @private
-	 */
+	/** Validates the filter from WHERE */
 	private validateFilter(filterKey: FILTER, filterValue: any) {
 		validateObject(filterValue, `${filterKey} in the FILTER is invalid`);
 		switch (filterKey) {
@@ -181,11 +169,7 @@ export class QueryValidator {
 		}
 	}
 
-	/**
-	 * Validates the COLUMNS section of query
-	 * @param columns
-	 * @private
-	 */
+	/** Validates the COLUMNS section of query */
 	private validateCOLUMNS(columns: any) {
 		validateArray(columns, "COLUMNS value is missing");
 		if (columns.length < 1) {
@@ -300,6 +284,5 @@ export class QueryValidator {
 		} else {
 			throw new Error("");
 		}
-
 	}
 }
