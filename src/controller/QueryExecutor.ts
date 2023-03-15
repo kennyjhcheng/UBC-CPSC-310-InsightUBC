@@ -2,6 +2,7 @@ import {FILTER} from "./IQueryValidator";
 import {ISection} from "./Datasets/ISection";
 import {InsightResult} from "./IInsightFacade";
 import {IDataset} from "./Datasets/IDataset";
+import {applyGroupFunctions, groupData} from "./QueryTransformer";
 
 
 export class QueryExecutor {
@@ -17,6 +18,11 @@ export class QueryExecutor {
      * @param query
      */
 	public executeQuery(query: any): InsightResult[] {
+		if(query["TRANSFORMATIONS"]){
+			let groupedData = groupData(this.executeWHERE(query["WHERE"]),query["TRANSFORMATIONS"]["GROUP"]);
+			return applyGroupFunctions(groupedData,query["OPTIONS"]["COLUMNS"],query["TRANSFORMATIONS"]["APPLY"]);
+		}
+		// The below code needs to be different
 		let unorderedResult = this.executeCOLUMNS(query["OPTIONS"]["COLUMNS"], this.executeWHERE(query["WHERE"]));
 		if (query["OPTIONS"]["ORDER"]) {
 			let key: string = query["OPTIONS"]["ORDER"];
