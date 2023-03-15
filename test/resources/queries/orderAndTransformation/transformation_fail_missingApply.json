@@ -1,0 +1,33 @@
+{
+	"title": "transformation_fail_missingApply",
+	"input": {
+		"WHERE": {
+			"AND": [
+				{
+					"IS": {
+						"rooms_fullname": "*"
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"rooms_fullname",
+				"maxSeats"
+			],
+			"ORDER": {
+				"dir": "DOWN",
+				"keys": [
+					"maxSeats"
+				]
+			}
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"rooms_fullname"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}
