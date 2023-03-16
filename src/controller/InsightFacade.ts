@@ -222,7 +222,7 @@ export default class InsightFacade implements IInsightFacade {
 	public performQuery(query: unknown): Promise<InsightResult[]> {
 		return this.checkDataLoaded()
 			.then(() => {
-				const queryValidator: QueryValidator = new QueryValidator();
+				const queryValidator: QueryValidator = new QueryValidator(this.datasets);
 				let result: InsightResult[];
 
 				// queryValidator.setDatasetId(query);

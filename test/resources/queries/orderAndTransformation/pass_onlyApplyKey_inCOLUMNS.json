@@ -1,0 +1,593 @@
+{
+	"title": "pass_onlyApplyKey_inCOLUMNS",
+	"input": {
+		"WHERE": {},
+		"OPTIONS": {
+			"COLUMNS": [
+				"overallMax"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept"
+			],
+			"APPLY": [
+				{
+					"overallMax": {
+						"MAX": "sections_avg"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"overallMax": 94.44
+		},
+		{
+			"overallMax": 96.11
+		},
+		{
+			"overallMax": 92
+		},
+		{
+			"overallMax": 92.29
+		},
+		{
+			"overallMax": 91.86
+		},
+		{
+			"overallMax": 85.16
+		},
+		{
+			"overallMax": 96
+		},
+		{
+			"overallMax": 83.13
+		},
+		{
+			"overallMax": 90
+		},
+		{
+			"overallMax": 80.82
+		},
+		{
+			"overallMax": 96.94
+		},
+		{
+			"overallMax": 93
+		},
+		{
+			"overallMax": 86.24
+		},
+		{
+			"overallMax": 80.79
+		},
+		{
+			"overallMax": 91.4
+		},
+		{
+			"overallMax": 83.14
+		},
+		{
+			"overallMax": 92
+		},
+		{
+			"overallMax": 96.9
+		},
+		{
+			"overallMax": 87.24
+		},
+		{
+			"overallMax": 86.81
+		},
+		{
+			"overallMax": 91.38
+		},
+		{
+			"overallMax": 87.13
+		},
+		{
+			"overallMax": 89.43
+		},
+		{
+			"overallMax": 86.7
+		},
+		{
+			"overallMax": 86.83
+		},
+		{
+			"overallMax": 83.2
+		},
+		{
+			"overallMax": 87.7
+		},
+		{
+			"overallMax": 91.47
+		},
+		{
+			"overallMax": 85.4
+		},
+		{
+			"overallMax": 86.04
+		},
+		{
+			"overallMax": 87.56
+		},
+		{
+			"overallMax": 85.62
+		},
+		{
+			"overallMax": 90.57
+		},
+		{
+			"overallMax": 93.45
+		},
+		{
+			"overallMax": 94.33
+		},
+		{
+			"overallMax": 95.15
+		},
+		{
+			"overallMax": 92
+		},
+		{
+			"overallMax": 88.88
+		},
+		{
+			"overallMax": 89.8
+		},
+		{
+			"overallMax": 93.67
+		},
+		{
+			"overallMax": 94.27
+		},
+		{
+			"overallMax": 94.4
+		},
+		{
+			"overallMax": 87.87
+		},
+		{
+			"overallMax": 95.54
+		},
+		{
+			"overallMax": 92.57
+		},
+		{
+			"overallMax": 92
+		},
+		{
+			"overallMax": 86.13
+		},
+		{
+			"overallMax": 89.68
+		},
+		{
+			"overallMax": 96.27
+		},
+		{
+			"overallMax": 79.5
+		},
+		{
+			"overallMax": 88.4
+		},
+		{
+			"overallMax": 99.19
+		},
+		{
+			"overallMax": 89.13
+		},
+		{
+			"overallMax": 89.42
+		},
+		{
+			"overallMax": 82.77
+		},
+		{
+			"overallMax": 89.33
+		},
+		{
+			"overallMax": 90.46
+		},
+		{
+			"overallMax": 94.75
+		},
+		{
+			"overallMax": 90.39
+		},
+		{
+			"overallMax": 86.9
+		},
+		{
+			"overallMax": 95
+		},
+		{
+			"overallMax": 98
+		},
+		{
+			"overallMax": 89.27
+		},
+		{
+			"overallMax": 94.33
+		},
+		{
+			"overallMax": 93.72
+		},
+		{
+			"overallMax": 93.72
+		},
+		{
+			"overallMax": 95
+		},
+		{
+			"overallMax": 95.58
+		},
+		{
+			"overallMax": 96.46
+		},
+		{
+			"overallMax": 97.5
+		},
+		{
+			"overallMax": 98.75
+		},
+		{
+			"overallMax": 93.93
+		},
+		{
+			"overallMax": 87.17
+		},
+		{
+			"overallMax": 89.68
+		},
+		{
+			"overallMax": 85.69
+		},
+		{
+			"overallMax": 89.17
+		},
+		{
+			"overallMax": 93.47
+		},
+		{
+			"overallMax": 98.8
+		},
+		{
+			"overallMax": 96.47
+		},
+		{
+			"overallMax": 79.89
+		},
+		{
+			"overallMax": 96.4
+		},
+		{
+			"overallMax": 94
+		},
+		{
+			"overallMax": 85.38
+		},
+		{
+			"overallMax": 86
+		},
+		{
+			"overallMax": 87.5
+		},
+		{
+			"overallMax": 93.05
+		},
+		{
+			"overallMax": 84.78
+		},
+		{
+			"overallMax": 90.68
+		},
+		{
+			"overallMax": 91
+		},
+		{
+			"overallMax": 88.47
+		},
+		{
+			"overallMax": 88.5
+		},
+		{
+			"overallMax": 96.36
+		},
+		{
+			"overallMax": 85
+		},
+		{
+			"overallMax": 88.17
+		},
+		{
+			"overallMax": 90
+		},
+		{
+			"overallMax": 92.25
+		},
+		{
+			"overallMax": 93.04
+		},
+		{
+			"overallMax": 84.43
+		},
+		{
+			"overallMax": 90
+		},
+		{
+			"overallMax": 90.29
+		},
+		{
+			"overallMax": 83.57
+		},
+		{
+			"overallMax": 95.29
+		},
+		{
+			"overallMax": 93.22
+		},
+		{
+			"overallMax": 93
+		},
+		{
+			"overallMax": 91.33
+		},
+		{
+			"overallMax": 87.5
+		},
+		{
+			"overallMax": 89.06
+		},
+		{
+			"overallMax": 85.4
+		},
+		{
+			"overallMax": 90.44
+		},
+		{
+			"overallMax": 91.5
+		},
+		{
+			"overallMax": 93
+		},
+		{
+			"overallMax": 84
+		},
+		{
+			"overallMax": 86.95
+		},
+		{
+			"overallMax": 89.93
+		},
+		{
+			"overallMax": 96.06
+		},
+		{
+			"overallMax": 84
+		},
+		{
+			"overallMax": 86.71
+		},
+		{
+			"overallMax": 92.8
+		},
+		{
+			"overallMax": 78.72
+		},
+		{
+			"overallMax": 84.58
+		},
+		{
+			"overallMax": 84.29
+		},
+		{
+			"overallMax": 86.6
+		},
+		{
+			"overallMax": 90.83
+		},
+		{
+			"overallMax": 92.26
+		},
+		{
+			"overallMax": 96.1
+		},
+		{
+			"overallMax": 92.25
+		},
+		{
+			"overallMax": 93.2
+		},
+		{
+			"overallMax": 99.78
+		},
+		{
+			"overallMax": 77.39
+		},
+		{
+			"overallMax": 93.5
+		},
+		{
+			"overallMax": 94.7
+		},
+		{
+			"overallMax": 93.5
+		},
+		{
+			"overallMax": 94.17
+		},
+		{
+			"overallMax": 96.5
+		},
+		{
+			"overallMax": 96.59
+		},
+		{
+			"overallMax": 89.4
+		},
+		{
+			"overallMax": 96.25
+		},
+		{
+			"overallMax": 96.5
+		},
+		{
+			"overallMax": 91.57
+		},
+		{
+			"overallMax": 87.5
+		},
+		{
+			"overallMax": 90.67
+		},
+		{
+			"overallMax": 98.71
+		},
+		{
+			"overallMax": 95
+		},
+		{
+			"overallMax": 93.07
+		},
+		{
+			"overallMax": 93.5
+		},
+		{
+			"overallMax": 96
+		},
+		{
+			"overallMax": 89.25
+		},
+		{
+			"overallMax": 95.07
+		},
+		{
+			"overallMax": 96
+		},
+		{
+			"overallMax": 94.23
+		},
+		{
+			"overallMax": 95.37
+		},
+		{
+			"overallMax": 95.43
+		},
+		{
+			"overallMax": 96.47
+		},
+		{
+			"overallMax": 86
+		},
+		{
+			"overallMax": 88.3
+		},
+		{
+			"overallMax": 90
+		},
+		{
+			"overallMax": 97
+		},
+		{
+			"overallMax": 89.08
+		},
+		{
+			"overallMax": 84.6
+		},
+		{
+			"overallMax": 80.58
+		},
+		{
+			"overallMax": 95
+		},
+		{
+			"overallMax": 89.25
+		},
+		{
+			"overallMax": 79
+		},
+		{
+			"overallMax": 91.7
+		},
+		{
+			"overallMax": 92.3
+		},
+		{
+			"overallMax": 92.5
+		},
+		{
+			"overallMax": 86.35
+		},
+		{
+			"overallMax": 86.81
+		},
+		{
+			"overallMax": 88.71
+		},
+		{
+			"overallMax": 91.43
+		},
+		{
+			"overallMax": 96.15
+		},
+		{
+			"overallMax": 93.25
+		},
+		{
+			"overallMax": 89.76
+		},
+		{
+			"overallMax": 98.98
+		},
+		{
+			"overallMax": 94.7
+		},
+		{
+			"overallMax": 90
+		},
+		{
+			"overallMax": 94.25
+		},
+		{
+			"overallMax": 84.92
+		},
+		{
+			"overallMax": 60
+		},
+		{
+			"overallMax": 95.2
+		},
+		{
+			"overallMax": 89.5
+		},
+		{
+			"overallMax": 84.08
+		},
+		{
+			"overallMax": 82.16
+		},
+		{
+			"overallMax": 82.83
+		},
+		{
+			"overallMax": 76.03
+		},
+		{
+			"overallMax": 89
+		},
+		{
+			"overallMax": 89
+		},
+		{
+			"overallMax": 79.12
+		},
+		{
+			"overallMax": 92.71
+		}
+	]
+}

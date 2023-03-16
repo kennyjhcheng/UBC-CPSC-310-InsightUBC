@@ -1,9 +1,15 @@
 import {validateArray, validateObject} from "./utils";
 import {APPLYTOKEN, Direction, DIRECTION, FILTER, Mfield, MFIELD, SFIELD, Sfield} from "./IQueryValidator";
+import {IDataset} from "./Datasets/IDataset";
 
 export class QueryValidator {
 	private _datasetId?: string;
+	private _datasets: Map<string, IDataset>;
 	private transformKeys: string[] = [];
+
+	constructor(datasets: Map<string, IDataset>) {
+		this._datasets = datasets;
+	}
 
 	/** Validates that query */
 	public validateQuery(query: any) {
@@ -22,7 +28,6 @@ export class QueryValidator {
 		}
 		// Checking COLUMNS before WHERE to set the dataset for the query
 		this.validateCOLUMNS(query);
-		// Validate WHERE property
 		if (!queryKeys.includes("WHERE")) {
 			throw new Error("Query is missing WHERE");
 		}
@@ -44,8 +49,8 @@ export class QueryValidator {
 			if(!transformationKeys.includes("GROUP") || !transformationKeys.includes("APPLY")){
 				throw new Error("GROUP or APPLY is missing in TRANSFORMATIONS");
 			}
-			this.validateApply(query["TRANSFORMATIONS"]["APPLY"]);
 			this.validateGroups(query["TRANSFORMATIONS"]["GROUP"]);
+			this.validateApply(query["TRANSFORMATIONS"]["APPLY"]);
 			this.validateColumnsIsASubsetOfApply(query);
 		}
 
@@ -180,11 +185,11 @@ export class QueryValidator {
 		for (const column of columns) {
 			if(query["TRANSFORMATIONS"]){
 				if(column.includes("_")){
-					this.validateColumn(columns, column);
+					this.validateColumn(column);
 				}
 			} else {
 				if(column.includes("_")){
-					this.validateColumn(columns, column);
+					this.validateColumn(column);
 				} else {
 					throw Error("invalid column");
 				}
@@ -198,12 +203,12 @@ export class QueryValidator {
 			throw new Error("GROUP is empty");
 		}
 		for (const group of groups) {
-			this.validateColumn(groups, group);
+			this.validateColumn(group);
 			this.transformKeys.push(group);
 		}
 	}
 
-	private validateColumn(columns: any, column: any) {
+	private validateColumn(column: any) {
 		let datasetId = column.split("_")[0];
 		if (!this._datasetId) {
 			this._datasetId = datasetId;
