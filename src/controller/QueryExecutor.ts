@@ -18,13 +18,17 @@ export class QueryExecutor {
 	 * @param query
 	 */
 	public executeQuery(query: any): InsightResult[] {
+		let unorderedResult: InsightResult[];
 		if(query["TRANSFORMATIONS"]){
 			let groupedData = groupData(this.executeWHERE(query["WHERE"]),query["TRANSFORMATIONS"]["GROUP"]);
-			return applyGroupFunctions(groupedData,query["OPTIONS"]["COLUMNS"],query["TRANSFORMATIONS"]["APPLY"]);
+			unorderedResult = applyGroupFunctions(
+				groupedData,query["OPTIONS"]["COLUMNS"],
+				query["TRANSFORMATIONS"]["APPLY"]
+			);
+		} else {
+			unorderedResult = this.executeCOLUMNS(query["OPTIONS"]["COLUMNS"], this.executeWHERE(query["WHERE"]));
 		}
-		// The below code needs to be different
-		let unorderedResult = this.executeCOLUMNS(query["OPTIONS"]["COLUMNS"], this.executeWHERE(query["WHERE"]));
-		if (query["OPTIONS"]["ORDER"]) {
+		if (unorderedResult && query["OPTIONS"]["ORDER"]) {
 			let ORDER = query["OPTIONS"]["ORDER"];
 			return this.orderResult(unorderedResult, ORDER);
 		}
@@ -32,39 +36,24 @@ export class QueryExecutor {
 	}
 
 	private orderResult(unorderedResult: InsightResult[], ORDER: any): InsightResult[] {
-		let orderKeys = typeof ORDER === "object" ? Object.keys(ORDER) : [];
-		if (orderKeys.length === 0) {
-			return unorderedResult.sort((a, b) => this.sortUP(a, b, ORDER));
-		}
+		let keys: string[] = typeof ORDER === "object" ? ORDER["keys"] : [ORDER];
 
-		let keys: string[] = ORDER["keys"];
-		let sortFn = (a: InsightResult, b: InsightResult, key: string) => ORDER["dir"] as Direction === "UP" ?
-			this.sortUP(a, b, key) :
-			this.sortUP(b, a, key);
-
-		return unorderedResult.sort((a, b) => {
-			keys.forEach((key) => {
-				let comparison = sortFn(a, b, key);
-				if (comparison !== 0) {
-					return comparison;
+		let sortedResults: InsightResult[] = unorderedResult.sort((a, b) => {
+			for (let key of keys) {
+				if (a[key] > b[key]) {
+					return 1;
+				} else if (a[key] < b[key]) {
+					return -1;
 				}
-			});
+			}
 			return 0;
 		});
 
-	}
+		if (typeof ORDER === "object" && ORDER["dir"] === "DOWN") {
+			sortedResults.reverse();
+		}
+		return sortedResults;
 
-	/**
-	 * To sortUp, call this.sort(a, b, key)
-	 * To sortDown, call this.sort(b, a, key)
-	 */
-	private sortUP(a: InsightResult, b: InsightResult, key: string) {
-		return (a[key] > b[key]) ?
-			1 :
-			((b[key] > a[key]) ?
-				-1 :
-				0
-			);
 	}
 
 	/**

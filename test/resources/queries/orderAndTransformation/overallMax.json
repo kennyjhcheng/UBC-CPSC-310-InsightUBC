@@ -1,0 +1,783 @@
+{
+	"title": "In sections dataset sections grouped by Department, find all entries; show Department and overallMax, where overallMax is the MAX of Average.",
+	"input": {
+		"WHERE": {},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"overallMax"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept"
+			],
+			"APPLY": [
+				{
+					"overallMax": {
+						"MAX": "sections_avg"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "aanb",
+			"overallMax": 94.44
+		},
+		{
+			"sections_dept": "adhe",
+			"overallMax": 96.11
+		},
+		{
+			"sections_dept": "anat",
+			"overallMax": 92
+		},
+		{
+			"sections_dept": "anth",
+			"overallMax": 92.29
+		},
+		{
+			"sections_dept": "apbi",
+			"overallMax": 91.86
+		},
+		{
+			"sections_dept": "appp",
+			"overallMax": 85.16
+		},
+		{
+			"sections_dept": "apsc",
+			"overallMax": 96
+		},
+		{
+			"sections_dept": "arbc",
+			"overallMax": 83.13
+		},
+		{
+			"sections_dept": "arch",
+			"overallMax": 90
+		},
+		{
+			"sections_dept": "arcl",
+			"overallMax": 80.82
+		},
+		{
+			"sections_dept": "arst",
+			"overallMax": 96.94
+		},
+		{
+			"sections_dept": "arth",
+			"overallMax": 93
+		},
+		{
+			"sections_dept": "asia",
+			"overallMax": 86.24
+		},
+		{
+			"sections_dept": "asic",
+			"overallMax": 80.79
+		},
+		{
+			"sections_dept": "astr",
+			"overallMax": 91.4
+		},
+		{
+			"sections_dept": "astu",
+			"overallMax": 83.14
+		},
+		{
+			"sections_dept": "atsc",
+			"overallMax": 92
+		},
+		{
+			"sections_dept": "audi",
+			"overallMax": 96.9
+		},
+		{
+			"sections_dept": "ba",
+			"overallMax": 87.24
+		},
+		{
+			"sections_dept": "baac",
+			"overallMax": 86.81
+		},
+		{
+			"sections_dept": "babs",
+			"overallMax": 91.38
+		},
+		{
+			"sections_dept": "baen",
+			"overallMax": 87.13
+		},
+		{
+			"sections_dept": "bafi",
+			"overallMax": 89.43
+		},
+		{
+			"sections_dept": "bahr",
+			"overallMax": 86.7
+		},
+		{
+			"sections_dept": "bait",
+			"overallMax": 86.83
+		},
+		{
+			"sections_dept": "bala",
+			"overallMax": 83.2
+		},
+		{
+			"sections_dept": "bama",
+			"overallMax": 87.7
+		},
+		{
+			"sections_dept": "bams",
+			"overallMax": 91.47
+		},
+		{
+			"sections_dept": "bapa",
+			"overallMax": 85.4
+		},
+		{
+			"sections_dept": "basc",
+			"overallMax": 86.04
+		},
+		{
+			"sections_dept": "basm",
+			"overallMax": 87.56
+		},
+		{
+			"sections_dept": "baul",
+			"overallMax": 85.62
+		},
+		{
+			"sections_dept": "bioc",
+			"overallMax": 90.57
+		},
+		{
+			"sections_dept": "biof",
+			"overallMax": 93.45
+		},
+		{
+			"sections_dept": "biol",
+			"overallMax": 94.33
+		},
+		{
+			"sections_dept": "bmeg",
+			"overallMax": 95.15
+		},
+		{
+			"sections_dept": "bota",
+			"overallMax": 92
+		},
+		{
+			"sections_dept": "busi",
+			"overallMax": 88.88
+		},
+		{
+			"sections_dept": "caps",
+			"overallMax": 89.8
+		},
+		{
+			"sections_dept": "ccst",
+			"overallMax": 93.67
+		},
+		{
+			"sections_dept": "ceen",
+			"overallMax": 94.27
+		},
+		{
+			"sections_dept": "cell",
+			"overallMax": 94.4
+		},
+		{
+			"sections_dept": "cens",
+			"overallMax": 87.87
+		},
+		{
+			"sections_dept": "chbe",
+			"overallMax": 95.54
+		},
+		{
+			"sections_dept": "chem",
+			"overallMax": 92.57
+		},
+		{
+			"sections_dept": "chil",
+			"overallMax": 92
+		},
+		{
+			"sections_dept": "chin",
+			"overallMax": 86.13
+		},
+		{
+			"sections_dept": "cics",
+			"overallMax": 89.68
+		},
+		{
+			"sections_dept": "civl",
+			"overallMax": 96.27
+		},
+		{
+			"sections_dept": "clch",
+			"overallMax": 79.5
+		},
+		{
+			"sections_dept": "clst",
+			"overallMax": 88.4
+		},
+		{
+			"sections_dept": "cnps",
+			"overallMax": 99.19
+		},
+		{
+			"sections_dept": "cnrs",
+			"overallMax": 89.13
+		},
+		{
+			"sections_dept": "cnto",
+			"overallMax": 89.42
+		},
+		{
+			"sections_dept": "coec",
+			"overallMax": 82.77
+		},
+		{
+			"sections_dept": "cogs",
+			"overallMax": 89.33
+		},
+		{
+			"sections_dept": "cohr",
+			"overallMax": 90.46
+		},
+		{
+			"sections_dept": "comm",
+			"overallMax": 94.75
+		},
+		{
+			"sections_dept": "cons",
+			"overallMax": 90.39
+		},
+		{
+			"sections_dept": "cpen",
+			"overallMax": 86.9
+		},
+		{
+			"sections_dept": "cpsc",
+			"overallMax": 95
+		},
+		{
+			"sections_dept": "crwr",
+			"overallMax": 98
+		},
+		{
+			"sections_dept": "dani",
+			"overallMax": 89.27
+		},
+		{
+			"sections_dept": "dent",
+			"overallMax": 94.33
+		},
+		{
+			"sections_dept": "dhyg",
+			"overallMax": 93.72
+		},
+		{
+			"sections_dept": "eced",
+			"overallMax": 93.72
+		},
+		{
+			"sections_dept": "econ",
+			"overallMax": 95
+		},
+		{
+			"sections_dept": "edcp",
+			"overallMax": 95.58
+		},
+		{
+			"sections_dept": "edst",
+			"overallMax": 96.46
+		},
+		{
+			"sections_dept": "educ",
+			"overallMax": 97.5
+		},
+		{
+			"sections_dept": "eece",
+			"overallMax": 98.75
+		},
+		{
+			"sections_dept": "elec",
+			"overallMax": 93.93
+		},
+		{
+			"sections_dept": "ends",
+			"overallMax": 87.17
+		},
+		{
+			"sections_dept": "engl",
+			"overallMax": 89.68
+		},
+		{
+			"sections_dept": "enph",
+			"overallMax": 85.69
+		},
+		{
+			"sections_dept": "envr",
+			"overallMax": 89.17
+		},
+		{
+			"sections_dept": "eosc",
+			"overallMax": 93.47
+		},
+		{
+			"sections_dept": "epse",
+			"overallMax": 98.8
+		},
+		{
+			"sections_dept": "etec",
+			"overallMax": 96.47
+		},
+		{
+			"sections_dept": "fhis",
+			"overallMax": 79.89
+		},
+		{
+			"sections_dept": "fipr",
+			"overallMax": 96.4
+		},
+		{
+			"sections_dept": "fish",
+			"overallMax": 94
+		},
+		{
+			"sections_dept": "fist",
+			"overallMax": 85.38
+		},
+		{
+			"sections_dept": "fmst",
+			"overallMax": 86
+		},
+		{
+			"sections_dept": "fnel",
+			"overallMax": 87.5
+		},
+		{
+			"sections_dept": "fnh",
+			"overallMax": 93.05
+		},
+		{
+			"sections_dept": "fnis",
+			"overallMax": 84.78
+		},
+		{
+			"sections_dept": "food",
+			"overallMax": 90.68
+		},
+		{
+			"sections_dept": "fopr",
+			"overallMax": 91
+		},
+		{
+			"sections_dept": "fre",
+			"overallMax": 88.47
+		},
+		{
+			"sections_dept": "fren",
+			"overallMax": 88.5
+		},
+		{
+			"sections_dept": "frst",
+			"overallMax": 96.36
+		},
+		{
+			"sections_dept": "gbpr",
+			"overallMax": 85
+		},
+		{
+			"sections_dept": "geob",
+			"overallMax": 88.17
+		},
+		{
+			"sections_dept": "geog",
+			"overallMax": 90
+		},
+		{
+			"sections_dept": "germ",
+			"overallMax": 92.25
+		},
+		{
+			"sections_dept": "gpp",
+			"overallMax": 93.04
+		},
+		{
+			"sections_dept": "grek",
+			"overallMax": 84.43
+		},
+		{
+			"sections_dept": "grsj",
+			"overallMax": 90
+		},
+		{
+			"sections_dept": "gsat",
+			"overallMax": 90.29
+		},
+		{
+			"sections_dept": "hebr",
+			"overallMax": 83.57
+		},
+		{
+			"sections_dept": "hgse",
+			"overallMax": 95.29
+		},
+		{
+			"sections_dept": "hinu",
+			"overallMax": 93.22
+		},
+		{
+			"sections_dept": "hist",
+			"overallMax": 93
+		},
+		{
+			"sections_dept": "hunu",
+			"overallMax": 91.33
+		},
+		{
+			"sections_dept": "iar",
+			"overallMax": 87.5
+		},
+		{
+			"sections_dept": "igen",
+			"overallMax": 89.06
+		},
+		{
+			"sections_dept": "info",
+			"overallMax": 85.4
+		},
+		{
+			"sections_dept": "isci",
+			"overallMax": 90.44
+		},
+		{
+			"sections_dept": "ital",
+			"overallMax": 91.5
+		},
+		{
+			"sections_dept": "itst",
+			"overallMax": 93
+		},
+		{
+			"sections_dept": "iwme",
+			"overallMax": 84
+		},
+		{
+			"sections_dept": "japn",
+			"overallMax": 86.95
+		},
+		{
+			"sections_dept": "jrnl",
+			"overallMax": 89.93
+		},
+		{
+			"sections_dept": "kin",
+			"overallMax": 96.06
+		},
+		{
+			"sections_dept": "korn",
+			"overallMax": 84
+		},
+		{
+			"sections_dept": "lais",
+			"overallMax": 86.71
+		},
+		{
+			"sections_dept": "larc",
+			"overallMax": 92.8
+		},
+		{
+			"sections_dept": "laso",
+			"overallMax": 78.72
+		},
+		{
+			"sections_dept": "last",
+			"overallMax": 84.58
+		},
+		{
+			"sections_dept": "latn",
+			"overallMax": 84.29
+		},
+		{
+			"sections_dept": "law",
+			"overallMax": 86.6
+		},
+		{
+			"sections_dept": "lfs",
+			"overallMax": 90.83
+		},
+		{
+			"sections_dept": "libe",
+			"overallMax": 92.26
+		},
+		{
+			"sections_dept": "libr",
+			"overallMax": 96.1
+		},
+		{
+			"sections_dept": "ling",
+			"overallMax": 92.25
+		},
+		{
+			"sections_dept": "lled",
+			"overallMax": 93.2
+		},
+		{
+			"sections_dept": "math",
+			"overallMax": 99.78
+		},
+		{
+			"sections_dept": "mdvl",
+			"overallMax": 77.39
+		},
+		{
+			"sections_dept": "mech",
+			"overallMax": 93.5
+		},
+		{
+			"sections_dept": "medg",
+			"overallMax": 94.7
+		},
+		{
+			"sections_dept": "medi",
+			"overallMax": 93.5
+		},
+		{
+			"sections_dept": "micb",
+			"overallMax": 94.17
+		},
+		{
+			"sections_dept": "midw",
+			"overallMax": 96.5
+		},
+		{
+			"sections_dept": "mine",
+			"overallMax": 96.59
+		},
+		{
+			"sections_dept": "mrne",
+			"overallMax": 89.4
+		},
+		{
+			"sections_dept": "mtrl",
+			"overallMax": 96.25
+		},
+		{
+			"sections_dept": "musc",
+			"overallMax": 96.5
+		},
+		{
+			"sections_dept": "name",
+			"overallMax": 91.57
+		},
+		{
+			"sections_dept": "nest",
+			"overallMax": 87.5
+		},
+		{
+			"sections_dept": "nrsc",
+			"overallMax": 90.67
+		},
+		{
+			"sections_dept": "nurs",
+			"overallMax": 98.71
+		},
+		{
+			"sections_dept": "obst",
+			"overallMax": 95
+		},
+		{
+			"sections_dept": "onco",
+			"overallMax": 93.07
+		},
+		{
+			"sections_dept": "path",
+			"overallMax": 93.5
+		},
+		{
+			"sections_dept": "pcth",
+			"overallMax": 96
+		},
+		{
+			"sections_dept": "pers",
+			"overallMax": 89.25
+		},
+		{
+			"sections_dept": "phar",
+			"overallMax": 95.07
+		},
+		{
+			"sections_dept": "phil",
+			"overallMax": 96
+		},
+		{
+			"sections_dept": "phrm",
+			"overallMax": 94.23
+		},
+		{
+			"sections_dept": "phth",
+			"overallMax": 95.37
+		},
+		{
+			"sections_dept": "phys",
+			"overallMax": 95.43
+		},
+		{
+			"sections_dept": "plan",
+			"overallMax": 96.47
+		},
+		{
+			"sections_dept": "poli",
+			"overallMax": 86
+		},
+		{
+			"sections_dept": "pols",
+			"overallMax": 88.3
+		},
+		{
+			"sections_dept": "port",
+			"overallMax": 90
+		},
+		{
+			"sections_dept": "psyc",
+			"overallMax": 97
+		},
+		{
+			"sections_dept": "punj",
+			"overallMax": 89.08
+		},
+		{
+			"sections_dept": "relg",
+			"overallMax": 84.6
+		},
+		{
+			"sections_dept": "rgla",
+			"overallMax": 80.58
+		},
+		{
+			"sections_dept": "rhsc",
+			"overallMax": 95
+		},
+		{
+			"sections_dept": "rmes",
+			"overallMax": 89.25
+		},
+		{
+			"sections_dept": "rmst",
+			"overallMax": 79
+		},
+		{
+			"sections_dept": "rsot",
+			"overallMax": 91.7
+		},
+		{
+			"sections_dept": "russ",
+			"overallMax": 92.3
+		},
+		{
+			"sections_dept": "sans",
+			"overallMax": 92.5
+		},
+		{
+			"sections_dept": "scan",
+			"overallMax": 86.35
+		},
+		{
+			"sections_dept": "scie",
+			"overallMax": 86.81
+		},
+		{
+			"sections_dept": "soci",
+			"overallMax": 88.71
+		},
+		{
+			"sections_dept": "soil",
+			"overallMax": 91.43
+		},
+		{
+			"sections_dept": "sowk",
+			"overallMax": 96.15
+		},
+		{
+			"sections_dept": "span",
+			"overallMax": 93.25
+		},
+		{
+			"sections_dept": "spha",
+			"overallMax": 89.76
+		},
+		{
+			"sections_dept": "spph",
+			"overallMax": 98.98
+		},
+		{
+			"sections_dept": "stat",
+			"overallMax": 94.7
+		},
+		{
+			"sections_dept": "sts",
+			"overallMax": 90
+		},
+		{
+			"sections_dept": "surg",
+			"overallMax": 94.25
+		},
+		{
+			"sections_dept": "swed",
+			"overallMax": 84.92
+		},
+		{
+			"sections_dept": "test",
+			"overallMax": 60
+		},
+		{
+			"sections_dept": "thtr",
+			"overallMax": 95.2
+		},
+		{
+			"sections_dept": "udes",
+			"overallMax": 89.5
+		},
+		{
+			"sections_dept": "ufor",
+			"overallMax": 84.08
+		},
+		{
+			"sections_dept": "urst",
+			"overallMax": 82.16
+		},
+		{
+			"sections_dept": "ursy",
+			"overallMax": 82.83
+		},
+		{
+			"sections_dept": "vant",
+			"overallMax": 76.03
+		},
+		{
+			"sections_dept": "visa",
+			"overallMax": 89
+		},
+		{
+			"sections_dept": "wood",
+			"overallMax": 89
+		},
+		{
+			"sections_dept": "wrds",
+			"overallMax": 79.12
+		},
+		{
+			"sections_dept": "zool",
+			"overallMax": 92.71
+		}
+	]
+}
