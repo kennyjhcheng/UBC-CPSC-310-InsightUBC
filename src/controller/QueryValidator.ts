@@ -23,7 +23,7 @@ export class QueryValidator {
 			throw new Error("OPTIONS is missing COLUMNS");
 		}
 		// Checking COLUMNS before WHERE to set the dataset for the query
-		this.validateCOLUMNS(query["OPTIONS"]["COLUMNS"]);
+		this.validateCOLUMNS(query);
 		// Validate WHERE property
 		if (!queryKeys.includes("WHERE")) {
 			throw new Error("Query is missing WHERE");
@@ -40,6 +40,9 @@ export class QueryValidator {
 				throw new Error("TRANSFORMATION is missing");
 			}
 			const transformationKeys = Object.keys(query["TRANSFORMATIONS"]);
+			if(transformationKeys.length > 2){
+				throw Error("excess keys");
+			}
 			if(!transformationKeys.includes("GROUP") || !transformationKeys.includes("APPLY")){
 				throw new Error("GROUP or APPLY is missing in TRANSFORMATIONS");
 			}
@@ -170,16 +173,24 @@ export class QueryValidator {
 	}
 
 	/** Validates the COLUMNS section of query */
-	private validateCOLUMNS(columns: any) {
+	private validateCOLUMNS(query: any) {
+		let columns = query["OPTIONS"]["COLUMNS"];
 		validateArray(columns, "COLUMNS value is missing");
 		if (columns.length < 1) {
 			throw new Error("COLUMNS is empty");
 		}
 		for (const column of columns) {
-			if(column.includes("_")){
-				this.validateColumn(columns, column);
+			if(query["TRANSFORMATIONS"]){
+				if(column.includes("_")){
+					this.validateColumn(columns, column);
+				}
+			} else {
+				if(column.includes("_")){
+					this.validateColumn(columns, column);
+				} else {
+					throw Error("invalid column");
+				}
 			}
-
 		}
 	}
 
