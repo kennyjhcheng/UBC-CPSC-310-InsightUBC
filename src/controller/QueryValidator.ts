@@ -8,8 +8,6 @@ export class QueryValidator {
 	/** Validates that query */
 	public validateQuery(query: any) {
 		validateObject(query, "Query does not exist or isn't an object");
-
-		// cannot check property existence of unknowns by referencing property directly
 		const queryKeys = Object.keys(query as object);
 		if (queryKeys.length > 3) {
 			throw new Error("Query has too many keys");
@@ -180,6 +178,7 @@ export class QueryValidator {
 			throw new Error("COLUMNS is empty");
 		}
 		for (const column of columns) {
+			console.log(column);
 			if(query["TRANSFORMATIONS"]){
 				if(column.includes("_")){
 					this.validateColumn(columns, column);
@@ -206,12 +205,12 @@ export class QueryValidator {
 	}
 
 	private validateColumn(columns: any, column: any) {
-		let datasetId = columns[0].split("_")[0];
+		let datasetId = column.split("_")[0];
 		if (!this._datasetId) {
 			this._datasetId = datasetId;
 		}
 		let key = column.split("_");
-		if (key[0] !== datasetId) {
+		if (key[0] !== this._datasetId) {
 			throw new Error("Cannot query more than one dataset");
 		}
 		if (!(MFIELD.includes(key[1] as Mfield) || SFIELD.includes(key[1] as Sfield))) {
