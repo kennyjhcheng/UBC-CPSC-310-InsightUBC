@@ -65,15 +65,9 @@ export class QueryValidator {
 		}
 	}
 
-	/** validates the WHERE section of the query, the query body */
 	private validateWHERE(queryBody: any) {
 		validateObject(queryBody, "WHERE body is invalid");
 		const keys = Object.keys(queryBody);
-
-		// TODO: in reference UI, you can have multiple query keys, but EBNF shouldn't allow this
-		// There should only be one key in WHERE right?
-		//	* reference UI: https://cs310.students.cs.ubc.ca/ui/index.html
-		//  * EBNF: https://sites.google.com/view/ubc-cpsc310-22w2/project/c0?authuser=0#h.rckgz9kv4rhk:~:text=BODY%20%3A%3A%3D%20%27WHERE%3A%7B%27%20FILTER%3F%20%27%7D%27
 		if (keys.length > 1) {
 			throw new Error("Too many filters in WHERE");
 		}
@@ -83,7 +77,6 @@ export class QueryValidator {
 		this.validateFilter(keys[0] as FILTER, queryBody[keys[0]]);
 	}
 
-	/** Validates the filter from WHERE */
 	private validateFilter(filterKey: FILTER, filterValue: any) {
 		validateObject(filterValue, `${filterKey} in the FILTER is invalid`);
 		switch (filterKey) {
@@ -175,7 +168,6 @@ export class QueryValidator {
 		}
 	}
 
-	/** Validates the COLUMNS section of query */
 	private validateCOLUMNS(query: any) {
 		let columns = query["OPTIONS"]["COLUMNS"];
 		validateArray(columns, "COLUMNS value is missing");
