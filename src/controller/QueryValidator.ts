@@ -17,7 +17,7 @@ export class QueryValidator {
 	private _datasetId?: string;
 	private _datasets: Map<string, IDataset>;
 	private _dataset_kind?: InsightDatasetKind;
-	private transformKeys: string[] = [];
+	private transformKeys: Set<string> = new Set<string>();
 
 	constructor(datasets: Map<string, IDataset>) {
 		this._datasets = datasets;
@@ -105,7 +105,7 @@ export class QueryValidator {
 	private validateColumnsIsASubsetOfApply(query: any){
 		let columns = query["OPTIONS"]["COLUMNS"];
 		for(const column of columns){
-			if(!this.transformKeys.includes(column)){
+			if(!this.transformKeys.has(column)){
 				throw new Error("column is not present in transform");
 			}
 		}
@@ -139,7 +139,7 @@ export class QueryValidator {
 		}
 		for (const group of groups) {
 			this.validateColumn(group);
-			this.transformKeys.push(group);
+			this.transformKeys.add(group);
 		}
 	}
 
@@ -160,15 +160,16 @@ export class QueryValidator {
 
 	private validateApply(apply: any){
 		validateArray(apply, "APPLY is not an array");
+		let applyKeyNames: string[] = [];
 		for(const applyRule of apply) {
-			this.validateApplyRule(applyRule);
+			this.validateApplyRule(applyRule,applyKeyNames);
 		}
-		if((new Set(this.transformKeys)).size !== this.transformKeys.length){
+		if((new Set(applyKeyNames)).size !== applyKeyNames.length){
 			throw new Error("duplicate keys");
 		}
 	}
 
-	private validateApplyRule(applyRule: any){
+	private validateApplyRule(applyRule: any, applyKeyNames: string[]){
 		if (Object.keys(applyRule).length !== 1) {
 			throw new Error("apply has more than one key");
 		}
@@ -198,7 +199,8 @@ export class QueryValidator {
 		if(applyToken !== APPLYTOKEN.COUNT && !validateMFIELD(keyField, this._dataset_kind)){
 			throw new Error("key for APPLYTOKEN must be a number");
 		}
-		this.transformKeys.push(applyKeyName);
+		this.transformKeys.add(applyKeyName);
+		applyKeyNames.push(applyKeyName);
 	}
 
 	public get datasetId() {
