@@ -178,7 +178,6 @@ export class QueryValidator {
 			throw new Error("COLUMNS is empty");
 		}
 		for (const column of columns) {
-			console.log(column);
 			if(query["TRANSFORMATIONS"]){
 				if(column.includes("_")){
 					this.validateColumn(columns, column);
