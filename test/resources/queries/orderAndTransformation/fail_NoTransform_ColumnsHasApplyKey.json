@@ -1,0 +1,17 @@
+{
+	"title": "fail_NoTransform_ColumnsHasApplyKey",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 97
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"max"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

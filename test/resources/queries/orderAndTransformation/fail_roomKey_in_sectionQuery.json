@@ -1,0 +1,30 @@
+{
+	"title": "fail_roomKey_in_sectionQuery",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"sections_href": "adhe"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"overallMax",
+				"sections_dept"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept"
+			],
+			"APPLY": [
+				{
+					"overallMax": {
+						"MAX": "sections_avg"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}
