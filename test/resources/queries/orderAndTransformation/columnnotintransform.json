@@ -1,0 +1,46 @@
+{
+  "title": "Keys in COLUMNS must be in GROUP or APPLY when TRANSFORMATIONS is present",
+  "input": {
+    "WHERE": {
+      "AND": [
+        {
+          "IS": {
+            "rooms_furniture": "*Tables*"
+          }
+        },
+        {
+          "GT": {
+            "rooms_seats": 300
+          }
+        }
+      ]
+    },
+    "OPTIONS": {
+      "COLUMNS": [
+        "rooms_shortname",
+        "rooms_number",
+        "maxSeats"
+      ],
+      "ORDER": {
+        "dir": "DOWN",
+        "keys": [
+          "maxSeats"
+        ]
+      }
+    },
+    "TRANSFORMATIONS": {
+      "GROUP": [
+        "rooms_shortname"
+      ],
+      "APPLY": [
+        {
+          "maxSeats": {
+            "MAX": "rooms_seats"
+          }
+        }
+      ]
+    }
+  },
+  "errorExpected": true,
+  "expected": "InsightError"
+}
