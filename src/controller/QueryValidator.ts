@@ -1,24 +1,68 @@
 import {validateArray, validateObject} from "./utils";
-import {APPLYTOKEN, Direction, DIRECTION, FILTER, Mfield, MFIELD, SFIELD, Sfield} from "./IQueryValidator";
+import {
+	APPLYTOKEN,
+	Direction,
+	DIRECTION,
+	FILTER, MFIELD_ROOMS,
+	MFIELD_SECTIONS, MfieldRooms,
+	MfieldSections, SFIELD_ROOMS,
+	SFIELD_SECTIONS, SfieldRooms,
+	SfieldSections, validateMFIELD, validateSFIELD
+} from "./IQueryValidator";
 import {IDataset} from "./Datasets/IDataset";
+import {InsightDatasetKind} from "./IInsightFacade";
+import {QueryValidatorWHERE} from "./QueryValidatorWHERE";
 
 export class QueryValidator {
 	private _datasetId?: string;
 	private _datasets: Map<string, IDataset>;
+	private _dataset_kind?: InsightDatasetKind;
 	private transformKeys: string[] = [];
 
 	constructor(datasets: Map<string, IDataset>) {
 		this._datasets = datasets;
 	}
 
-	/** Validates that query */
+	public setDatasetId(query: any) {
+		try {
+			this.extractIdFromColumns(query);
+			if (!(this._datasetId && this._dataset_kind)) {
+				this.extractIdFromGroups(query);
+			}
+		} catch (e) {
+			throw new Error("Could not set DatasetId");
+		}
+		if (!(this._datasetId && this._dataset_kind)) {
+			throw new Error("Could not set DatasetId");
+		}
+	}
+
+	private extractIdFromColumns(query: any) {
+		for (let col of query["OPTIONS"]["COLUMNS"]) {
+			if (col.includes("_")) {
+				this._datasetId = col.split("_")[0];
+				this._dataset_kind = this._datasets.get(this._datasetId ?? "")?.kind;
+				return;
+			}
+		}
+	}
+
+	private extractIdFromGroups(query: any) {
+		for (let group of query["TRANSFORMATIONS"]["GROUP"]) {
+			if (group.includes("_")) {
+				this._datasetId = group.split("_")[0];
+				this._dataset_kind = this._datasets.get(this._datasetId ?? "")?.kind;
+				return;
+			}
+		}
+	}
+
 	public validateQuery(query: any) {
 		validateObject(query, "Query does not exist or isn't an object");
 		const queryKeys = Object.keys(query as object);
 		if (queryKeys.length > 3) {
 			throw new Error("Query has too many keys");
 		}
-		// Validate OPTIONS property
 		if (!queryKeys.includes("OPTIONS")) {
 			throw new Error("Query is missing OPTIONS");
 		}
@@ -26,12 +70,15 @@ export class QueryValidator {
 		if (!optionKeys.includes("COLUMNS")) {
 			throw new Error("OPTIONS is missing COLUMNS");
 		}
-		// Checking COLUMNS before WHERE to set the dataset for the query
 		this.validateCOLUMNS(query);
 		if (!queryKeys.includes("WHERE")) {
 			throw new Error("Query is missing WHERE");
 		}
-		this.validateWHERE(query["WHERE"]);
+		if (!this._datasetId || !this._dataset_kind) {
+			throw new Error("Dataset ID or Dataset kind weren't set when validating");
+		}
+		let validatorWHERE = new QueryValidatorWHERE(this._datasetId, this._dataset_kind);
+		validatorWHERE.validateWHERE(query["WHERE"]);
 		if (optionKeys.includes("ORDER")) {
 			this.validateORDER(query["OPTIONS"]["COLUMNS"], query["OPTIONS"]["ORDER"]);
 		}
@@ -53,7 +100,6 @@ export class QueryValidator {
 			this.validateApply(query["TRANSFORMATIONS"]["APPLY"]);
 			this.validateColumnsIsASubsetOfApply(query);
 		}
-
 	}
 
 	private validateColumnsIsASubsetOfApply(query: any){
@@ -62,109 +108,6 @@ export class QueryValidator {
 			if(!this.transformKeys.includes(column)){
 				throw new Error("column is not present in transform");
 			}
-		}
-	}
-
-	private validateWHERE(queryBody: any) {
-		validateObject(queryBody, "WHERE body is invalid");
-		const keys = Object.keys(queryBody);
-		if (keys.length > 1) {
-			throw new Error("Too many filters in WHERE");
-		}
-		if (keys.length === 0) {
-			return;
-		}
-		this.validateFilter(keys[0] as FILTER, queryBody[keys[0]]);
-	}
-
-	private validateFilter(filterKey: FILTER, filterValue: any) {
-		validateObject(filterValue, `${filterKey} in the FILTER is invalid`);
-		switch (filterKey) {
-			case FILTER.EQ:
-			case FILTER.GT:
-			case FILTER.LT:
-				this.validateMCOMPARISON(filterValue);
-				break;
-			case FILTER.AND:
-			case FILTER.OR:
-				this.validateLOGICCOMPARISON(filterValue);
-				break;
-			case FILTER.NOT:
-				this.validateNEGATION(filterValue);
-				break;
-			case FILTER.IS:
-				this.validateSCOMPARISON(filterValue);
-				break;
-			default:
-				throw new Error("Invalid Filter type");
-		}
-	}
-
-	private validateMCOMPARISON(filterValue: any) {
-		validateObject(filterValue, "MCOMPARISON value is not an object");
-		let keys = Object.keys(filterValue);
-		if (keys.length !== 1) {
-			throw new Error("MCOMPARISON filter has incorrect number of keys");
-		}
-		let mkey = keys[0];
-		let mkeyID = mkey.split("_")[0];
-		let mkeyField = mkey.split("_")[1];
-		if (!MFIELD.includes(mkeyField as Mfield) ||
-			mkeyID !== this._datasetId
-		) {
-			throw new Error("MCOMPARISON Bad field in mkey");
-		}
-		if (!(typeof filterValue[mkey] === "number")) {
-			throw new Error("Invalid value type in MCOMPARISON, should be number");
-		}
-	}
-
-	private validateSCOMPARISON(filterValue: any) {
-		validateObject(filterValue, "SCOMPARISON value is not an object");
-		let keys = Object.keys(filterValue);
-		if (keys.length !== 1) {
-			throw new Error("SCOMPARISON filter has incorrect number of keys");
-		}
-		let skey = keys[0];
-		let skeyID = skey.split("_")[0];
-		let skeyField = skey.split("_")[1];
-		let skeyValue = filterValue[skey];
-		if (!SFIELD.includes(skeyField as Sfield) ||
-			skeyID !== this._datasetId
-		) {
-			throw new Error("SCOMPARISON Bad field in mkey");
-		}
-		if (!(typeof skeyValue === "string")) {
-			throw new Error("Invalid value type in SCOMPARISON, should be string");
-		}
-		skeyValue = skeyValue.startsWith("*") ? skeyValue.substring(1, skeyValue.length) : skeyValue;
-		skeyValue = skeyValue.endsWith("*") ? skeyValue.substring(0, skeyValue.length - 1) : skeyValue;
-		if (skeyValue.includes("*")) {
-			throw new Error("Asterisks (*) can only be the first or last characters of input strings");
-		}
-	}
-
-	private validateNEGATION(filterValue: any) {
-		validateObject(filterValue, "Negation value is not an object");
-		let keys = Object.keys(filterValue);
-		if (keys.length !== 1) {
-			throw new Error("Negation comparison filter has incorrect number of many arguments");
-		}
-		this.validateFilter(keys[0] as FILTER, filterValue[keys[0]]);
-	}
-
-	private validateLOGICCOMPARISON(filterArray: any) {
-		validateArray(filterArray, "Logic Comparison did not receive array as input");
-		if (filterArray.length < 1) {
-			throw new Error("Logic Comparison is empty");
-		}
-
-		for (const filter of filterArray) {
-			let keys = Object.keys(filter);
-			if (keys.length !== 1) {
-				throw new Error("Logic comparison filter has incorrect number of arguments");
-			}
-			this.validateFilter(keys[0] as FILTER, filter[keys[0]]);
 		}
 	}
 
@@ -209,7 +152,8 @@ export class QueryValidator {
 		if (key[0] !== this._datasetId) {
 			throw new Error("Cannot query more than one dataset");
 		}
-		if (!(MFIELD.includes(key[1] as Mfield) || SFIELD.includes(key[1] as Sfield))) {
+		if (this._dataset_kind &&
+			!validateMFIELD(key[1], this._dataset_kind) && !validateSFIELD(key[1], this._dataset_kind)) {
 			throw new Error(`Invalid key ${key[1]} in COLUMNS/GROUP`);
 		}
 	}
@@ -245,10 +189,13 @@ export class QueryValidator {
 			throw new Error("Cannot query more than one dataset");
 		}
 		let keyField = key.split("_")[1];
-		if (!(MFIELD.includes(keyField as Mfield) || SFIELD.includes(keyField as Sfield))) {
+		if (!this._dataset_kind) {
+			throw new Error("Dataset kind could not be found");
+		}
+		if (!validateMFIELD(keyField, this._dataset_kind) && !validateSFIELD(keyField, this._dataset_kind)) {
 			throw new Error(`Invalid key ${key[1]} in APPLY`);
 		}
-		if(applyToken !== APPLYTOKEN.COUNT && !(MFIELD.includes(keyField as Mfield))){
+		if(applyToken !== APPLYTOKEN.COUNT && !validateMFIELD(keyField, this._dataset_kind)){
 			throw new Error("key for APPLYTOKEN must be a number");
 		}
 		this.transformKeys.push(applyKeyName);
