@@ -55,7 +55,7 @@ export default class Section extends Dataset {
 			for (const course of values) {
 				const parsedCourse = JSON.parse(course);
 				if (parsedCourse.result === undefined) {
-					return Promise.reject(new InsightError("invalid json file"));
+					emptyFiles++;
 				}
 				if (parsedCourse.result.length === 0) {
 					emptyFiles++;
