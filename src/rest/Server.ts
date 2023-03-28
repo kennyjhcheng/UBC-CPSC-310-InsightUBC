@@ -1,11 +1,15 @@
 import express, {Application, Request, Response} from "express";
 import * as http from "http";
 import cors from "cors";
+import InsightFacade from "../controller/InsightFacade";
+import {InsightDatasetKind} from "../controller/IInsightFacade";
 
 export default class Server {
 	private readonly port: number;
 	private express: Application;
 	private server: http.Server | undefined;
+
+	private static facade: InsightFacade = new InsightFacade();
 
 	constructor(port: number) {
 		console.info(`Server::<init>( ${port} )`);
@@ -84,9 +88,46 @@ export default class Server {
 		// This is an example endpoint this you can invoke by accessing this URL in your browser:
 		// http://localhost:4321/echo/hello
 		this.express.get("/echo/:msg", Server.echo);
-
 		// TODO: your other endpoints should go here
+		this.express.put("/dataset/:id/:kind", Server.addDataset);
+		this.express.delete("/dataset/:id", Server.removeDataset);
 
+	}
+
+	private static async addDataset(req: Request, res: Response) {
+		try {
+			console.log(`Server::addDataset - params: ${JSON.stringify(req.params)}`);
+			const response = await Server.performAddDataset(req);
+			res.status(200).json({result: response});
+		} catch (err: any) {
+			console.error(`Server::addDataset - error: ${err}`);
+			res.status(400).json({error: err.toString()});
+		}
+	}
+
+	private static performAddDataset(req: Request): Promise<string[]> {
+		return Server.facade.addDataset(
+			req.params.id,
+			req.body.toString("base64"),
+			req.params.kind === "sections" ?
+				InsightDatasetKind.Sections :
+				InsightDatasetKind.Rooms);
+	}
+
+	private static async removeDataset(req: Request, res: Response) {
+		try {
+			console.log(`Server::removeDataset - params: ${JSON.stringify(req.params)}`);
+			const response = await Server.performRemoveDataset(req);
+			res.status(200).json({result: response});
+		} catch (err: any) {
+			console.error(`Server::removeDataset - error: ${err}`);
+			res.status(400).json({error: err.toString()});
+		}
+	}
+
+	private static performRemoveDataset(req: Request): Promise<string> {
+		return Server.facade.removeDataset(
+			req.params.id);
 	}
 
 	/**
