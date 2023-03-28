@@ -2,7 +2,7 @@ import express, {Application, Request, Response} from "express";
 import * as http from "http";
 import cors from "cors";
 import InsightFacade from "../controller/InsightFacade";
-import {InsightDataset, InsightDatasetKind, InsightResult} from "../controller/IInsightFacade";
+import {InsightDataset, InsightDatasetKind, InsightError, InsightResult} from "../controller/IInsightFacade";
 
 export default class Server {
 	private readonly port: number;
@@ -123,7 +123,10 @@ export default class Server {
 			res.status(200).json({result: response});
 		} catch (err: any) {
 			console.error(`Server::removeDataset - error: ${err}`);
-			res.status(400).json({error: err.toString()});
+			if(err instanceof InsightError){
+				res.status(400).json({error: err.toString()});
+			}
+			res.status(404).json({error: err.toString()});
 		}
 	}
 
