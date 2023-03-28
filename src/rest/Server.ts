@@ -2,7 +2,7 @@ import express, {Application, Request, Response} from "express";
 import * as http from "http";
 import cors from "cors";
 import InsightFacade from "../controller/InsightFacade";
-import {InsightDatasetKind} from "../controller/IInsightFacade";
+import {InsightDataset, InsightDatasetKind, InsightResult} from "../controller/IInsightFacade";
 
 export default class Server {
 	private readonly port: number;
@@ -91,6 +91,8 @@ export default class Server {
 		// TODO: your other endpoints should go here
 		this.express.put("/dataset/:id/:kind", Server.addDataset);
 		this.express.delete("/dataset/:id", Server.removeDataset);
+		this.express.get("/datasets", Server.listDataset);
+		this.express.post("/query", Server.queryDatasets);
 
 	}
 
@@ -128,6 +130,36 @@ export default class Server {
 	private static performRemoveDataset(req: Request): Promise<string> {
 		return Server.facade.removeDataset(
 			req.params.id);
+	}
+
+	private static async listDataset(req: Request, res: Response) {
+		try {
+			console.log(`Server::listDataset - params: ${JSON.stringify(req.params)}`);
+			const response = await Server.performListDataset();
+			res.status(200).json({result: response});
+		} catch (err: any) {
+			console.error(`Server::listDataset - error: ${err}`);
+			res.status(400).json({error: err.toString()});
+		}
+	}
+
+	private static performListDataset(): Promise<InsightDataset[]> {
+		return Server.facade.listDatasets();
+	}
+
+	private static async queryDatasets(req: Request, res: Response) {
+		try {
+			console.log(`Server::queryDatasets - params: ${JSON.stringify(req.params)}`);
+			const response = await Server.performQueryDatasets(req);
+			res.status(200).json({result: response});
+		} catch (err: any) {
+			console.error(`Server::queryDatasets - error: ${err}`);
+			res.status(400).json({error: err.toString()});
+		}
+	}
+
+	private static performQueryDatasets(req: Request): Promise<InsightResult[]> {
+		return Server.facade.performQuery(req.body);
 	}
 
 	/**

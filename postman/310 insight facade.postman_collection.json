@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "ca4323ac-53bf-445a-bfcf-1956d95c1ebb",
+		"name": "310 insight facade",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15754192"
+	},
+	"item": [
+		{
+			"name": "PUT addDataset",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "/Users/kennyjhcheng/Documents/UBC Year 4 Semester 2 (2022 W2)/CPSC 310/project_team109/test/resources/archives/smalldataset.zip"
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4321/dataset/beeboop/sections",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4321",
+					"path": [
+						"dataset",
+						"beeboop",
+						"sections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE removeDataset",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4321/dataset/beeboop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4321",
+					"path": [
+						"dataset",
+						"beeboop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET listDataset",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4321/datasets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4321",
+					"path": [
+						"datasets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST queryDataset",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\"WHERE\": {\n\t\t\t\"GT\": {\n\t\t\t\t\"sections_avg\": 97\n\t\t\t}\n\t\t},\n\t\t\"OPTIONS\": {\n\t\t\t\"COLUMNS\": [\n\t\t\t\t\"sections_dept\",\n\t\t\t\t\"sections_avg\"\n\t\t\t],\n\t\t\t\"ORDER\": \"sections_avg\"\n\t\t}\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4321/query",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4321",
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
