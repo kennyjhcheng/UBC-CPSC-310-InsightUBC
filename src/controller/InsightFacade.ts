@@ -193,6 +193,7 @@ export default class InsightFacade implements IInsightFacade {
 	}
 
 	public removeDataset(id: string): Promise<string> {
+		let kindString = "";
 		return this.checkDataLoaded()
 			.then(() => {
 				if (!this.testIdRegex(id)) {
@@ -201,12 +202,18 @@ export default class InsightFacade implements IInsightFacade {
 					);
 				}
 				// returns false if dataset doesn't exist
-				if (!this.datasets.delete(id)) {
+				if (!this.datasets.has(id)) {
 					return Promise.reject(new NotFoundError(`Dataset with id ${id} not found`));
 				}
-				return fs.ensureDir(path.join(__dirname, "../../data/"));
+				const kind: InsightDatasetKind = this.datasets.get(id)?.kind as InsightDatasetKind;
+				kindString = kind === InsightDatasetKind.Sections ?
+					this.SECTION_KIND_STRING : this.ROOMS_KIND_STRING;
+				if (!kind || !this.datasets.delete(id)) {
+					return Promise.reject(new NotFoundError(`Removing dataset with id ${id} failed`));
+				}
+				return fs.ensureDir(path.join(__dirname, `../../data/${kindString}`));
 			}).then(() => {
-				return fs.remove(path.join(__dirname, `../../data/${id}.zip`));
+				return fs.remove(path.join(__dirname, `../../data/${kindString}/${id}.zip`));
 			})
 			.then(() => {
 				return Promise.resolve(id);
