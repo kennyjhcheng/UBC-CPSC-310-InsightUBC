@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-	Button,
+	Button, Dialog, DialogContent, DialogTitle, IconButton,
 	Paper,
 	Table,
 	TableBody,
@@ -8,9 +8,10 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
-	TextField
+	TextField, Typography
 } from "@mui/material";
 import {fetchInsight} from "../requests/fetchInsight";
+import {Close} from "@mui/icons-material";
 
 interface CourseHistoricAverageData {
 	"sections_dept": string;
@@ -26,6 +27,7 @@ function QueryHistoricAverage() {
 	const [department, setDepartment] = useState<string>("");
 	const [courseCode, setCourseCode] = useState<string>("");
 	const [data, setData] = useState<CourseHistoricAverageData[]>(initialData);
+	const [open, setOpen] = useState<boolean>(false);
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -78,11 +80,20 @@ function QueryHistoricAverage() {
 			}
 		));
 		setData(newData.result);
+		if (newData.result.length === 0) setOpen(true);
 	};
 
+	const onClose = () =>
+		setOpen(false);
+
+	const handleReset = () => {
+		setCourseCode("");
+		setDepartment("");
+		setData([]);
+	}
 	return (
 		<>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} onReset={handleReset}>
 				<TextField
 					id="department"
 					label="Department"
@@ -97,6 +108,9 @@ function QueryHistoricAverage() {
 				/>
 				<Button type="submit" variant="contained" color="primary">
 					Submit
+				</Button>
+				<Button type="reset" variant="contained" color="primary">
+					Reset
 				</Button>
 			</form>
 			<TableContainer component={Paper}>
@@ -119,6 +133,21 @@ function QueryHistoricAverage() {
 					</TableBody>
 				</Table>
 			</TableContainer>
+			<Dialog open={open} onClose={onClose}>
+				<DialogTitle style={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'space-between',
+				}}>
+					<Typography variant="h6" style={{color: 'red'}} >Error</Typography>
+					<IconButton onClick={onClose}>
+						<Close />
+					</IconButton>
+				</DialogTitle>
+				<DialogContent>
+					<Typography variant="body1">{"Course not found, please ensure Deparment and Course code are correct (e.g. cpsc 110)"}</Typography>
+				</DialogContent>
+			</Dialog>
 		</>
 	);
 }
