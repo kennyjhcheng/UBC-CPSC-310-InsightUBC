@@ -31,6 +31,8 @@ In the project folder:
 
 1. `yarn pretty` to prettify your project code.
 
+1. `yarn start` to start server
+
 ## Running and testing from an IDE
 
 IntelliJ Ultimate should be automatically configured the first time you open the project (IntelliJ Ultimate is a free download through their students program)
