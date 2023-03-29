@@ -99,7 +99,7 @@ function RoomsQuery() {
                     onChange={(e) => setNumber(e.target.value)}
                 />
                 <Button type="submit" variant="contained" color="primary">
-                    Submit
+                    Find My Room
                 </Button>
                 <Button type="reset" variant="contained" color="primary">
                     Reset
@@ -141,7 +141,7 @@ function RoomsQuery() {
                     </IconButton>
                 </DialogTitle>
                 <DialogContent>
-                    <Typography variant="body1">{"Room not found. :("}</Typography>
+                    <Typography variant="body1">{"Could not find your room :("}</Typography>
                 </DialogContent>
             </Dialog>
         </Box>
