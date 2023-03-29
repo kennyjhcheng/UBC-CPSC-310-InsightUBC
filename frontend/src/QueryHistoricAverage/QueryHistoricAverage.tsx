@@ -37,12 +37,12 @@ function QueryHistoricAverage() {
 					"AND": [
 						{
 							"IS": {
-								"sections_dept": department
+								"sections_dept": department.trim().toLowerCase()
 							}
 						},
 						{
 							"IS": {
-								"sections_id": courseCode
+								"sections_id": courseCode.trim()
 							}
 						}
 					]
@@ -55,7 +55,7 @@ function QueryHistoricAverage() {
 						"historicAvg"
 					],
 					"ORDER": {
-						"dir": "UP",
+						"dir": "DOWN",
 						"keys": [
 							"historicAvg"
 						]
@@ -112,7 +112,7 @@ function QueryHistoricAverage() {
 						{data.map((item, index) => (
 							<TableRow key={index}>
 								<TableCell>{`${item.sections_dept}${item.sections_id}`}</TableCell>
-								<TableCell>{item.sections_instructor}</TableCell>
+								<TableCell>{item.sections_instructor ? item.sections_instructor : "NOT FOUND"}</TableCell>
 								<TableCell>{item.historicAvg}</TableCell>
 							</TableRow>
 						))}

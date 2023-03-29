@@ -9,7 +9,7 @@ const SERVER_ADDRESS = "http://localhost:4321";
  */
 export const fetchInsight = async (httpMethod: string, uri: string, body: string) => {
 	try {
-		const response = await window.fetch(path.join(SERVER_ADDRESS, uri),
+		const response = await window.fetch(SERVER_ADDRESS + "/" + uri,
 			{
 				method: httpMethod,
 				headers: {
