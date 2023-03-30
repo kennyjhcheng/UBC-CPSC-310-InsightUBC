@@ -88,7 +88,7 @@ function RoomsQuery() {
             <form onSubmit={handleSubmit} onReset={handleReset}>
                 <TextField
                     id="name"
-                    label="Room Name"
+                    label="Building Short Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
