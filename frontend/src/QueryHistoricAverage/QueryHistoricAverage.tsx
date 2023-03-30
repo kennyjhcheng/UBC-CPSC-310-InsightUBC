@@ -110,7 +110,7 @@ function QueryHistoricAverage() {
 					onChange={(e) => setCourseCode(e.target.value)}
 				/>
 				<Button type="submit" variant="contained" color="primary">
-					Submit
+					Search
 				</Button>
 				<Button type="reset" variant="contained" color="primary">
 					Reset
