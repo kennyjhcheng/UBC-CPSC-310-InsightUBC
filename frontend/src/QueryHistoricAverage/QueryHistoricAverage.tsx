@@ -93,6 +93,9 @@ function QueryHistoricAverage() {
 	}
 	return (
 		<>
+			<Typography variant="h5" sx={{ my: 1 }}>
+				Search Course
+			</Typography>
 			<form onSubmit={handleSubmit} onReset={handleReset}>
 				<TextField
 					id="department"
